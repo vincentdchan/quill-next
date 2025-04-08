@@ -26,13 +26,13 @@
     "url": "https://github.com/vincentdchan/quill-next/issues"
   },
   "scripts": {
-    "build": "run-p build:*",
-    "build:quill": "npm run build -w quill",
-    "build:website": "npm run build -w website",
+    "build": "pnpm -r build",
+    "build:quill": "pnpm --filter quill run build",
+    "build:website": "pnpm run build -w website",
     "start": "run-p start:*",
-    "start:quill": "npm start -w quill",
+    "start:quill": "pnpm start -w quill",
     "start:website": "NEXT_PUBLIC_LOCAL_QUILL=true npm start -w website",
-    "lint": "npm run lint -ws"
+    "lint": "pnpm run lint -ws"
   },
   "keywords": [
     "quill",
