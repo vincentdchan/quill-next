@@ -1,10 +1,10 @@
+import { Suspense, lazy } from 'react';
 import DevelopersIcon from '../svg/features/developers.svg';
 import ScaleIcon from '../svg/features/scale.svg';
 import GitHub from '../components/GitHub';
 import CrossPlatformIcon from '../svg/features/cross-platform.svg';
 import Layout from '../components/Layout';
 import { useEffect, useRef, useState } from 'react';
-import Editor from '../components/Editor';
 import classNames from 'classnames';
 import Link from 'next/link';
 import NoSSR, { withoutSSR } from '../components/NoSSR';
@@ -26,6 +26,8 @@ import GemLogo from '../svg/users/gem.svg';
 import ModeLogo from '../svg/users/mode.svg';
 import TypeformLogo from '../svg/users/typeform.svg';
 import SlabLogo from '../svg/users/slab.svg';
+
+const Editor = lazy(() => import('../components/Editor'));
 
 const fonts = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
 const userBuckets = [
@@ -244,6 +246,7 @@ const IndexPage = () => {
                 </div>
               ))}
             </div>
+                      <Suspense>
             <NoSSR>
               <div id="demo-container">
                 <div
@@ -252,18 +255,18 @@ const IndexPage = () => {
                 >
                   <div id="bubble-wrapper">
                     <div id="bubble-container">
-                      <Editor
-                        config={{
-                          bounds: '#bubble-container .ql-container',
-                          modules: {
-                            syntax: true,
-                          },
-                          theme: 'bubble',
-                        }}
-                        onLoad={handleEditorLoad(0)}
-                      >
-                        <Content />
-                      </Editor>
+                        <Editor
+                          config={{
+                            bounds: '#bubble-container .ql-container',
+                            modules: {
+                              syntax: true,
+                            },
+                            theme: 'bubble',
+                          }}
+                          onLoad={handleEditorLoad(0)}
+                        >
+                          <Content />
+                        </Editor>
                     </div>
                   </div>
                   <div id="snow-wrapper">
@@ -367,6 +370,7 @@ const IndexPage = () => {
                 </div>
               </div>
             </NoSSR>
+                      </Suspense>
           </div>
         </div>
       </div>
