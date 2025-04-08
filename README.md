@@ -15,8 +15,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/slab/quill/actions" title="Build Status"><img src="https://github.com/slab/quill/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
-  <a href="https://npmjs.com/package/quill" title="Version"><img src="https://img.shields.io/npm/v/quill.svg" alt="Version"></a>
-  <a href="https://npmjs.com/package/quill" title="Downloads"><img src="https://img.shields.io/npm/dm/quill.svg" alt="Downloads"></a>
+  <a href="https://npmjs.com/package/quill-next" title="Version"><img src="https://img.shields.io/npm/v/quill.svg" alt="Version"></a>
 </p>
 
 <hr/>
