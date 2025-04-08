@@ -1,8 +1,8 @@
 <h1 align="center">
-  <a href="https://quilljs.com/" title="Quill">Quill Rich Text Editor</a>
+  <a href="https://quilljs.com/" title="Quill">Quill Next</a>
 </h1>
 <p align="center">
-  <a href="https://quilljs.com/" title="Quill"><img alt="Quill Logo" src="https://quilljs.com/assets/images/logo.svg" width="180"></a>
+  <a href="https://quilljs.com/" title="Quill"><img alt="Quill Logo" src="./images/quill-next.png" width="400"></a>
 </p>
 <p align="center">
   <a title="Documentation" href="https://quilljs.com/docs/quickstart"><strong>Documentation</strong></a>
