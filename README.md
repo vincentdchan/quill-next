@@ -21,9 +21,19 @@
 
 <hr/>
 
-[Quill](https://quilljs.com/) is a modern rich text editor built for compatibility and extensibility. It was created by [Jason Chen](https://twitter.com/jhchen) and [Byron Milligan](https://twitter.com/byronmilligan) and actively maintained by [Slab](https://slab.com).
+**Quill Next** is a modern rich text editor built on the foundation of [Quill](https://quilljs.com/) by [Jason Chen](https://twitter.com/jhchen) and [Byron Milligan](https://twitter.com/byronmilligan). This fork is currently a personal project, aiming to keep Quill thriving and evolving.
 
-To get started, check out [https://quilljs.com/](https://quilljs.com/) for documentation, guides, and live demos!
+Project Goals
+-------------
+
+1.  **Continued Maintenance**: We will actively maintain Quill Next, ensuring compatibility with modern web standards and regularly updating dependencies.
+
+2.  **Better Integrations**: We aim to provide deeper integration with popular UI frameworks (especially React), allowing seamless embedding of React-based components within the editor.
+
+3. **Bug Fixes**: We're dedicated to addressing known issues and community-reported bugs to make Quill Next as reliable and stable as possible.
+
+4. **Compatibility**: Quill Next will remain fully compatible with the original Quill's API and Delta data structures.
+
 
 ## Quickstart
 
@@ -65,39 +75,8 @@ Take a look at the [Quill](https://quilljs.com/) website for more documentation,
 ## Download
 
 ```shell
-npm install quill
+npm install quill-next
 ```
-
-### CDN
-
-```html
-<!-- Main Quill library -->
-<script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
-
-<!-- Theme included stylesheets -->
-<link
-  href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css"
-  rel="stylesheet"
-/>
-<link
-  href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.bubble.css"
-  rel="stylesheet"
-/>
-
-<!-- Core build with no theme, formatting, non-essential modules -->
-<link
-  href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.core.css"
-  rel="stylesheet"
-/>
-<script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.core.js"></script>
-```
-
-## Community
-
-Get help or stay up to date.
-
-- [Contribute](https://github.com/slab/quill/blob/main/.github/CONTRIBUTING.md) on [Issues](https://github.com/slab/quill/issues)
-- Ask questions on [Discussions](https://github.com/slab/quill/discussions)
 
 ## License
 
