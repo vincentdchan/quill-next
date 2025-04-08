@@ -1,13 +1,13 @@
 {
   "name": "quill-next",
-  "version": "2.0.3",
+  "version": "2.0.3-alpha.0",
   "description": "Your powerful, rich text editor",
   "author": "Vincent Chan <okcdz@diverse.space>",
   "contributors": [
     "Jason Chen <jhchen7@gmail.com>"
   ],
   "homepage": "https://quilljs.com",
-  "main": "quill.js",
+  "main": "dist/quill.js",
   "type": "module",
   "dependencies": {
     "eventemitter3": "^5.0.1",

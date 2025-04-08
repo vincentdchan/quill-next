@@ -28,10 +28,10 @@
   "scripts": {
     "build": "pnpm -r build",
     "build:quill": "pnpm --filter quill run build",
-    "build:website": "pnpm run build -w website",
+    "build:website": "pnpm run --filter website build",
     "start": "run-p start:*",
     "start:quill": "pnpm start -w quill",
-    "start:website": "NEXT_PUBLIC_LOCAL_QUILL=true npm start -w website",
+    "start:website": "NEXT_PUBLIC_LOCAL_QUILL=false npm start -w website",
     "lint": "pnpm run lint -ws"
   },
   "keywords": [
