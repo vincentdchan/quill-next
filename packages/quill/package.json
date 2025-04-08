@@ -1,8 +1,11 @@
 {
-  "name": "quill",
+  "name": "quill-next",
   "version": "2.0.3",
   "description": "Your powerful, rich text editor",
-  "author": "Jason Chen <jhchen7@gmail.com>",
+  "author": "Vincent Chan <okcdz@diverse.space>",
+  "contributors": [
+    "Jason Chen <jhchen7@gmail.com>"
+  ],
   "homepage": "https://quilljs.com",
   "main": "quill.js",
   "type": "module",
@@ -62,11 +65,11 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slab/quill.git",
+    "url": "git+https://github.com/vincentdchan/quill-next",
     "directory": "packages/quill"
   },
   "bugs": {
-    "url": "https://github.com/slab/quill/issues"
+    "url": "https://github.com/vincentdchan/quill-next/issues"
   },
   "prettier": {
     "singleQuote": true

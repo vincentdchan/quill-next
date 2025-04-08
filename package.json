@@ -1,9 +1,12 @@
 {
-  "name": "quill-monorepo",
+  "name": "quill-next-monorepo",
   "version": "2.0.3",
   "description": "Quill development environment",
   "private": true,
-  "author": "Jason Chen <jhchen7@gmail.com>",
+  "author": "Vincent Chan <okcdz@diverse.space>",
+  "contributors": [
+    "Jason Chen <jhchen7@gmail.com>"
+  ],
   "homepage": "https://quilljs.com",
   "config": {
     "ports": {
@@ -17,10 +20,10 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slab/quill.git"
+    "url": "git+https://github.com/vincentdchan/quill-next"
   },
   "bugs": {
-    "url": "https://github.com/slab/quill/issues"
+    "url": "https://github.com/vincentdchan/quill-next/issues"
   },
   "scripts": {
     "build": "run-p build:*",
