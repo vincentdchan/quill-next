@@ -17,7 +17,6 @@ export default defineConfig({
     ],
     browser: {
       enabled: true,
-      fileParallelism: false,
       provider: 'playwright',
       name: process.env.BROWSER || 'chromium',
     },
