@@ -28,6 +28,13 @@ export interface IQuillEditorProps {
   onTextChange?: (delta: Delta, oldContent: Delta, source: EmitterSource) => void;
   onSelectionChange?: (range: Range, oldRange: Range, source: EmitterSource) => void;
   onEditorChange?: EditorChangeHandler;
+  className?: string;
+  style?: React.CSSProperties;
+  dangerouslySetInnerHTML?: {
+    // Should be InnerHTML['innerHTML'].
+    // But unfortunately we're mixing renderer-specific type declarations.
+    __html: string | TrustedHTML;
+} | undefined;
 }
 
 const QuillEditor = (props: IQuillEditorProps) => {
@@ -40,11 +47,18 @@ const QuillEditor = (props: IQuillEditorProps) => {
     onTextChange,
     onSelectionChange,
     onEditorChange,
+    className,
+    style,
+    dangerouslySetInnerHTML,
   } = props;
   const containerRef = useRef<HTMLDivElement>(null);
   const [quill, setQuill] = useState<Quill | null>(null);
 
   useEffect(() => {
+    if (dangerouslySetInnerHTML && containerRef.current) {
+      containerRef.current.innerHTML = dangerouslySetInnerHTML.__html as any;
+    }
+
     const quill = new Quill(containerRef.current!, {
       ...config,
     });
@@ -78,7 +92,11 @@ const QuillEditor = (props: IQuillEditorProps) => {
 
   return (
     <QuillContext.Provider value={quill}>
-      <div ref={containerRef}></div>
+      <div
+        ref={containerRef}
+        className={className}
+        style={style}
+      />
       {quill && children}
     </QuillContext.Provider>
   );
