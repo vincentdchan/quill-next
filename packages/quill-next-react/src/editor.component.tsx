@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Quill, { type Delta, type EmitterSource } from "quill-next";
 import { useQuillEvent } from "./hooks/use-quill-event";
+import { QuillContext } from './context/quill-context';
 
 export type EditorChangeHandler = (
   ...args:
@@ -60,10 +61,10 @@ const QuillEditor = (props: IQuillEditorProps) => {
   useQuillEvent(quill, Quill.events.EDITOR_CHANGE, onEditorChange);
 
   return (
-    <>
+    <QuillContext.Provider value={quill}>
       <div ref={containerRef}></div>
       {quill && children}
-    </>
+    </QuillContext.Provider>
   );
 };
 
