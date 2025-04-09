@@ -29,7 +29,7 @@ jobs:
       - name: Run Playwright tests
         uses: coactions/setup-xvfb@v1
         with:
-          run: pnpm run test:e2e -- --headed
+          run: pnpm run test:e2e --headed
           working-directory: packages/quill
 
   fuzz:
