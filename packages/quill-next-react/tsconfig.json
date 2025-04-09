@@ -5,6 +5,13 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "module": "ESNext",
-    "moduleResolution": "Node"
-  }
+    "moduleResolution": "Node",
+    "declaration": true,
+    "declarationDir": "./dist",
+    "rootDir": "src",
+    "emitDeclarationOnly": true
+  },
+  "include": [
+    "src"
+  ]
 }

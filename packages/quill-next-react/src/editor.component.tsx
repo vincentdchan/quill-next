@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import Quill, { type Delta, type EmitterSource } from "quill-next";
+import Quill, { type Delta, type EmitterSource, type QuillOptions } from "quill-next";
 import { useQuillEvent } from "./hooks/use-quill-event";
 import { QuillContext } from './context/quill-context';
 
@@ -21,8 +21,10 @@ export type EditorChangeHandler = (
 
 export interface IQuillEditorProps {
   defaultValue?: Delta;
-  theme?: string;
   children?: React.ReactNode;
+  readOnly?: boolean;
+  config?: QuillOptions;
+  onReady?: (quill: Quill) => void;
   onTextChange?: (delta: Delta, oldContent: Delta, source: EmitterSource) => void;
   onSelectionChange?: (range: Range, oldRange: Range, source: EmitterSource) => void;
   onEditorChange?: EditorChangeHandler;
@@ -30,9 +32,11 @@ export interface IQuillEditorProps {
 
 const QuillEditor = (props: IQuillEditorProps) => {
   const {
-    theme,
+    config,
     children,
     defaultValue,
+    readOnly,
+    onReady,
     onTextChange,
     onSelectionChange,
     onEditorChange,
@@ -42,7 +46,7 @@ const QuillEditor = (props: IQuillEditorProps) => {
 
   useEffect(() => {
     const quill = new Quill(containerRef.current!, {
-      theme: theme ?? 'snow',
+      ...config,
     });
 
     if (defaultValue) {
@@ -51,10 +55,22 @@ const QuillEditor = (props: IQuillEditorProps) => {
 
     setQuill(quill);
 
+    if (onReady) {
+      try {
+        onReady(quill);
+      } catch (err) {
+        console.error('Error in onReady callback:', err);
+      }
+    }
+
     return () => {
       quill.destroy();
     }
-  }, [theme]);
+  }, []);
+
+  useEffect(() => {
+    quill?.enable(!readOnly);
+  }, [quill, readOnly]);
 
   useQuillEvent(quill, Quill.events.TEXT_CHANGE, onTextChange);
   useQuillEvent(quill, Quill.events.SELECTION_CHANGE, onSelectionChange);
