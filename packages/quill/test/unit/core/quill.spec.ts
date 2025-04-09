@@ -1,7 +1,15 @@
 import '../../../src/quill.js';
 import Delta from 'quill-delta';
 import { LeafBlot, Registry } from 'parchment';
-import { afterEach, beforeEach, describe, expect, test, vitest, vi } from 'vitest';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vitest,
+  vi,
+} from 'vitest';
 import type { MockedFunction } from 'vitest';
 import Emitter from '../../../src/core/emitter.js';
 import Theme from '../../../src/core/theme.js';
@@ -73,9 +81,7 @@ describe('Quill', () => {
   describe('destroy()', () => {
     test('destroy', () => {
       class MyModule {
-        destroy() {
-
-        }
+        destroy() {}
       }
       Quill.register({
         'modules/my-module': MyModule,
@@ -84,7 +90,7 @@ describe('Quill', () => {
 
       const quill = new Quill(createContainer(), {
         modules: {
-          'my-module': true
+          'my-module': true,
         },
       });
       const myModule = quill.getModule('my-module') as MyModule;
