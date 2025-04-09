@@ -86,7 +86,7 @@
     "test": "run-s test:*",
     "test:unit": "vitest --config test/unit/vitest.config.ts",
     "test:fuzz": "vitest --config test/fuzz/vitest.config.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "pnpm exec playwright test"
   },
   "keywords": [
     "quill",
