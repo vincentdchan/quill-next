@@ -32,7 +32,7 @@
     "start": "run-p start:*",
     "start:quill": "pnpm start -w quill",
     "start:website": "NEXT_PUBLIC_LOCAL_QUILL=false npm start -w website",
-    "lint": "pnpm run lint -ws"
+    "lint": "pnpm -r run lint"
   },
   "keywords": [
     "quill",
