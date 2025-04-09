@@ -45,6 +45,7 @@
     "html-webpack-plugin": "^5.5.3",
     "jsdom": "^22.1.0",
     "mini-css-extract-plugin": "^2.7.6",
+    "playwright": "1.49.0",
     "prettier": "^3.0.3",
     "source-map-loader": "^5.0.0",
     "style-loader": "^3.3.3",

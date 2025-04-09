@@ -20,7 +20,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pnpm add --global playwright
           pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
@@ -52,10 +51,11 @@ jobs:
           run_install: false
 
       - run: |
-          pnpm add --global playwright
           pnpm install --frozen-lockfile
         env:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 1
+      - run: pnpm exec playwright install --with-deps
+        working-directory: packages/quill
       - run: pnpm --filter quill run test:fuzz
 
   unit:
@@ -82,9 +82,9 @@ jobs:
           run_install: false
 
       - run: |
-          pnpm add --global playwright
           pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps
+        working-directory: packages/quill
       - run: pnpm run lint
       - run: pnpm -r run test:unit
         env:
