@@ -16,6 +16,7 @@ export default defineConfig({
         'react',
         'react/jsx-runtime',
         'quill-next',
+        'parchment',
       ],
     },
   },

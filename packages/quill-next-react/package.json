@@ -22,6 +22,9 @@
     "react-dom": "*"
   },
   "license": "BSD-3-Clause",
+  "dependencies": {
+    "parchment": "*"
+  },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^8.6.12",
@@ -30,6 +33,7 @@
     "@storybook/react": "^8.6.12",
     "@storybook/react-vite": "^8.6.12",
     "@storybook/test": "^8.6.12",
+    "@types/node": "^20.10.0",
     "@types/react": "^19.1.0",
     "@vitejs/plugin-react": "^4.3.4",
     "quill-next": "workspace:*",
