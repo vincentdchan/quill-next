@@ -37,14 +37,16 @@ export function useEmbedBlot(
 
     return class extends EmbedBlot {
       static override blotName: string = blotName;
-      static override tagName = tagName || EmbedBlot.tagName;
+      static override tagName = tagName || 'div';
       static override scope: Scope = blotScope;
 
       static override create(value?: unknown) {
         if (create) {
           return create(value) as HTMLElement;
         }
-        return super.create(value) as HTMLElement;
+        const s = super.create(value) as HTMLElement;
+        s.setAttribute('contenteditable', 'false');
+        return s;
       }
 
       private root: ReactRoot | null;
@@ -60,12 +62,17 @@ export function useEmbedBlot(
 
       override attach(): void {
         this.root = createRoot(this.domNode as HTMLElement);
+        this.render();
       }
 
       override detach(): void {
+        console.log("detatch");
         if (this.root) {
-          this.root.unmount();
+          const root = this.root;
           this.root = null;
+          requestAnimationFrame(() => {
+            root.unmount();
+          });
         }
       }
 

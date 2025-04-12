@@ -2,6 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QuillEditor } from './editor.component';
 import { Delta } from "quill-next";
+import { IRenderOptions, useEmbedBlot } from "./hooks/use-react-blot";
 import "quill-next/dist/quill.snow.css";
 import "quill-next/dist/quill.bubble.css";
 
@@ -47,3 +48,35 @@ export const Bubble: Story = {
     },
   },
 }
+
+// function CustomImage(options: IRenderOptions) {
+//   return <div>image: <img src={options.value as string} /></div>
+// }
+
+// export const ReactImage: Story = {
+//   decorators: [
+//     (Story) =>{ 
+//       const Blot = useEmbedBlot({
+//         blotName: 'image',
+//         render: (options) => <CustomImage {...options}></CustomImage>
+//       })
+//       return (
+//         <div style={{ margin: '3em' }}>
+//           {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
+//           <Story blots={[Blot]} />
+//         </div>
+//       )
+//     },
+//   ],
+//   args: {
+//     defaultValue: new Delta().insert("Hello World\n").insert({
+//       image: "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+//     }),
+//     config: {
+//       theme: 'bubble',
+//       modules: {
+//         toolbar: true,
+//       }
+//     },
+//   },
+// }
