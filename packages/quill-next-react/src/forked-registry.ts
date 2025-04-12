@@ -80,7 +80,7 @@ export class ForkedRegistry extends Registry {
       return local;
     }
 
-    return super.query(query, scope);
+    return this.parent.query(query, scope);
   }
 
   #queryLocal(
