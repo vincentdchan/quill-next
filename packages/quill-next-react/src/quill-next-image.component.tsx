@@ -5,7 +5,7 @@ export function QuillNextImage(options: IRenderOptions) {
   const [isLoading, setIsLoading] = useState(true);
   const onLoad = useCallback(() => setIsLoading(false), []);
   return (
-    <div>
+    <div className="qn-image-container">
       {isLoading && <div>Loading...</div>}
       <img
         src={options.value as string}

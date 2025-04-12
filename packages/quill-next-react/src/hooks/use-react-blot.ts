@@ -45,7 +45,8 @@ export function useEmbedBlot(
           return create(value) as HTMLElement;
         }
         const s = super.create(value) as HTMLElement;
-        s.setAttribute('contenteditable', 'false');
+        s.setAttribute("contenteditable", "false");
+        s.setAttribute("data-blot-name", blotName);
         return s;
       }
 
