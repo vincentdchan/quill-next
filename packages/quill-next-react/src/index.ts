@@ -7,12 +7,15 @@ import {
   type IRenderOptions,
   type IReactBlotOptions,
 } from "./hooks/use-react-blot";
+import { QuillNextImage, useQuillNextImage } from "./quill-next-image.component";
 
 export {
   QuillEditor as default,
   QuillContext,
   ForkedRegistry,
   useEmbedBlot,
+  QuillNextImage,
+  useQuillNextImage,
   type EditorChangeHandler,
   type IQuillEditorProps,
   type BlotScope,

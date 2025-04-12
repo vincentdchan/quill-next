@@ -1,19 +1,13 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QuillEditor, IQuillEditorProps } from './editor.component';
-import Quill, { Delta } from "quill-next";
-import { IRenderOptions, useEmbedBlot } from "./hooks/use-react-blot";
-import ReactImage from "./react-image";
+import { Delta } from "quill-next";
+import { useQuillNextImage } from "./quill-next-image.component";
 import "quill-next/dist/quill.snow.css";
 import "quill-next/dist/quill.bubble.css";
 
 function WrappedQuillEditor(props: IQuillEditorProps) {
-  const ImageBlot = useEmbedBlot({
-    blotName: "image",
-    render: (options: IRenderOptions) => {
-      return <ReactImage {...options} />
-    }
-  })
+  const ImageBlot = useQuillNextImage();
   return (
     <QuillEditor
       {...props}
