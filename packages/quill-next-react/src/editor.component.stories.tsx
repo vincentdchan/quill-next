@@ -2,7 +2,6 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QuillEditor } from './editor.component';
 import { Delta } from "quill-next";
-import { IRenderOptions, useEmbedBlot } from "./hooks/use-react-blot";
 import "quill-next/dist/quill.snow.css";
 import "quill-next/dist/quill.bubble.css";
 

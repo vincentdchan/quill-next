@@ -1,9 +1,9 @@
 import { Registry, RegistryDefinition, BlotConstructor, Attributor, Scope } from "parchment";
 
 class ParchmentError extends Error {
-  public message: string;
-  public name: string;
-  public stack!: string;
+  message: string;
+  name: string;
+  stack!: string;
 
   constructor(message: string) {
     message = '[ForkedParchment] ' + message;
@@ -71,7 +71,7 @@ export class ForkedRegistry extends Registry {
     });
   }
 
-  public query(
+  query(
     query: string | Node | Scope,
     scope: Scope = Scope.ANY,
   ): RegistryDefinition | null {

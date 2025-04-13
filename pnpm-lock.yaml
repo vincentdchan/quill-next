@@ -209,9 +209,18 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.2
         version: 19.1.2(@types/react@19.1.0)
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.2.0
+        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3)
+      '@typescript-eslint/parser':
+        specifier: ^7.2.0
+        version: 7.18.0(eslint@8.57.1)(typescript@5.8.3)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.3.4(vite@6.2.5(@types/node@20.17.30)(sass@1.86.3)(stylus@0.62.0)(terser@5.39.0))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
       quill-next:
         specifier: workspace:*
         version: link:../quill
