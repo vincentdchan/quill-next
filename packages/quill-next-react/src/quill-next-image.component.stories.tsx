@@ -1,24 +1,11 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { QuillEditor, IQuillEditorProps } from './editor.component';
-import { Delta } from "quill-next";
-import { useQuillNextImage } from "./quill-next-image.component";
-import "quill-next/dist/quill.snow.css";
-import "quill-next/dist/quill.bubble.css";
-
-function WrappedQuillEditor(props: IQuillEditorProps) {
-  const ImageBlot = useQuillNextImage();
-  return (
-    <QuillEditor
-      {...props}
-      blots={[ImageBlot]}
-    />
-  )
-}
+import { QuillEditor } from './editor.component';
+import { QuillNextImage } from "./quill-next-image.component";
 
 const meta = {
   title: 'QuillEditor/Image',
-  component: WrappedQuillEditor,
+  component: QuillNextImage,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
@@ -32,17 +19,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    defaultValue: new Delta().insert("Hello World\n").insert({
-      image: "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
-    }, {
+    value: "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+    attributes: {
       naturalWidth: 800,
       naturalHeight: 197,
-    }),
-    config: {
-      theme: 'bubble',
-      modules: {
-        toolbar: true,
-      }
     },
-  },
-};
+  }
+}
