@@ -34,6 +34,9 @@ export const Basic: Story = {
   args: {
     defaultValue: new Delta().insert("Hello World\n").insert({
       image: "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+    }, {
+      naturalWidth: 800,
+      naturalHeight: 197,
     }),
     config: {
       theme: 'bubble',
