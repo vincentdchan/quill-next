@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QuillEditor } from './editor.component';
 import { QuillNextImage } from "./quill-next-image.component";
