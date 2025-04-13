@@ -8,6 +8,7 @@
   ],
   "homepage": "https://quill-next.diverse.space/",
   "main": "dist/quill.js",
+  "module": "dist/quill.js",
   "type": "module",
   "dependencies": {
     "eventemitter3": "^5.0.1",
