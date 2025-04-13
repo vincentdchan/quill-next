@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  playwright: 1.49.0
+
 importers:
 
   .:
@@ -2881,7 +2884,7 @@ packages:
   '@vitest/browser@3.1.1':
     resolution: {integrity: sha512-A+A69mMtrj1RPh96LfXGc309KSXhy2MslvyL+cp9+Y5EVdoJD4KfXDx/3SSlRGN70+hIoJ3RRbTidTvj18PZ/A==}
     peerDependencies:
-      playwright: '*'
+      playwright: 1.49.0
       safaridriver: '*'
       vitest: 3.1.1
       webdriverio: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -5560,18 +5563,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright-core@1.51.1:
-    resolution: {integrity: sha512-/crRMj8+j/Nq5s8QcvegseuyeZPxpQCZb6HNk3Sos3BlZyAknRjoyJPFWkpNn8v0+P3WiwqFF8P+zQo4eqiNuw==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright@1.49.0:
     resolution: {integrity: sha512-eKpmys0UFDnfNb3vfsf8Vx2LEOtflgRebl0Im2eQQnYMA4Aqd+Zw8bEOB+7ZKvN76901mRnqdsiOGKxzVTbi7A==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  playwright@1.51.1:
-    resolution: {integrity: sha512-kkx+MB2KQRkyxjYPc3a0wLZZoDczmppyGJIvQ43l+aZihkaVvmu/21kiyaHeHjiFxjxNNFnUncKmcGIyOojsaw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -8372,7 +8365,7 @@ snapshots:
 
   '@playwright/test@1.51.1':
     dependencies:
-      playwright: 1.51.1
+      playwright: 1.49.0
     optional: true
 
   '@polka/url@1.0.0-next.28': {}
@@ -9830,26 +9823,6 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
-
-  '@vitest/browser@3.1.1(playwright@1.51.1)(vite@6.2.5(@types/node@20.17.30)(sass@1.86.3)(stylus@0.62.0)(terser@5.39.0))(vitest@3.1.1)':
-    dependencies:
-      '@testing-library/dom': 10.4.0
-      '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.0)
-      '@vitest/mocker': 3.1.1(vite@6.2.5(@types/node@20.17.30)(sass@1.86.3)(stylus@0.62.0)(terser@5.39.0))
-      '@vitest/utils': 3.1.1
-      magic-string: 0.30.17
-      sirv: 3.0.1
-      tinyrainbow: 2.0.0
-      vitest: 3.1.1(@types/debug@4.1.12)(@types/node@20.17.30)(@vitest/browser@3.1.1)(jsdom@22.1.0)(sass@1.86.3)(stylus@0.62.0)(terser@5.39.0)
-      ws: 8.18.1
-    optionalDependencies:
-      playwright: 1.51.1
-    transitivePeerDependencies:
-      - bufferutil
-      - msw
-      - utf-8-validate
-      - vite
-    optional: true
 
   '@vitest/expect@2.0.5':
     dependencies:
@@ -13267,21 +13240,11 @@ snapshots:
 
   playwright-core@1.49.0: {}
 
-  playwright-core@1.51.1:
-    optional: true
-
   playwright@1.49.0:
     dependencies:
       playwright-core: 1.49.0
     optionalDependencies:
       fsevents: 2.3.2
-
-  playwright@1.51.1:
-    dependencies:
-      playwright-core: 1.51.1
-    optionalDependencies:
-      fsevents: 2.3.2
-    optional: true
 
   polished@4.3.1:
     dependencies:
@@ -14677,7 +14640,7 @@ snapshots:
     optionalDependencies:
       '@types/debug': 4.1.12
       '@types/node': 20.17.30
-      '@vitest/browser': 3.1.1(playwright@1.51.1)(vite@6.2.5(@types/node@20.17.30)(sass@1.86.3)(stylus@0.62.0)(terser@5.39.0))(vitest@3.1.1)
+      '@vitest/browser': 3.1.1(playwright@1.49.0)(vite@6.2.5(@types/node@20.17.30)(sass@1.86.3)(stylus@0.62.0)(terser@5.39.0))(vitest@3.1.1)
       jsdom: 22.1.0
     transitivePeerDependencies:
       - jiti
