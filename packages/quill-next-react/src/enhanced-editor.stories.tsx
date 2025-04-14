@@ -43,9 +43,6 @@ export const Basic: Story = {
       naturalHeight: 197,
     }),
     config: {
-      modules: {
-        toolbar: true,
-      }
     },
   },
 };

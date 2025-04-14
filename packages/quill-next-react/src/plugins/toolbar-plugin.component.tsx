@@ -4,7 +4,11 @@ import { Subject, fromEvent, takeUntil, merge, debounceTime, filter} from "rxjs"
 import { Bounds, Range } from "quill-next";
 import { QuillContext } from "../context/quill-context";
 
-function ToolbarPlugin() {
+export interface IToolbarPluginProps {
+  renderer?: (bounds: Bounds) => React.ReactNode;
+}
+
+function ToolbarPlugin(props: IToolbarPluginProps) {
   const quill = useContext(QuillContext);
   const [bounds, setBounds] = useState<Bounds | null>(null);
 
