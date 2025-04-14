@@ -8,11 +8,12 @@ import "quill-next/dist/quill.snow.css";
 import "quill-next/dist/quill.bubble.css";
 
 function WrappedQuillEditor(props: IQuillEditorProps) {
+  const { blots = [] } = props;
   const ImageBlot = useQuillNextImage();
   return (
     <QuillEditor
       {...props}
-      blots={[ImageBlot]}
+      blots={[...blots, ImageBlot]}
     >
       <ToolbarPlugin />
     </QuillEditor>
