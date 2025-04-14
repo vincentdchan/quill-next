@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { createPortal } from "react-dom";
-import { Subject, fromEvent, takeUntil, merge, debounceTime} from "rxjs";
+import { Subject, fromEvent, takeUntil, merge, debounceTime, filter} from "rxjs";
 import { Bounds, Range } from "quill-next";
 import { QuillContext } from "../context/quill-context";
 
@@ -29,6 +29,15 @@ function ToolbarPlugin() {
       setBounds(reference);
     }
 
+    selectionChange$
+      .pipe(
+        filter(([range]) => !range || range.length === 0),
+        takeUntil(dispose$),
+      )
+      .subscribe(() => {
+        setBounds(null);
+      });
+
     merge(selectionChange$, quillContainerMouseUp$)
       .pipe(
         debounceTime(200),
@@ -39,6 +48,9 @@ function ToolbarPlugin() {
           return;
         }
         const range = quill.getSelection();
+        if (!range || range.length === 0) {
+          return;
+        }
 
         const lines = quill.getLines(range.index, range.length);
         if (lines.length === 1) {
