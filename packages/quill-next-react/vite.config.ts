@@ -18,6 +18,7 @@ export default defineConfig({
         'react-dom',
         'quill-next',
         'parchment',
+        'rxjs',
       ],
     },
   },

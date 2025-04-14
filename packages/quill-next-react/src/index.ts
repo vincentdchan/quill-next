@@ -8,6 +8,7 @@ import {
   type IReactBlotOptions,
 } from "./hooks/use-react-blot";
 import { QuillNextImage, useQuillNextImage } from "./quill-next-image.component";
+import { ToolbarPlugin } from "./plugins/toolbar-plugin.component";
 
 export {
   QuillEditor as default,
@@ -16,6 +17,7 @@ export {
   useEmbedBlot,
   QuillNextImage,
   useQuillNextImage,
+  ToolbarPlugin,
   type EditorChangeHandler,
   type IQuillEditorProps,
   type BlotScope,
