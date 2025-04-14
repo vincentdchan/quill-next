@@ -39,7 +39,6 @@ export const Basic: Story = {
       naturalHeight: 197,
     }),
     config: {
-      theme: 'bubble',
       modules: {
         toolbar: true,
       }

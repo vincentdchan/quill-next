@@ -123,6 +123,7 @@ export {
   OpIterator,
   Parchment,
   Range,
+  Theme,
 } from './core.js';
 export type {
   Bounds,
