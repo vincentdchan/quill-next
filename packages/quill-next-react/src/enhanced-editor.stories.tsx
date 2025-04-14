@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { QuillEditor, IQuillEditorProps } from './editor.component';
 import { Delta } from "quill-next";
 import { useQuillNextImage } from "./quill-next-image.component";
+import { ToolbarPlugin } from "./plugins/toolbar-plugin.component";
 import "quill-next/dist/quill.snow.css";
 import "quill-next/dist/quill.bubble.css";
 
@@ -12,7 +13,9 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
     <QuillEditor
       {...props}
       blots={[ImageBlot]}
-    />
+    >
+      <ToolbarPlugin />
+    </QuillEditor>
   )
 }
 
