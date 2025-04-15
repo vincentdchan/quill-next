@@ -1,15 +1,26 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState, useRef } from "react"
 import { createPortal } from "react-dom";
-import { Subject, fromEvent, takeUntil, merge, debounceTime, filter} from "rxjs";
+import {
+  Subject,
+  fromEvent,
+  takeUntil,
+  merge,
+  debounceTime,
+  filter,
+  timer,
+} from "rxjs";
 import { Bounds, Range } from "quill-next";
 import { QuillContext } from "../context/quill-context";
 
 export interface IToolbarPluginProps {
-  renderer?: (bounds: Bounds) => React.ReactNode;
+  render: (bounds: Bounds) => React.ReactNode;
 }
 
 function ToolbarPlugin(props: IToolbarPluginProps) {
   const quill = useContext(QuillContext);
+  const toolbarContainerRef = useRef<HTMLDivElement | null>(null);
+  const [toolbarRect, setToolbarRect] = useState<DOMRect | null>(null);
+  const [isPrerendering, setIsPrerendering] = useState(false);
   const [bounds, setBounds] = useState<Bounds | null>(null);
 
   useEffect(() => {
@@ -31,6 +42,14 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
 
     const position = (reference: Bounds) => {
       setBounds(reference);
+      setIsPrerendering(true);
+      timer(0)
+        .pipe(takeUntil(dispose$))
+        .subscribe(() => {
+          const rect = toolbarContainerRef.current?.getBoundingClientRect();
+          setToolbarRect(rect);
+          setIsPrerendering(false);
+        })
     }
 
     selectionChange$
@@ -86,13 +105,18 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
     <div className="qn-toolbar-container">
       {bounds && (
         <div
-          style={{
+          ref={toolbarContainerRef}
+          style={isPrerendering ? {
             position: "fixed",
-            left: bounds.left,
-            top: bounds.top,
+            left: -1000,
+            top: -1000,
+          } : {
+            position: "fixed",
+            top: bounds.top + bounds.height + 12,
+            left: bounds.left + bounds.width / 2 - (toolbarRect?.width ?? 0) / 2,
           }}
         >
-          {JSON.stringify(bounds)}
+          {props.render(bounds)}
         </div>
       )}
     </div>,

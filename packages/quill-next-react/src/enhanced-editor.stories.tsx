@@ -4,6 +4,7 @@ import { QuillEditor, IQuillEditorProps } from './editor.component';
 import { Delta } from "quill-next";
 import { useQuillNextImage } from "./quill-next-image.component";
 import { ToolbarPlugin } from "./plugins/toolbar-plugin.component";
+import { NotionToolbar } from "./components/notion-toolbar.component";
 import "quill-next/dist/quill.snow.css";
 import "quill-next/dist/quill.bubble.css";
 
@@ -15,7 +16,9 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
       {...props}
       blots={[...blots, ImageBlot]}
     >
-      <ToolbarPlugin />
+      <ToolbarPlugin
+        render={() => <NotionToolbar />}
+      />
     </QuillEditor>
   )
 }
