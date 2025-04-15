@@ -8,6 +8,7 @@ import {
   type IReactBlotOptions,
 } from "./hooks/use-react-blot";
 import { useQuill } from "./hooks/use-quill";
+import { useQuillFormat } from "./hooks/use-quill-format";
 import { QuillNextImage, useQuillNextImage } from "./quill-next-image.component";
 import { IToolbarPluginProps, ToolbarPlugin } from "./plugins/toolbar-plugin.component";
 
@@ -17,6 +18,7 @@ export {
   ForkedRegistry,
   useEmbedBlot,
   useQuill,
+  useQuillFormat,
   QuillNextImage,
   useQuillNextImage,
   type IToolbarPluginProps,

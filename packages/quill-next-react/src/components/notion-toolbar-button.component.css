@@ -15,6 +15,10 @@
 
 }
 
+.qn-notion-toolbar-button.active {
+  fill: rgb(35, 131, 226);
+}
+
 .qn-notion-toolbar-button:hover {
   background-color: rgba(55, 53, 47, 0.06);
 }
