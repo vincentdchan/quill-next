@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef, CSSProperties } from "react"
+import React, { useEffect, useState, useRef, CSSProperties } from "react"
 import { createPortal } from "react-dom";
 import {
   Subject,
@@ -10,7 +10,7 @@ import {
   timer,
 } from "rxjs";
 import { Bounds, Range } from "quill-next";
-import { QuillContext } from "../context/quill-context";
+import { useQuill } from "../hooks/use-quill";
 
 export interface IToolbarPluginProps {
   parentSelector?: string;
@@ -19,7 +19,7 @@ export interface IToolbarPluginProps {
 
 function ToolbarPlugin(props: IToolbarPluginProps) {
   const { parentSelector } = props;
-  const quill = useContext(QuillContext);
+  const quill = useQuill();
   const toolbarContainerRef = useRef<HTMLDivElement | null>(null);
   const [toolbarRect, setToolbarRect] = useState<DOMRect | null>(null);
   const [parentRect, setParentRect] = useState<DOMRect | null>(null);
