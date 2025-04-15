@@ -1,10 +1,14 @@
 import React from "react";
 import "./notion-toolbar.component.css";
 
-export function NotionToolbar() {
+function NotionToolbar() {
   return (
     <div className="qn-notion-toolbar-container">
-      Notion
+      Notion long toolbar
     </div>
   )
 }
+
+NotionToolbar.displayName = "NotionToolbar";
+
+export { NotionToolbar }

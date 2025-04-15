@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react"
+import React, { useContext, useEffect, useState, useRef, CSSProperties } from "react"
 import { createPortal } from "react-dom";
 import {
   Subject,
@@ -13,15 +13,35 @@ import { Bounds, Range } from "quill-next";
 import { QuillContext } from "../context/quill-context";
 
 export interface IToolbarPluginProps {
+  parentSelector?: string;
   render: (bounds: Bounds) => React.ReactNode;
 }
 
 function ToolbarPlugin(props: IToolbarPluginProps) {
+  const { parentSelector } = props;
   const quill = useContext(QuillContext);
   const toolbarContainerRef = useRef<HTMLDivElement | null>(null);
   const [toolbarRect, setToolbarRect] = useState<DOMRect | null>(null);
+  const [parentRect, setParentRect] = useState<DOMRect | null>(null);
   const [isPrerendering, setIsPrerendering] = useState(false);
   const [bounds, setBounds] = useState<Bounds | null>(null);
+
+  useEffect(() => {
+    let parentContainer = quill.container.parentElement as HTMLElement;
+    if (parentSelector) {
+      const parentContainerResult = document.querySelector(parentSelector) as HTMLElement;
+      if (parentContainerResult) {
+        parentContainer = parentContainerResult;
+      } else {
+        console.warn(`Parent container not found for selector: ${parentSelector}`);
+      }
+    }
+
+    // TODO: resize observer
+    const rect = parentContainer.getBoundingClientRect();
+    setParentRect(rect);
+
+  }, [parentSelector, quill]);
 
   useEffect(() => {
     const dispose$ = new Subject<void>();
@@ -110,11 +130,7 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
             position: "fixed",
             left: -1000,
             top: -1000,
-          } : {
-            position: "fixed",
-            top: bounds.top + bounds.height + 12,
-            left: bounds.left + bounds.width / 2 - (toolbarRect?.width ?? 0) / 2,
-          }}
+          } : computeToolbarPosition(bounds, parentRect, toolbarRect)}
         >
           {props.render(bounds)}
         </div>
@@ -122,6 +138,27 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
     </div>,
     document.body,
   );
+}
+
+const PADDING = 12;
+
+function computeToolbarPosition(bounds: Bounds, parentRect?: DOMRect, toolbarRect?: DOMRect): CSSProperties {
+  let top = bounds.top - toolbarRect.height - PADDING;
+  let left = bounds.left + bounds.width / 2 - (toolbarRect?.width ?? 0) / 2;
+
+  if (top < parentRect.top) {
+    top = bounds.bottom + PADDING;
+  }
+
+  if (left < parentRect.left) {
+    left = parentRect.left;
+  }
+
+  return {
+    position: "fixed",
+    top,
+    left,
+  };
 }
 
 ToolbarPlugin.displayName = "ToolbarPlugin";
