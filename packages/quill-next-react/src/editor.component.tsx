@@ -4,23 +4,9 @@ import { useQuillEvent } from "./hooks/use-quill-event";
 import { QuillContext } from "./context/quill-context";
 import { BlotConstructor } from "parchment";
 import { ForkedRegistry } from "./forked-registry";
+import { EditorChangeHandler } from './types/editor-change-handler.type';
 import { NextTheme } from './next-theme';
 
-export type EditorChangeHandler = (
-  ...args:
-    | [
-        'text-change',
-        Delta,
-        Delta,
-        EmitterSource,
-      ]
-    | [
-        'selection-change',
-        Range,
-        Range,
-        EmitterSource,
-      ]
-) => void;
 
 export interface IQuillEditorProps {
   defaultValue?: Delta;
