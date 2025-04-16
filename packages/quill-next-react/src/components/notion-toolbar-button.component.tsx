@@ -21,6 +21,6 @@ function NotionToolbarButton(props: INotionToolbarButtonProps) {
       {children}
     </div>
   )
-};
+}
 
 export { NotionToolbarButton }
