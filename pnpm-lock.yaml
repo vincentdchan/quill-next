@@ -178,6 +178,9 @@ importers:
 
   packages/quill-next-react:
     dependencies:
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       parchment:
         specifier: '*'
         version: 3.0.0
@@ -206,6 +209,9 @@ importers:
       '@storybook/test':
         specifier: ^8.6.12
         version: 8.6.12(storybook@8.6.12(prettier@3.5.3))
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^20.10.0
         version: 20.17.30

@@ -2,8 +2,10 @@ import { useRef, useState } from "react";
 import { useQuill } from "./use-quill";
 import { useQuillEditorChange } from "./use-quill-editor-change";
 import { Delta } from "quill-next";
+import { isString, isNumber, isObject } from "lodash-es";
 
 export interface IQuillInputOptions {
+  trigger: string;
   match: RegExp;
 }
 
@@ -11,9 +13,9 @@ const placeholder = "\u00A0";
 
 function isInserting(delta: Delta): number {
   const { ops } = delta;
-  if (ops.length === 1 && typeof ops[0].insert === "string") {
+  if (ops.length === 1 && isString(ops[0].insert)) {
     return 0;
-  } else if (ops.length > 1 && typeof ops[0].retain === "number" && typeof ops[1].insert === "string") {
+  } else if (ops.length > 1 && isNumber(ops[0].retain) && isString(ops[1].insert)) {
     return ops[0].retain;
   }
   return -1;
@@ -24,9 +26,9 @@ function lineDeltaToString(delta: Delta): string {
   let result = "";
   for (let i = 0; i < ops.length; i++) {
     const op = ops[i];
-    if (typeof op.insert === "string") {
+    if (isString(op.insert)) {
       result += op.insert;
-    } else if (typeof op.insert === "object") {
+    } else if (isObject(op.insert)) {
       result += placeholder;
     }
   }
@@ -53,6 +55,7 @@ export function useQuillInput(options: IQuillInputOptions): IUseQuillInputResult
         return;
       }
       const range = args[1];
+      startPos.current = range.index;
       clear();
     } else if (args[0] === "text-change") {
       window.requestAnimationFrame(() => {
@@ -63,7 +66,6 @@ export function useQuillInput(options: IQuillInputOptions): IUseQuillInputResult
 
           const deltaContent = lineDeltaToString(delta);
 
-          console.log("isInserting", isInsertingOffset, line, line.length(), 'offset', offset);
           const r = new RegExp(match, "g");
 
           const execArr: RegExpExecArray[] = [];
@@ -85,9 +87,7 @@ export function useQuillInput(options: IQuillInputOptions): IUseQuillInputResult
             return;
           }
 
-          if (last.index + (last[1]?.length ?? 0) === range.index) {
-            console.log("!!!!!!", last.index, last[1]?.length ?? 0, range.index);
-          }
+          console.log("!!!!!!", last.index, last[1]?.length ?? 0, range.index);
 
           setResult({
             startPos: isInsertingOffset,

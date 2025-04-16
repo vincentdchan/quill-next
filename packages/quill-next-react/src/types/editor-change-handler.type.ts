@@ -1,4 +1,4 @@
-import { type Delta, type EmitterSource } from "quill-next";
+import { type Delta, type EmitterSource, type Range } from "quill-next";
 
 export type EditorChangeHandler = (
   ...args:

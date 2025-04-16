@@ -26,6 +26,7 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
+    "lodash-es": "^4.17.21",
     "parchment": "*",
     "rxjs": "^7.8.2"
   },
@@ -37,6 +38,7 @@
     "@storybook/react": "^8.6.12",
     "@storybook/react-vite": "^8.6.12",
     "@storybook/test": "^8.6.12",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.2",

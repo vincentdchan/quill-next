@@ -19,6 +19,7 @@ export default defineConfig({
         'quill-next',
         'parchment',
         'rxjs',
+        'lodash-es',
       ],
     },
   },
