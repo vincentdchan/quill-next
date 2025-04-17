@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, CSSProperties } from "react"
+import React, { useEffect, useState, useRef, CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import {
   Subject,
@@ -29,18 +29,21 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
   useEffect(() => {
     let parentContainer = quill.container.parentElement as HTMLElement;
     if (parentSelector) {
-      const parentContainerResult = document.querySelector(parentSelector) as HTMLElement;
+      const parentContainerResult = document.querySelector(
+        parentSelector
+      ) as HTMLElement;
       if (parentContainerResult) {
         parentContainer = parentContainerResult;
       } else {
-        console.warn(`Parent container not found for selector: ${parentSelector}`);
+        console.warn(
+          `Parent container not found for selector: ${parentSelector}`
+        );
       }
     }
 
     // TODO: resize observer
     const rect = parentContainer.getBoundingClientRect();
     setParentRect(rect);
-
   }, [parentSelector, quill]);
 
   useEffect(() => {
@@ -69,23 +72,20 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
           const rect = toolbarContainerRef.current?.getBoundingClientRect();
           setToolbarRect(rect);
           setIsPrerendering(false);
-        })
-    }
+        });
+    };
 
     selectionChange$
       .pipe(
         filter(([range]) => !range || range.length === 0),
-        takeUntil(dispose$),
+        takeUntil(dispose$)
       )
       .subscribe(() => {
         setBounds(null);
       });
 
     merge(selectionChange$, quillContainerMouseUp$)
-      .pipe(
-        debounceTime(200),
-        takeUntil(dispose$),
-      )
+      .pipe(debounceTime(200), takeUntil(dispose$))
       .subscribe(() => {
         if (isMouseDown) {
           return;
@@ -106,7 +106,7 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
           const index = quill.getIndex(lastLine);
           const length = Math.min(
             lastLine.length() - 1,
-            range.index + range.length - index,
+            range.index + range.length - index
           );
           const indexBounds = quill.getBounds(new Range(index, length));
           if (indexBounds != null) {
@@ -118,7 +118,7 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
     return () => {
       dispose$.next();
       dispose$.complete();
-    }
+    };
   }, [quill]);
 
   return createPortal(
@@ -126,23 +126,31 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
       {bounds && (
         <div
           ref={toolbarContainerRef}
-          style={isPrerendering ? {
-            position: "fixed",
-            left: -1000,
-            top: -1000,
-          } : computeToolbarPosition(bounds, parentRect, toolbarRect)}
+          style={
+            isPrerendering
+              ? {
+                  position: "fixed",
+                  left: -1000,
+                  top: -1000,
+                }
+              : computeToolbarPosition(bounds, parentRect, toolbarRect)
+          }
         >
           {props.render(bounds)}
         </div>
       )}
     </div>,
-    document.body,
+    document.body
   );
 }
 
 const PADDING = 12;
 
-function computeToolbarPosition(bounds: Bounds, parentRect?: DOMRect, toolbarRect?: DOMRect): CSSProperties {
+function computeToolbarPosition(
+  bounds: Bounds,
+  parentRect?: DOMRect,
+  toolbarRect?: DOMRect
+): CSSProperties {
   let top = bounds.top - toolbarRect.height - PADDING;
   let left = bounds.left + bounds.width / 2 - (toolbarRect?.width ?? 0) / 2;
 
@@ -163,4 +171,4 @@ function computeToolbarPosition(bounds: Bounds, parentRect?: DOMRect, toolbarRec
 
 ToolbarPlugin.displayName = "ToolbarPlugin";
 
-export { ToolbarPlugin }
+export { ToolbarPlugin };
