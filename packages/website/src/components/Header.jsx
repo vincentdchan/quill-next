@@ -11,6 +11,7 @@ import playground from '../data/playground';
 import docs from '../data/docs';
 import ActiveLink from './ActiveLink';
 import ClickOutsideHandler from './ClickOutsideHandler';
+import { Inter } from "next/font/google";
 
 const MainNav = ({ ...props }) => {
   return (
@@ -32,6 +33,8 @@ const MainNav = ({ ...props }) => {
     </nav>
   );
 };
+
+const inter = Inter({ subsets: ['latin'] })
 
 const VersionSelector = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +95,7 @@ const Header = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header + ' ' + inter.className}>
       <div className={styles.headerContent}>
         <div className={styles.logo}>
           <Link href="/">

@@ -1,4 +1,3 @@
-import { lazy } from 'react';
 import DevelopersIcon from '../svg/features/developers.svg';
 import ScaleIcon from '../svg/features/scale.svg';
 import GitHub from '../components/GitHub';
@@ -7,8 +6,9 @@ import Layout from '../components/Layout';
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
-import NoSSR, { withoutSSR } from '../components/NoSSR';
+import NoSSR from '../components/NoSSR';
 import Editor from '../components/Editor';
+import { Jost, Inter } from "next/font/google";
 
 import LinkedInLogo from '../svg/users/linkedin.svg';
 import MicrosoftLogo from '../svg/users/microsoft.svg';
@@ -89,27 +89,12 @@ const content = () => {
 `;
 };
 
-const Users = withoutSSR(() => {
-  const [selectedUsers] = useState(() =>
-    userBuckets.map((bucket) => {
-      const index = Math.floor(Math.random() * bucket.length);
-      return bucket[index];
-    }),
-  );
-
-  return (
-    <ul id="logo-container">
-      <li>Used In</li>
-      {selectedUsers.map(([name, url, Logo]) => (
-        <li key={name}>
-          <a title={name} href={url} target="_blank">
-            <Logo />
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
+const jost = Jost({
+  weight: '300',
+  subsets: ['latin'],
 });
+
+const inter = Inter({ subsets: ['latin'] })
 
 const IndexPage = () => {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -180,7 +165,10 @@ const IndexPage = () => {
     <Layout>
       <div
         id="above-container"
-        className={classNames({ 'demo-active': isDemoActive })}
+        className={
+          classNames({ 'demo-active': isDemoActive })
+          + ' ' + inter.className
+        }
       >
         <div className="container">
           <div id="users-container">
@@ -207,8 +195,7 @@ const IndexPage = () => {
                 </span>
               </button>
             </h2>
-            <h1>Your powerful rich text editor.</h1>
-            <Users />
+            <h1 className={jost.className}>Your powerful rich text editor.</h1>
           </div>
 
           <div id="laptop-container" onClick={() => setIsDemoActive(true)}>
@@ -360,7 +347,7 @@ const IndexPage = () => {
           <Link className="action" href="/docs/quickstart">
             Documentation
           </Link>
-          <h1>An API Driven Rich Text Editor</h1>
+          <h1 className={jost.className}>An API Driven Rich Text Editor</h1>
         </div>
       </div>
 

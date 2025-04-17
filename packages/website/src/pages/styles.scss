@@ -39,16 +39,6 @@ a {
   color: inherit;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Sofia Pro', sans-serif;
-  font-weight: normal;
-}
-
 h1 {
   font-size: 4.2rem;
 }
@@ -515,7 +505,7 @@ body.home .arrow .shaft {
   border-top-right-radius: 40px;
   box-shadow: 0 0 40px 2px rgba(28, 31, 47, 0.1);
   font-size: 1.5rem;
-  padding: 20px 20px 0 20px;
+  flex: 1;
 }
 #above-container:not(.demo-active) #laptop-container:hover {
   bottom: -135px;
@@ -684,7 +674,6 @@ body.home .arrow .shaft {
 }
 
 #detail-container h1 {
-  font-family: 'Sailec Light', sans-serif;
   letter-spacing: 0.2rem;
   font-size: 3.33rem;
 }
