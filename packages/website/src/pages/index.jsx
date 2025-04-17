@@ -183,16 +183,6 @@ const IndexPage = () => {
         className={classNames({ 'demo-active': isDemoActive })}
       >
         <div className="container">
-          <div id="announcement-container">
-            <a
-              target="_blank"
-              href="https://slab.com/blog/announcing-quill-2-0/"
-            >
-              <strong>Quill 2.0 is released!</strong>
-              &nbsp;&nbsp;&bull;&nbsp;&nbsp;Read the
-              announcement&nbsp;&nbsp;&gt;
-            </a>
-          </div>
           <div id="users-container">
             <h2>
               <button
@@ -222,7 +212,7 @@ const IndexPage = () => {
           </div>
 
           <div id="laptop-container" onClick={() => setIsDemoActive(true)}>
-            <div id="camera-container">
+            {/* <div id="camera-container">
               {[0, 1, 2].map((index) => (
                 <div
                   key={index}
@@ -237,7 +227,7 @@ const IndexPage = () => {
                   <div className="dot" />
                 </div>
               ))}
-            </div>
+            </div> */}
             <NoSSR>
               <div id="demo-container">
                 <div

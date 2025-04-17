@@ -436,11 +436,11 @@ body.home .arrow .shaft {
 }
 
 #above-container {
-  background-color: #f4f5f5;
   position: relative;
 }
 #above-container > .container {
-  height: 840px;
+  display: flex;
+  flex-direction: row;
 }
 
 #announcement-container {
@@ -462,13 +462,10 @@ body.home .arrow .shaft {
 
 #users-container {
   font-size: 1.25rem;
-  left: 0;
   padding-bottom: 0.53em;
   padding-top: 5.53em;
-  position: absolute;
   text-align: center;
-  top: 0;
-  width: 100%;
+  flex: 2;
 }
 #users-container h1 {
   font-size: 5rem;
@@ -513,15 +510,12 @@ body.home .arrow .shaft {
 #laptop-container {
   background-color: #000;
   border: 4px solid #707070;
-  bottom: -145px;
   border-bottom: 0px;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   box-shadow: 0 0 40px 2px rgba(28, 31, 47, 0.1);
   font-size: 1.5rem;
   padding: 20px 20px 0 20px;
-  position: absolute;
-  width: 100%;
 }
 #above-container:not(.demo-active) #laptop-container:hover {
   bottom: -135px;
@@ -529,36 +523,36 @@ body.home .arrow .shaft {
 #above-container:not(.demo-active) .ql-editor {
   overflow-y: hidden;
 }
-#camera-container {
-  background-color: #000;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  left: 50%;
-  line-height: 26px;
-  margin-left: -90px;
-  position: absolute;
-  text-align: center;
-  width: 180px;
-  z-index: 1;
-}
+// #camera-container {
+//   background-color: #000;
+//   border-bottom-left-radius: 8px;
+//   border-bottom-right-radius: 8px;
+//   left: 50%;
+//   line-height: 26px;
+//   margin-left: -90px;
+//   position: absolute;
+//   text-align: center;
+//   width: 180px;
+//   z-index: 1;
+// }
 
-#camera-container .camera {
-  cursor: pointer;
-  display: inline-block;
-  height: 30px;
-  width: 30px;
-}
+// #camera-container .camera {
+//   cursor: pointer;
+//   display: inline-block;
+//   height: 30px;
+//   width: 30px;
+// }
 
-#camera-container .camera .dot {
-  background-color: #707070;
-  border-radius: 4px;
-  display: inline-block;
-  height: 8px;
-  width: 8px;
-}
-#camera-container .camera.active .dot {
-  background-color: #2dc937;
-}
+// #camera-container .camera .dot {
+//   background-color: #707070;
+//   border-radius: 4px;
+//   display: inline-block;
+//   height: 8px;
+//   width: 8px;
+// }
+// #camera-container .camera.active .dot {
+//   background-color: #2dc937;
+// }
 
 #demo-container {
   background-color: #fff;
@@ -669,7 +663,6 @@ body.home .arrow .shaft {
 }
 
 #detail-container {
-  background-color: #fff;
   font-size: 1.5rem;
   margin-top: -5px;
   position: relative;
@@ -697,7 +690,6 @@ body.home .arrow .shaft {
 }
 
 #features-container {
-  background-color: #fff;
   padding-top: 5.83em;
   position: relative;
   z-index: 10;
