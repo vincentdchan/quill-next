@@ -40,7 +40,7 @@ import CodeBlock, { Code as InlineCode } from './formats/code.js';
 import Syntax from './modules/syntax.js';
 import Table from './modules/table.js';
 import Toolbar from './modules/toolbar.js';
-import Keyboard from './modules/keyboard.js';
+import type Keyboard from './modules/keyboard.js';
 
 import Icons from './ui/icons.js';
 import Picker from './ui/picker.js';
