@@ -9,11 +9,18 @@ import {
   type IReactBlotOptions,
 } from "./hooks/use-react-blot";
 import { useQuill } from "./hooks/use-quill";
-import { useQuillFormat } from "./hooks/use-quill-format";
+import { useQuillFormats } from "./hooks/use-quill-formats";
 import { useQuillInput } from "./hooks/use-quill-input";
 import { useQuillEditorChange } from "./hooks/use-quill-editor-change";
+import { useNextLinkBlot } from "./hooks/use-next-link-blot";
 import { QuillNextImage, useQuillNextImage } from "./quill-next-image.component";
-import { IToolbarPluginProps, ToolbarPlugin } from "./plugins/toolbar-plugin.component";
+import { IToolbarPluginProps, ToolbarPlugin } from "./plugins/toolbar-plugin";
+import { NotionToolbar } from "./components/notion-toolbar.component";
+import { NotionToolbarPlugin } from "./plugins/notion-toolbar-plugin";
+import { NotionLinkToolbar, INotionLinkToolbarProps } from "./components/notion-link-toolbar.component";
+import { LinkToolbarPlugin } from "./plugins/link-toolbar-plugin";
+import { NotionLinkToolbarPlugin } from "./plugins/notion-link-toolbar.plugin";
+import { RectAnchor, RectAnchorProps } from "./components/rect-anchor.component";
 
 export {
   QuillEditor as default,
@@ -21,13 +28,24 @@ export {
   ForkedRegistry,
   useEmbedBlot,
   useQuill,
-  useQuillFormat,
+  useQuillFormats,
   useQuillInput,
   useQuillEditorChange,
-  QuillNextImage,
   useQuillNextImage,
+  useNextLinkBlot,
+  QuillNextImage,
+
   type IToolbarPluginProps,
   ToolbarPlugin,
+  NotionToolbar,
+  NotionToolbarPlugin,
+  NotionLinkToolbarPlugin,
+  LinkToolbarPlugin,
+  NotionLinkToolbar,
+  type INotionLinkToolbarProps,
+  RectAnchor,
+  type RectAnchorProps as PrerenderPanelProps,
+
   type EditorChangeHandler,
   type IQuillEditorProps,
   type BlotScope,

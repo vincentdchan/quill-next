@@ -1,30 +1,35 @@
-import React, { useEffect, useState, useRef, CSSProperties } from "react";
+import React, { useLayoutEffect, useState, useRef, CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { Bounds } from "quill-next";
-import { timer, Subject, takeUntil } from "rxjs";
 
-export interface PrerenderPanelProps {
+export interface RectAnchorProps {
+  placement?: "top" | "bottom";
   parentElement?: HTMLElement | string;
   className?: string;
   bounds?: Bounds;
   verticalPadding?: number;
   render: () => React.ReactNode;
+  onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-function PrerenderPanel(props: PrerenderPanelProps) {
+function RectAnchor(props: RectAnchorProps) {
   const {
     className,
     bounds,
     parentElement,
     verticalPadding = 12,
+    placement = "top",
     render,
+    onMouseEnter,
+    onMouseLeave,
   } = props;
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [parentRect, setParentRect] = useState<DOMRect | null>(null);
   const [contentRect, setContentRect] = useState<DOMRect | null>(null);
   const [isPrerendering, setIsPrerendering] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let parentContainer: HTMLElement | null = null;
 
     if (typeof parentElement === "string") {
@@ -56,24 +61,14 @@ function PrerenderPanel(props: PrerenderPanelProps) {
     };
   }, [parentElement]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isPrerendering || !bounds) {
       return;
     }
-    const dispose$ = new Subject<void>();
+    const rect = containerRef.current?.getBoundingClientRect() ?? null;
+    setContentRect(rect);
+    setIsPrerendering(false);
 
-    timer(0)
-      .pipe(takeUntil(dispose$))
-      .subscribe(() => {
-        const rect = containerRef.current?.getBoundingClientRect() ?? null;
-        setContentRect(rect);
-        setIsPrerendering(false);
-      });
-
-    return () => {
-      dispose$.next();
-      dispose$.complete();
-    };
   }, [bounds, isPrerendering]);
 
   return createPortal(
@@ -91,10 +86,13 @@ function PrerenderPanel(props: PrerenderPanelProps) {
               : computeToolbarPosition(
                   bounds,
                   verticalPadding,
+                  placement,
                   parentRect,
                   contentRect
                 )
           }
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
         >
           {render()}
         </div>
@@ -107,14 +105,26 @@ function PrerenderPanel(props: PrerenderPanelProps) {
 function computeToolbarPosition(
   bounds: Bounds,
   verticalPadding: number,
+  placement: "top" | "bottom",
   parentRect?: DOMRect,
   toolbarRect?: DOMRect
 ): CSSProperties {
-  let top = bounds.top - toolbarRect.height - verticalPadding;
-  let left = bounds.left + bounds.width / 2 - (toolbarRect?.width ?? 0) / 2;
+  let top: number = 0;
+  let left: number = 0;
+  if (placement === "top") {
+    top = bounds.top - toolbarRect.height - verticalPadding;
+    left = bounds.left + bounds.width / 2 - (toolbarRect?.width ?? 0) / 2;
 
-  if (top < parentRect.top) {
+    if (top < parentRect.top) {
+      top = bounds.bottom + verticalPadding;
+    }
+  } else {
     top = bounds.bottom + verticalPadding;
+    left = bounds.left + bounds.width / 2 - (toolbarRect?.width ?? 0) / 2;
+
+    if (top > parentRect.bottom) {
+      top = bounds.top - toolbarRect.height - verticalPadding;
+    }
   }
 
   if (left < parentRect.left) {
@@ -128,6 +138,6 @@ function computeToolbarPosition(
   };
 }
 
-PrerenderPanel.displayName = "PrerenderPanel";
+RectAnchor.displayName = "RectAnchor";
 
-export { PrerenderPanel };
+export { RectAnchor };
