@@ -24,7 +24,7 @@ export interface IToolbarPluginProps {
 }
 
 function limitBoundsInRect(bounds: Bounds, rect: Bounds): Bounds | null {
-  let top = Math.max(bounds.top, rect.top);
+  const top = Math.max(bounds.top, rect.top);
 
   if (top > rect.bottom) {
     return null;
