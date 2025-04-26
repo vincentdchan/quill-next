@@ -100,6 +100,7 @@ export function SlashCommandPlugin(props: ISlashCommandPluginProps) {
     <RectAnchor
       className="qn-slash-command-container"
       bounds={inputResult.bounds}
+      placement="bottom"
       render={() =>
         render?.({
           selectedIndex,
