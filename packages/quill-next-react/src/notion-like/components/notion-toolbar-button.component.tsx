@@ -1,5 +1,5 @@
 import React from "react";
-import "./notion-toolbar-button.component.css";
+import { notionToolbarButton } from "./notion-toolbar-button.component.style";
 
 export interface INotionToolbarButtonProps {
   active?: boolean;
@@ -13,6 +13,7 @@ function NotionToolbarButton(props: INotionToolbarButtonProps) {
   return (
     <div
       className={"qn-notion-toolbar-button" + (active ? " active" : "")}
+      css={notionToolbarButton}
       onClick={onClick}
       dangerouslySetInnerHTML={svg ? {
         __html: svg,

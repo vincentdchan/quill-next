@@ -1,29 +1,37 @@
-import { defineConfig } from 'vitest/config';
-import { resolve } from 'path';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
+import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [
-    react(),
-    cssInjectedByJsPlugin(),
+    react({
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: [
+          "@emotion/babel-plugin",
+        ],
+      },
+    }),
   ],
   build: {
-    sourcemap: 'inline',
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      formats: ['es'],
-      fileName: 'index',
+      entry: {
+        "notion-like": resolve(__dirname, "src/notion-like/index.ts"),
+        index: resolve(__dirname, "src/index.ts"),
+      },
+      formats: ["es"],
+      fileName: (format, entryName) => `${entryName}.js`,
     },
     rollupOptions: {
       external: [
-        'react',
-        'react/jsx-runtime',
-        'react-dom',
-        'quill-next',
-        'parchment',
-        'rxjs',
-        'lodash-es',
+        "@emotion/react",
+        "react",
+        "react/jsx-runtime",
+        "react-dom",
+        "quill-next",
+        "parchment",
+        "rxjs",
+        "lodash-es",
       ],
     },
   },

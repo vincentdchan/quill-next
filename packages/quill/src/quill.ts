@@ -40,7 +40,13 @@ import CodeBlock, { Code as InlineCode } from './formats/code.js';
 import Syntax from './modules/syntax.js';
 import Table from './modules/table.js';
 import Toolbar from './modules/toolbar.js';
-import type Keyboard from './modules/keyboard.js';
+import {
+  default as Keyboard,
+  type KeyboardOptions,
+  type BindingObject,
+  type Binding,
+  type NormalizedBinding,
+} from './modules/keyboard.js';
 
 import Icons from './ui/icons.js';
 import Picker from './ui/picker.js';
@@ -132,9 +138,12 @@ export type {
   EmitterSource,
   ExpandedQuillOptions,
   QuillOptions,
-  Keyboard,
+  KeyboardOptions,
+  BindingObject,
+  Binding,
+  NormalizedBinding,
 };
 
-export { Link };
+export { Link, Keyboard };
 
 export default Quill;

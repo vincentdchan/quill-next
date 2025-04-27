@@ -2,7 +2,6 @@ import { useMemo, useRef, useEffect } from "react";
 import Quill, { Link } from "quill-next";
 import { BlotConstructor } from "parchment";
 import { messages } from "../messages";
-import "./use-next-link-blot.css";
 
 export interface ILinkBlotOptions {
   onClick?: (event: MouseEvent) => void;
@@ -24,6 +23,7 @@ export function useNextLinkBlot(options?: ILinkBlotOptions): BlotConstructor {
         node.setAttribute('rel', 'noopener noreferrer');
         node.setAttribute('target', '_blank');
         node.classList.add('qn-link');
+        node.style.cursor = "pointer";
         return node;
       }
 

@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Delta } from "quill-next";
-import { useQuill } from "../hooks/use-quill";
-import "./notion-link-toolbar.component.css";
+import { useQuill } from "../../hooks/use-quill";
+import { notionLinkToolbarContainer, notionLinkToolbar } from "./notion-link-toolbar.component.style";
 
 export interface INotionLinkToolbarProps {
   link: string;
@@ -45,12 +45,16 @@ function NotionLinkToolbar(props: INotionLinkToolbarProps) {
   }, [isEditing, inputRef]);
 
   return (
-    <div className="qn-notion-link-toolbar-container" ref={containerRef} style={width > 0 ? {
-      width: `${width}px`,
-    }
-      : {}}
+    <div
+      className="qn-notion-link-toolbar-container"
+      css={notionLinkToolbarContainer}
+      ref={containerRef}
+      style={width > 0 ? {
+        width: `${width}px`,
+      }
+        : {}}
     >
-      <div className="qn-notion-link-toolbar">
+      <div className="qn-notion-link-toolbar" css={notionLinkToolbar}>
         {isEditing ? (
           <input
             ref={inputRef}

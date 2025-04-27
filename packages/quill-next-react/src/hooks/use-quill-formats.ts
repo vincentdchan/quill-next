@@ -19,7 +19,7 @@ export function useQuillFormats(): Record<string, unknown> {
     }
     const format = quill.getFormat(selection);
     setFormats(format);
-  }, [quill]);
+  });
 
   return formats;
 }

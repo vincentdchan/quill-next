@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { NotionToolbarButton } from "./notion-toolbar-button.component";
-import { useQuill } from "../hooks/use-quill";
+import { useQuill } from "../../hooks/use-quill";
 import BoldSvg from "./bold.svg?raw";
 import ItalicSvg from "./italic.svg?raw";
 import UnderlineSvg from "./underline.svg?raw";
 import StrikeSvg from "./strike.svg?raw";
-import "./notion-toolbar.component.css";
+import { notionToolbarContainer } from "./notion-toolbar.component.style";
 
 export interface INotionToolbarProps {
   formats: Record<string, unknown>;
@@ -29,7 +29,7 @@ function NotionToolbar(props: INotionToolbarProps) {
   }
 
   return (
-    <div className="qn-notion-toolbar-container">
+    <div className="qn-notion-toolbar-container" css={notionToolbarContainer}>
       <NotionToolbarButton
         onClick={() => quill.format("bold", !formats["bold"])}
         active={!!formats["bold"]}

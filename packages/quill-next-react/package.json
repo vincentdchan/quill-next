@@ -8,8 +8,19 @@
     "directory": "packages/quill-next-react"
   },
   "type": "module",
+  "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./notion-like": {
+      "types": "./dist/notion-like/index.d.ts",
+      "import": "./dist/notion-like.js"
+    }
+  },
   "scripts": {
     "build": "vite build && tsc",
     "build:ts": "tsc",
@@ -32,6 +43,7 @@
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.13.5",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^8.6.12",
     "@storybook/addon-onboarding": "^8.6.12",
@@ -47,9 +59,10 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^8.57.0",
-    "quill-next": "workspace:2.0.4-alpha.0",
+    "quill-next": "workspace:2.0.4-alpha.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass-embedded": "^1.87.0",
     "storybook": "^8.6.12",
     "typescript": "^5.8.3",
     "vite": "^6.2.5",

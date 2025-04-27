@@ -1,13 +1,13 @@
 import React from "react";
-import "./notion-menu-list.component.css";
+import { notionMenuList, notionMenuItemHeader, notionMenuItem } from "./notion-menu-list.component.style";
 
 export interface INotionMenuList {
   children?: React.ReactNode;
 }
 
-function NoitionMenuList(props: INotionMenuList) {
+function NotionMenuList(props: INotionMenuList) {
   const { children } = props;
-  return <div className="qn-notion-menu-list">{children}</div>;
+  return <div className="qn-notion-menu-list" css={notionMenuList}>{children}</div>;
 }
 
 export interface INotionMenuItemHeader {
@@ -19,7 +19,7 @@ export interface INotionMenuItemHeader {
 function NotionMenuItemHeader(props: INotionMenuItemHeader) {
   const { children, onClick } = props;
   return (
-    <div className="qn-notion-menu-item-header" onClick={onClick}>
+    <div className="qn-notion-menu-item-header" css={notionMenuItemHeader} onClick={onClick}>
       {children}
     </div>
   );
@@ -30,6 +30,7 @@ function NotionMenuItem(props: INotionMenuItemHeader) {
   return (
     <div
       className={"qn-notion-menu-item" + (active ? " active" : "")}
+      css={notionMenuItem}
       onClick={onClick}
     >
       <div className="qn-notion-menu-item-content">{children}</div>
@@ -37,4 +38,4 @@ function NotionMenuItem(props: INotionMenuItemHeader) {
   );
 }
 
-export { NoitionMenuList, NotionMenuItemHeader, NotionMenuItem };
+export { NotionMenuList, NotionMenuItemHeader, NotionMenuItem };

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { QuillEditor } from './editor.component';
+import { QuillEditor } from '../editor.component';
 import { QuillNextImage } from "./quill-next-image.component";
 
 const meta = {
