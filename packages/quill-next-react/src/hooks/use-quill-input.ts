@@ -61,7 +61,7 @@ export function useQuillInput(options: IQuillInputOptions): [IUseQuillInputResul
     }
 
     const setInputResult = (index: number, length: number) => {
-      const bounds = quill.getBounds(index, length);
+      const bounds = quill.selection.getBounds(index, length);
       const content = quill.getContents(index, length);
       const strContent = lineDeltaToString(content);
       setResult({
