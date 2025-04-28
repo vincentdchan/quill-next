@@ -1,0 +1,48 @@
+---
+title: Why Quill Next
+---
+
+[Quill(Slab)](https://quilljs.com/) is renowned for its elegant, lightweight design and its clean, extensible API.
+Those qualities make it an ideal foundation for a modern editor—much like Linux underpins Android or Darwin powers iOS.
+
+**Quill Next** builds on that foundation to deliver a truly contemporary editing experience.
+It integrates deeply with React and introduces a flexible plugin system so you can extend your editor with familiar React paradigms—using Hooks and React components—rather than wrestling with low‑level editor internals.
+
+Extending rich‑text editors has traditionally been a complex task that demands an understanding of the engine’s inner workings.
+Quill Next bridges that gap by letting you think in React while harnessing the robustness of Quill.
+
+
+### Backward Compatibility
+
+Quill Next ships with a forked version of Quill at its core.
+We expose additional internal interfaces and fix long‑standing issues, **without altering the core architecture**. That means full backward compatibility:
+
+- Existing Blots and Modules written for Quill continue to work out of the box.
+- Delta documents are processed exactly as before—your data structures remain unchanged.
+- All public Quill APIs are preserved; only bug fixes modify their behavior.
+
+In short, Quill Next gives you a modern, React‑centric editing workflow while ensuring that everything you already built on Quill keeps working perfectly.
+
+### Cross Platform
+
+Cross platform support is important to many JavaScript libraries, but the criteria for what this means often differs. For Quill, the bar is not just that it runs or works, it has to run or work *the same way*. Not only is functionality a cross platform consideration, but user and developer experience is as well. If some content produces a particular markup in Chrome on OSX, it will produce the same markup on IE. If hitting enter preserves bold format state in Firefox on Windows, it will be preserved on mobile Safari.
+
+
+### Easy to Use
+
+All of these benefits come in an easy to use package. Quill ships with sane defaults you can immediately use with just a few lines of JavaScript:
+
+<SandpackWithQuillTemplate
+  files={{
+    'index.js': `
+const quill = new Quill('#editor', {
+  modules: { toolbar: true },
+  theme: 'snow'
+});
+`
+  }}
+/>
+
+If your application never demands it, you never have to customize Quill&mdash;just enjoy the rich and consistent experience that comes out of the box.
+
+Enjoy!

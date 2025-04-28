@@ -4,6 +4,7 @@ import {
   SandpackFileExplorer,
   SandpackPreview,
   useSandpack,
+  Sandpack as SandpackComponent,
 } from '@codesandbox/sandpack-react';
 import { useEffect, useState } from 'react';
 import { Button } from '@radix-ui/themes';
@@ -286,6 +287,141 @@ ${afterEditor || ''}
       activeFile={Object.keys(files)[0]}
     />
   );
+};
+
+export const SandpackWithReact = ({
+  defaultShowPreview,
+  preferPreview,
+  files,
+  visibleFiles,
+  activeFile,
+  externalResources,
+  showFileTree,
+  defaultShowCode,
+}) => {
+  const [isReady, setIsReady] = useState(false);
+  useEffect(() => {
+    setIsReady(true);
+  }, []);
+
+  if (!isReady) return null;
+
+  return (
+    <SandpackComponent
+      template="react"
+      theme="dark"
+      customSetup={{ 
+        dependencies: { 
+          "quill-next": "2.0.4-alpha.1",
+          "quill-next-react": "1.0.0-alpha.4" 
+        }
+      }}
+      files={files}
+    >
+    </SandpackComponent>
+  );
+  // const [isPreviewEnabled, setIsPreviewEnabled] = useState(
+  //   preferPreview || defaultShowPreview,
+  // );
+  // const [isCodeEnabled, setIsCodeEnabled] = useState(
+  //   !preferPreview || defaultShowCode,
+  // );
+  // const [isReady, setIsReady] = useState(false);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsReady(true);
+  //   }, 100);
+  // }, []);
+
+  // return (
+  //   <div className={styles.container} style={isReady ? {} : { opacity: '0' }}>
+  //     <SandpackProvider
+  //       theme="dark"
+  //       options={{
+  //         autorun: defaultShowPreview,
+  //         visibleFiles,
+  //         activeFile,
+  //         externalResources:
+  //           externalResources && externalResources.map(replaceCDN),
+  //       }}
+  //       template="react"
+  //       customSetup={{ 
+  //         dependencies: { 
+  //           "quill-next": "latest",
+  //           "quill-next-react": "latest" 
+  //         }
+  //       }}
+  //       files={Object.keys(files).reduce(
+  //         (f, name) => ({
+  //           ...f,
+  //           [name]: replaceCDN(files[name]).trim(),
+  //         }),
+  //         {},
+  //       )}
+  //     >
+  //       <div
+  //         className={classNames(styles.wrapper, {
+  //           [styles.preferPreview]: preferPreview,
+  //         })}
+  //       >
+  //         {isPreviewEnabled && preferPreview && (
+  //           <div className={styles.previewWrapper}>
+  //             <div className={styles.preview}>
+  //               <SandpackPreview
+  //                 showOpenInCodeSandbox={false}
+  //                 showRefreshButton={false}
+  //               />
+  //             </div>
+  //             <div className={styles.footer}>
+  //               <ToggleCodeButton
+  //                 isCodeEnabled={isCodeEnabled}
+  //                 setIsCodeEnabled={setIsCodeEnabled}
+  //               />
+  //             </div>
+  //           </div>
+  //         )}
+  //         {isCodeEnabled && (
+  //           <div className={styles.editorWrapper}>
+  //             <div className={styles.codeArea}>
+  //               {showFileTree && (
+  //                 <div className={styles.fileTree}>
+  //                   <SandpackFileExplorer autoHiddenFiles />
+  //                 </div>
+  //               )}
+  //               <div className={styles.editor}>
+  //                 <SandpackCodeEditor
+  //                   showTabs={
+  //                     !showFileTree &&
+  //                     (visibleFiles
+  //                       ? visibleFiles.length > 1
+  //                       : Object.keys(files).length > 1)
+  //                   }
+  //                   wrapContent
+  //                   showRunButton={false}
+  //                 />
+  //               </div>
+  //             </div>
+  //             {!preferPreview && (
+  //               <div className={styles.footer}>
+  //                 <TogglePreviewButton
+  //                   defaultShowPreview={defaultShowPreview}
+  //                   isPreviewEnabled={isPreviewEnabled}
+  //                   setIsPreviewEnabled={setIsPreviewEnabled}
+  //                 />
+  //               </div>
+  //             )}
+  //           </div>
+  //         )}
+  //         {isPreviewEnabled && !preferPreview && (
+  //           <div className={styles.preview}>
+  //             <SandpackPreview showOpenInCodeSandbox={false} />
+  //           </div>
+  //         )}
+  //       </div>
+  //     </SandpackProvider>
+  //   </div>
+  // );
 };
 
 export default Sandpack;

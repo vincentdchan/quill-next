@@ -1,4 +1,3 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { QuillEditor, IQuillEditorProps } from "./editor.component";
 import { Delta } from "quill-next";
@@ -13,8 +12,6 @@ import {
   NotionMenuItem,
   NotionLinkToolbarPlugin,
 } from "./notion-like";
-import "quill-next/dist/quill.snow.css";
-import "quill-next/dist/quill.bubble.css";
 
 interface CommandItem {
   key: string;

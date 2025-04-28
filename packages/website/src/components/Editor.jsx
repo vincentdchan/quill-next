@@ -1,7 +1,5 @@
 import { lazy, Suspense } from 'react';
 import { withoutSSR } from './NoSSR';
-import "quill-next/dist/quill.snow.css";
-import "quill-next/dist/quill.bubble.css";
 
 const QuillEditor = lazy(() => import("quill-next-react"));
 

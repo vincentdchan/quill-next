@@ -1,0 +1,10 @@
+
+.container {
+  margin-bottom: 1rem;
+}
+
+.text {
+  :global(p) {
+    margin-bottom: 0;
+  }
+}

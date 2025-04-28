@@ -17,6 +17,7 @@ export interface IQuillEditorProps {
   onTextChange?: (delta: Delta, oldContent: Delta, source: EmitterSource) => void;
   onSelectionChange?: (range: Range, oldRange: Range, source: EmitterSource) => void;
   onEditorChange?: EditorChangeHandler;
+  loadingFallback?: () => React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   dangerouslySetInnerHTML?: {
@@ -51,6 +52,33 @@ function makeQuillWithBlots(container: HTMLElement, options: QuillOptions, blots
   return quill;
 }
 
+async function loadTheme(theme: string): Promise<void> {
+  const insertTheme = (theme: string, content: string) => {
+    let styleElement: HTMLStyleElement | null = null;
+    const existingStyleElement = document.head.querySelectorAll(`style[data-quill-theme="${theme}"]`);
+    if (existingStyleElement.length > 0) {
+      // remove all existing style elements
+      existingStyleElement.forEach((styleElement) => {
+        document.head.removeChild(styleElement);
+      });
+    }
+
+    styleElement = document.createElement('style');
+    styleElement.setAttribute("data-quill-theme", theme);
+    styleElement.setAttribute("type", "text/css");
+    styleElement.innerHTML = content;
+    document.head.appendChild(styleElement);
+  }
+
+  if (theme === 'next' || theme === 'snow') {
+    const { default: css } = await import(`quill-next/dist/quill.snow.css?raw`)
+    insertTheme(theme, css);
+  } else if (theme === 'bubble') {
+    const { default: css } = await import(`quill-next/dist/quill.bubble.css?raw`)
+    insertTheme(theme, css);
+  }
+}
+
 const QuillEditor = (props: IQuillEditorProps) => {
   const {
     config,
@@ -61,6 +89,7 @@ const QuillEditor = (props: IQuillEditorProps) => {
     onTextChange,
     onSelectionChange,
     onEditorChange,
+    loadingFallback,
     className,
     style,
     dangerouslySetInnerHTML,
@@ -68,8 +97,38 @@ const QuillEditor = (props: IQuillEditorProps) => {
   } = props;
   const containerRef = useRef<HTMLDivElement>(null);
   const [quill, setQuill] = useState<Quill | null>(null);
+  const [themeLoaded, setThemeLoaded] = useState(false);
 
   useEffect(() => {
+    let theme = config?.theme;
+
+    if (!theme) {
+      theme = 'next';
+    }
+
+    let cancel = false;
+    loadTheme(theme)
+      .then(() => {
+        if (cancel) {
+          return;
+        }
+
+        setThemeLoaded(true);
+      })
+      .catch((err) => {
+        console.error('Error loading theme:', err);
+      });
+
+    return () => {
+      cancel = true;
+    }
+  }, [config?.theme]);
+
+  useEffect(() => {
+    if (!themeLoaded) {
+      return;
+    }
+
     const forkedRegistry = new ForkedRegistry(Quill.DEFAULTS.registry);
 
     const quillOptions: QuillOptions = {
@@ -100,7 +159,7 @@ const QuillEditor = (props: IQuillEditorProps) => {
     return () => {
       quill.destroy();
     }
-  }, []);
+  }, [themeLoaded]);
 
   useEffect(() => {
     quill?.enable(!readOnly);
@@ -127,6 +186,10 @@ const QuillEditor = (props: IQuillEditorProps) => {
   useQuillEvent(quill, Quill.events.TEXT_CHANGE, onTextChange);
   useQuillEvent(quill, Quill.events.SELECTION_CHANGE, onSelectionChange);
   useQuillEvent(quill, Quill.events.EDITOR_CHANGE, onEditorChange);
+
+  if (!themeLoaded) {
+    return loadingFallback ? loadingFallback() : null;
+  }
 
   return (
     <QuillContext.Provider value={quill}>

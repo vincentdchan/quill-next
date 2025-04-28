@@ -2,7 +2,6 @@ import type Quill from "quill-next";
 import { QuillEditor, type IQuillEditorProps, useNextLinkBlot, useEmbedBlot, IRenderOptions } from "quill-next-react";
 import { NotionLinkToolbarPlugin, NotionToolbarPlugin } from "quill-next-react/notion-like";
 import Mention from "./Mention";
-import "quill-next/dist/quill.snow.css";
 
 export interface IEnhancedEditor extends IQuillEditorProps {
   rootStyle?: React.CSSProperties;
