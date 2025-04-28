@@ -1,12 +1,6 @@
-import React from 'react';
+import { Delta } from 'quill-next';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QuillEditor } from './editor.component';
-import Quill, { Delta } from "quill-next";
-import { NextTheme } from './next-theme';
-import "quill-next/dist/quill.snow.css";
-import "quill-next/dist/quill.bubble.css";
-
-Quill.register('themes/next', NextTheme);
 
 const meta = {
   title: 'QuillEditor/Basic',

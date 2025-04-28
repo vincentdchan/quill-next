@@ -1,9 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { MDXRemote } from 'next-mdx-remote';
 import docs from '../data/docs';
 import { Highlight, themes } from 'prism-react-renderer';
 import api from '../data/api';
-import Sandpack, { SandpackWithQuillTemplate } from './Sandpack';
+import Sandpack, { SandpackWithQuillTemplate, SandpackWithReact } from './Sandpack';
 import {
   Heading1,
   Heading2,
@@ -16,6 +16,7 @@ import Hint from './Hint';
 import SEO from './SEO';
 import Link from './Link';
 import Editor from './Editor';
+import Callout from './Callout';
 
 const components = {
   h1: Heading1,
@@ -27,8 +28,10 @@ const components = {
   a: Link,
   Sandpack,
   SandpackWithQuillTemplate,
+  SandpackWithReact,
   Hint,
   Editor,
+  Callout,
   pre: ({ children }) => {
     const className = children.props.className || '';
     const matches = className.match(/language-(?<lang>.*)/);

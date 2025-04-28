@@ -4,16 +4,12 @@ const items = [
     url: '/docs/quickstart',
   },
   {
-    title: 'Why Quill',
-    url: '/docs/why-quill',
+    title: 'Why Quill Next',
+    url: '/docs/why-quill-next',
   },
   {
     title: 'Installation',
     url: '/docs/installation',
-  },
-  {
-    title: 'Upgrading to 2.0',
-    url: '/docs/upgrading-to-2-0',
   },
   {
     title: 'Configuration',

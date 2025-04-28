@@ -15,8 +15,8 @@ export default withMDX()({
       permanent: true,
     },
     {
-      source: '/guides/why-quill',
-      destination: '/docs/why-quill',
+      source: '/guides/why-quill-next',
+      destination: '/docs/why-quill-next',
       permanent: true,
     },
     {
