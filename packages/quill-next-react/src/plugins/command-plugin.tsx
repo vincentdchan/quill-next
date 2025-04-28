@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useQuillInput, type IUseQuillInputResult } from "../hooks/use-quill-input";
 import { RectAnchor } from "../components/rect-anchor.component";
 import { Subject, fromEvent, takeUntil } from "rxjs";

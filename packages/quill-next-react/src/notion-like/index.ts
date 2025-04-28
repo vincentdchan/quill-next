@@ -18,4 +18,5 @@ export {
 
   NotionLinkToolbarPlugin,
   NotionToolbarPlugin,
+  type INotionToolbarPluginProps,
 };
