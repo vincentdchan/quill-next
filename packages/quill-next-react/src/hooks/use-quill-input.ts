@@ -1,7 +1,8 @@
-import { useRef, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useQuill } from "./use-quill";
-import { useQuillEditorChange } from "./use-quill-editor-change";
-import { Delta, Bounds } from "quill-next";
+import { useQuillTextChange } from "./use-quill-text-change";
+import { useQuillSelectionChange } from "./use-quill-selection-change";
+import { Delta, Bounds, Range } from "quill-next";
 import { isString, isNumber, isObject } from "lodash-es";
 
 export interface IQuillInputOptions {
@@ -24,6 +25,16 @@ function getInsertedOffset(delta: Delta): number {
     return ops[0].insert.length;
   } else if (ops.length > 1 && isNumber(ops[0].retain) && isString(ops[1].insert)) {
     return ops[0].retain + ops[1].insert.length;
+  }
+  return -1;
+}
+
+function getDeletedOffset(delta: Delta): number {
+  const { ops } = delta;
+  if (ops.length === 1 && isNumber(ops[0].delete)) {
+    return ops[0].delete;
+  } else if (ops.length > 1 && isNumber(ops[0].retain) && isNumber(ops[1].delete)) {
+    return ops[0].retain;
   }
   return -1;
 }
@@ -53,14 +64,14 @@ export interface IUseQuillInputResult {
 export function useQuillInput(options: IQuillInputOptions): [IUseQuillInputResult, () => void] | null {
   const { trigger } = options;
   const quill = useQuill();
-  const startPos = useRef<number | null>(null);
   const [result, setResult] = useState<IUseQuillInputResult | null>(null);
-  useQuillEditorChange((...args) => {
-    const clear = () => {
-      startPos.current = null;
-    }
 
-    const setInputResult = (index: number, length: number) => {
+  useQuillTextChange((delta: Delta) => {
+    const setInputResult = (index: number, length: number): void => {
+      if (length <= 0) {
+        setResult(null);
+        return;
+      }
       const bounds = quill.selection.getBounds(index, length);
       const content = quill.getContents(index, length);
       const strContent = lineDeltaToString(content);
@@ -72,48 +83,47 @@ export function useQuillInput(options: IQuillInputOptions): [IUseQuillInputResul
       });
     }
 
-    if (args[0] === "selection-change") {
-      if (args[3] === "silent") {
-        return;
-      }
-      const range = args[1];
-
-      if (result && !range) {
-        setResult(null);
-        clear();
-        return;
-      }
-
-      if (result && (range.index < result.startPos || range.index > result.startPos + result.length)) {
-        setResult(null);
-      }
-
-      clear();
-    } else if (args[0] === "text-change") {
-      if (result) {
-        const offset = getInsertedOffset(args[1]);
-        if (offset < 0) {
-          setResult(null);
+    if (result) {  // already has result
+      const offset = getInsertedOffset(delta);
+      if (offset < 0) {
+        const deletedOffset = getDeletedOffset(delta);
+        if (deletedOffset >= 0) {
+          const length = deletedOffset - result.startPos;
+          setInputResult(result.startPos, length);
           return;
         }
-        if (result && offset <= result.startPos) {
-          setResult(null);
-        }
-        const startPos = result.startPos;
-        const length = offset - result.startPos;
-        setInputResult(startPos, length);
-        return;
-      }
-      const isInsertingOffset = isInserting(args[1], trigger);
-      if (isInsertingOffset < 0) {
         setResult(null);
         return;
       }
-      const startPos = isInsertingOffset;
-      const length = trigger.length;
+      if (result && offset <= result.startPos) {
+        setResult(null);
+      }
+      const startPos = result.startPos;
+      const length = offset - result.startPos;
       setInputResult(startPos, length);
+      return;
     }
-  }, [quill, result]);
+
+    const isInsertingOffset = isInserting(delta, trigger);
+    if (isInsertingOffset < 0) {
+      setResult(null);
+      return;
+    }
+    const startPos = isInsertingOffset;
+    const length = trigger.length;
+    setInputResult(startPos, length);
+  });
+
+  useQuillSelectionChange((range: Range) => {
+    if (result && !range) {
+      setResult(null);
+      return;
+    }
+
+    if (result && (range.index <= result.startPos || range.index > result.startPos + result.length)) {
+      setResult(null);
+    }
+  });
 
   const clearFn = useCallback(() => {
     setResult(null);

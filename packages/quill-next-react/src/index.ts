@@ -12,18 +12,18 @@ import { useQuill } from "./hooks/use-quill";
 import { useQuillFormats } from "./hooks/use-quill-formats";
 import { useQuillInput } from "./hooks/use-quill-input";
 import { useQuillEditorChange } from "./hooks/use-quill-editor-change";
+import { useQuillTextChange, type TextChangeHandler } from "./hooks/use-quill-text-change";
+import { useQuillSelectionChange, type SelectionChangeHandler } from "./hooks/use-quill-selection-change";
+import { useQuillArrowIndex } from "./hooks/use-quill-arrow-index";
 import { useNextLinkBlot } from "./hooks/use-next-link-blot";
-import { QuillNextImage, useQuillNextImage } from "./quill-next-image.component";
+import { useQuillKeyboardBinding } from "./hooks/use-quill-keyboard-binding";
+import { QuillNextImage, useNextImageBlot } from "./components/quill-next-image.component";
 import { IToolbarPluginProps, ToolbarPlugin } from "./plugins/toolbar-plugin";
-import { NotionToolbar } from "./components/notion-toolbar.component";
-import { NotionToolbarPlugin } from "./plugins/notion-toolbar-plugin";
-import { NotionLinkToolbar, INotionLinkToolbarProps } from "./components/notion-link-toolbar.component";
 import { LinkToolbarPlugin } from "./plugins/link-toolbar-plugin";
-import { NotionLinkToolbarPlugin } from "./plugins/notion-link-toolbar.plugin";
 import { RectAnchor, RectAnchorProps } from "./components/rect-anchor.component";
 
 export {
-  QuillEditor as default,
+  QuillEditor,
   QuillContext,
   ForkedRegistry,
   useEmbedBlot,
@@ -31,20 +31,21 @@ export {
   useQuillFormats,
   useQuillInput,
   useQuillEditorChange,
-  useQuillNextImage,
+  useQuillTextChange,
+  type TextChangeHandler,
+  useQuillSelectionChange,
+  type SelectionChangeHandler,
+  useQuillArrowIndex,
+  useNextImageBlot,
   useNextLinkBlot,
+  useQuillKeyboardBinding,
   QuillNextImage,
 
   type IToolbarPluginProps,
   ToolbarPlugin,
-  NotionToolbar,
-  NotionToolbarPlugin,
-  NotionLinkToolbarPlugin,
   LinkToolbarPlugin,
-  NotionLinkToolbar,
-  type INotionLinkToolbarProps,
   RectAnchor,
-  type RectAnchorProps as PrerenderPanelProps,
+  type RectAnchorProps,
 
   type EditorChangeHandler,
   type IQuillEditorProps,

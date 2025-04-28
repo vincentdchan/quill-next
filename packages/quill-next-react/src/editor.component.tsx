@@ -6,7 +6,7 @@ import { BlotConstructor } from "parchment";
 import { ForkedRegistry } from "./forked-registry";
 import { EditorChangeHandler } from './types/editor-change-handler.type';
 import { NextTheme } from './next-theme';
-
+import { NextKeyboard } from "./modules/next-keyboard";
 
 export interface IQuillEditorProps {
   defaultValue?: Delta;
@@ -38,6 +38,7 @@ function makeQuillWithBlots(container: HTMLElement, options: QuillOptions, blots
     Quill.imports = newImports;
 
     Quill.register("themes/next", NextTheme);
+    Quill.register("modules/keyboard", NextKeyboard, true);
 
     blots?.forEach((blot) => {
       Quill.register(blot, true);
@@ -69,10 +70,6 @@ const QuillEditor = (props: IQuillEditorProps) => {
   const [quill, setQuill] = useState<Quill | null>(null);
 
   useEffect(() => {
-    // if (dangerouslySetInnerHTML && containerRef.current) {
-    //   containerRef.current.innerHTML = dangerouslySetInnerHTML.__html as any;
-    // }
-
     const forkedRegistry = new ForkedRegistry(Quill.DEFAULTS.registry);
 
     const quillOptions: QuillOptions = {
@@ -89,10 +86,6 @@ const QuillEditor = (props: IQuillEditorProps) => {
       quillOptions,
       blots,
     );
-
-    // if (defaultValue) {
-    //   quill.setContents(defaultValue);
-    // }
 
     setQuill(quill);
 

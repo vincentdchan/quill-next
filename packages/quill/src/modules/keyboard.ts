@@ -23,7 +23,7 @@ export interface Context {
   line: BlockEmbed | BlockBlot;
 }
 
-interface BindingObject
+export interface BindingObject
   extends Partial<Omit<Context, 'prefix' | 'suffix' | 'format'>> {
   key: number | string | string[];
   shortKey?: boolean | null;
@@ -43,17 +43,14 @@ interface BindingObject
   ) => boolean | void;
 }
 
-type Binding = BindingObject | string | number;
+export type Binding = BindingObject | string | number;
 
-interface NormalizedBinding extends Omit<BindingObject, 'key' | 'shortKey'> {
+export interface NormalizedBinding
+  extends Omit<BindingObject, 'key' | 'shortKey'> {
   key: string | number;
 }
 
-interface KeyboardOptions {
-  bindings: Record<string, Binding>;
-}
-
-interface KeyboardOptions {
+export interface KeyboardOptions {
   bindings: Record<string, Binding>;
 }
 

@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "jsx": "react",
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "module": "ESNext",
@@ -9,7 +8,9 @@
     "declaration": true,
     "declarationDir": "./dist",
     "rootDir": "src",
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
   },
   "include": [
     "src", 

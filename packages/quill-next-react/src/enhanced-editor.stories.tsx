@@ -2,31 +2,37 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { QuillEditor, IQuillEditorProps } from "./editor.component";
 import { Delta } from "quill-next";
-import { useQuillNextImage } from "./quill-next-image.component";
-import { NotionToolbarPlugin } from "./plugins/notion-toolbar-plugin";
+import { useNextImageBlot } from "./components/quill-next-image.component";
 import { SlashCommandPlugin } from "./plugins/slash-command-plugin";
+import { CommandPlugin } from "./plugins/command-plugin";
 import { useNextLinkBlot } from "./hooks/use-next-link-blot";
 import {
-  NoitionMenuList,
+  NotionToolbarPlugin,
+  NotionMenuList,
   NotionMenuItemHeader,
   NotionMenuItem,
-} from "./components/notion-menu-list.component";
+  NotionLinkToolbarPlugin,
+} from "./notion-like";
 import "quill-next/dist/quill.snow.css";
 import "quill-next/dist/quill.bubble.css";
-import { NotionLinkToolbarPlugin } from "./plugins/notion-link-toolbar.plugin";
 
-interface SlashCommandItem {
+interface CommandItem {
   key: string;
   content: string;
 }
 
+const atCommands: CommandItem[] = [
+  { key: "Vincent Chan", content: "Vincent Chan" },
+  { key: "John Doe", content: "John Doe" },
+];
+
 function WrappedQuillEditor(props: IQuillEditorProps) {
-  const slashCommands: SlashCommandItem[] = [
+  const slashCommands: CommandItem[] = [
     { key: "image", content: "Image" },
     { key: "canvas", content: "Canvas" },
   ];
   const { blots = [] } = props;
-  const ImageBlot = useQuillNextImage();
+  const ImageBlot = useNextImageBlot();
   const LinkBlot = useNextLinkBlot();
   return (
     <QuillEditor {...props} blots={[...blots, ImageBlot, LinkBlot]}>
@@ -34,7 +40,7 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
       <SlashCommandPlugin
         length={slashCommands.length}
         render={({ selectedIndex, content, apply }) => (
-          <NoitionMenuList>
+          <NotionMenuList>
             <NotionMenuItemHeader>Input: {content}</NotionMenuItemHeader>
             {slashCommands.map((item, index) => (
               <NotionMenuItem
@@ -45,7 +51,25 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
                 {item.content}
               </NotionMenuItem>
             ))}
-          </NoitionMenuList>
+          </NotionMenuList>
+        )}
+      />
+      <CommandPlugin
+        trigger="@"
+        length={atCommands.length}
+        render={({ selectedIndex, content, apply }) => (
+          <NotionMenuList>
+            <NotionMenuItemHeader>Input: {content}</NotionMenuItemHeader>
+            {atCommands.map((item, index) => (
+              <NotionMenuItem
+                key={item.key}
+                active={index === selectedIndex}
+                onClick={apply}
+              >
+                {item.content}
+              </NotionMenuItem>
+            ))}
+          </NotionMenuList>
         )}
       />
       <NotionLinkToolbarPlugin />

@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useRef, memo } from "react";
-import { type IRenderOptions, useEmbedBlot } from "./hooks/use-react-blot";
-import "./quill-next-image.css";
+import { useState, useCallback, useRef, memo } from "react";
+import { type IRenderOptions, useEmbedBlot } from "../hooks/use-react-blot";
+import { imageContainer, imageShimmer } from "./quill-next-image.component.style";
 
 const Shimmer = memo(() => {
   return (
-    <div className="qn-image-shimmer" />
+    <div className="qn-image-shimmer" css={imageShimmer} />
   );
 });
 
@@ -26,6 +26,7 @@ export function QuillNextImage(options: IRenderOptions) {
   return (
     <div
       className="qn-image-container"
+      css={imageContainer}
       style={{
         width: imageWidth + 'px',
         aspectRatio: aspectRatio,
@@ -43,10 +44,13 @@ export function QuillNextImage(options: IRenderOptions) {
   );
 }
 
-export function useQuillNextImage() {
+export function useNextImageBlot() {
   return useEmbedBlot({
     blotName: "image",
     className: "qn-image",
+    onAttach: (domNode: HTMLElement) => {
+      domNode.style.maxWidth = "100%";
+    },
     render: (options: IRenderOptions) => {
       return <QuillNextImage {...options} />;
     },

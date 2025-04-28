@@ -1,19 +1,18 @@
-import { useMemo, useRef, useEffect } from "react";
+import { useMemo, useRef } from "react";
 import Quill, { Link } from "quill-next";
 import { BlotConstructor } from "parchment";
 import { messages } from "../messages";
-import "./use-next-link-blot.css";
 
 export interface ILinkBlotOptions {
   onClick?: (event: MouseEvent) => void;
+  onAttach?: (domNode: HTMLElement) => void;
+  onDetach?: (domNode: HTMLElement) => void;
 }
 
 export function useNextLinkBlot(options?: ILinkBlotOptions): BlotConstructor {
-  const { onClick } = options || {};
+  const { onClick, onAttach, onDetach } = options || {};
   const onClickRef = useRef<((event: MouseEvent) => void) | undefined>(onClick);
-  useEffect(() => {
-    onClickRef.current = onClick;
-  }, [onClick]);
+  onClickRef.current = useMemo(() => onClick, [onClick]);
 
   return useMemo((): BlotConstructor => {
     return class extends Link {
@@ -24,6 +23,7 @@ export function useNextLinkBlot(options?: ILinkBlotOptions): BlotConstructor {
         node.setAttribute('rel', 'noopener noreferrer');
         node.setAttribute('target', '_blank');
         node.classList.add('qn-link');
+        node.style.cursor = "pointer";
         return node;
       }
 
@@ -55,9 +55,13 @@ export function useNextLinkBlot(options?: ILinkBlotOptions): BlotConstructor {
         this.#quill?.emitter.emit(messages.NextLinkAttached, this);
 
         this.domNode.addEventListener('click', this.#handleClick);
+
+        onAttach?.(this.domNode);
       }
 
       override detach(): void {
+        onDetach?.(this.domNode);
+
         this.#quill?.emitter.emit(messages.NextLinkDetached, this);
         this.#quill = null;
 

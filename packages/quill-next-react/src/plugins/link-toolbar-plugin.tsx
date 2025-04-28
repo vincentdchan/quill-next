@@ -59,7 +59,7 @@ function LinkToolbarPlugin(props: ILinkToolbarPluginProps) {
         length: value.length,
       });
     }
-  }, [quill, value]);
+  });
 
   const handleNextLinkAttached = useCallback((link: Link) => {
     const domNode = link.domNode;
