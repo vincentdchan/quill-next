@@ -2,11 +2,67 @@
 title: Installation
 ---
 
-Quill comes ready to use in several convenient forms.
+Quill Next comes ready to use in several convenient forms.
+
+## npm
+
+### Vanilla
+
+If your project uses bundlers such as [Webpack](https://webpack.js.org/) or [Vite](https://vitejs.dev/),
+it's recommended to install Quill Next via [npm](https://www.npmjs.com/).
+
+```bash
+npm install quill-next@{{site.version}}
+```
+
+Similar to the CDN approach, you can import the full build from `"quill"` or the core build from `"quill/core"`.
+
+```js
+import Quill from 'quill';
+// Or if you only need the core build
+// import Quill from 'quill/core';
+
+const quill = new Quill('#editor');
+```
+
+<Hint>
+If you want to use the core build, avoid importing `"quill"` directly throughout your project.
+Doing so results in a full build, as `"quill"` registers the full build's formats and modules upon import.
+</Hint>
+
+`Quill.import()` is also available for the npm build to access Quill's library.
+However, a more natural approach in npm enviroment is to import the formats and modules directly.
+
+```js
+import Quill from 'quill-next';
+
+import { Delta } from 'quill-next';
+```
+
+### React
+
+```bash
+npm install quill-next-react
+```
+
+```js
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello world")}
+      config={{ theme: "next"}}
+    />
+  )
+}
+```
+
 
 ## CDN
 
-A globally distributed and available CDN is provided, backed by [jsDelivr](https://www.jsdelivr.com/).
+A globally distributed and available CDN is provided, backed by [esm.sh](https://esm.sh/).
 This is the most convenient way to get started with Quill, and requires no build steps or package managers.
 
 ### Full Build
@@ -70,47 +126,11 @@ Learn more about how to [make your own formats](/guides/cloning-medium-with-parc
 CDN builds expose `Quill` to the global `window` object.
 `Quill` provides an [`import()`](/docs/api#import) method for accessing components of the Quill library, including its formats, modules, or themes.
 
-## npm
-
-If your project uses bundlers such as [Webpack](https://webpack.js.org/) or [Vite](https://vitejs.dev/), it's recommended to install Quill via [npm](https://www.npmjs.com/).
-
-```bash
-npm install quill-next@{{site.version}}
-```
-
-Similar to the CDN approach, you can import the full build from `"quill"` or the core build from `"quill/core"`.
-
-```js
-import Quill from 'quill';
-// Or if you only need the core build
-// import Quill from 'quill/core';
-
-const quill = new Quill('#editor');
-```
-
-<Hint>
-If you want to use the core build, avoid importing `"quill"` directly throughout your project.
-Doing so results in a full build, as `"quill"` registers the full build's formats and modules upon import.
-</Hint>
-
-`Quill.import()` is also available for the npm build to access Quill's library.
-However, a more natural approach in npm enviroment is to import the formats and modules directly.
-
-```js
-import Quill from 'quill';
-// Or if you only need the core build
-// import Quill from 'quill/core';
-
-import { Delta } from 'quill';
-// Or if you only need the core build
-// import { Delta } from 'quill/core';
-// Or const Delta = Quill.import('delta');
-
-import Link from 'quill/formats/link';
-// Or const Link = Quill.import('formats/link');
-```
-
 ### Styles
+
+<Callout>
+  If you use the React component from `quill-next-react`, you don't need to import the stylesheets manually.
+</Callout>
 
 Quill's npm package also comes with the stylesheets for the core and themes, just like the CDN build.
 Those stylesheets live in the `dist` directory.
@@ -118,7 +138,7 @@ Those stylesheets live in the `dist` directory.
 You can import them in your JavaScript files if you have a proper bundler setup.
 
 ```js
-import "quill/dist/quill.core.css";
+import "quill-next/dist/quill.core.css";
 ```
 
 Refer to [webpack-example](https://github.com/quilljs/webpack-example) for a sample project that uses Quill in a webpack project.
