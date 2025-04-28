@@ -45,7 +45,8 @@ export interface BindingObject
 
 export type Binding = BindingObject | string | number;
 
-export interface NormalizedBinding extends Omit<BindingObject, 'key' | 'shortKey'> {
+export interface NormalizedBinding
+  extends Omit<BindingObject, 'key' | 'shortKey'> {
   key: string | number;
 }
 
