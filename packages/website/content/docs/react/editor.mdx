@@ -1,0 +1,94 @@
+---
+title: QuillEditor Component
+description: A React component that provides a rich text editor powered by Quill.
+---
+
+# QuillEditor Component
+
+The `QuillEditor` component is a React wrapper around the Quill rich text editor. It provides a fully-featured text editor with customizable options and event handlers.
+
+## Props
+
+### `defaultValue?: Delta`
+The initial content of the editor. This should be a Quill Delta object that represents the initial state of the editor.
+
+### `children?: React.ReactNode`
+React children elements that will be rendered alongside the editor. This is useful for adding custom UI elements or toolbars.
+
+### `readOnly?: boolean`
+When set to `true`, the editor will be in read-only mode, preventing users from making changes to the content.
+
+### `config?: QuillOptions`
+Configuration options for the Quill editor instance. This includes settings like:
+- `theme`: The editor theme ('snow', 'bubble', or 'next')
+- `modules`: Configuration for editor modules
+- `placeholder`: Placeholder text when editor is empty
+- And other Quill-specific options
+
+### `onReady?: (quill: Quill) => void`
+Callback function that is called when the editor is fully initialized and ready to use. The callback receives the Quill instance as a parameter.
+
+### `onTextChange?: (delta: Delta, oldContent: Delta, source: EmitterSource) => void`
+Callback function that is triggered whenever the editor's content changes. It provides:
+- `delta`: The changes made to the content
+- `oldContent`: The previous content state
+- `source`: The source of the change (e.g., 'user', 'api', 'silent')
+
+### `onSelectionChange?: (range: Range, oldRange: Range, source: EmitterSource) => void`
+Callback function that is triggered when the user's selection in the editor changes. It provides:
+- `range`: The new selection range
+- `oldRange`: The previous selection range
+- `source`: The source of the selection change
+
+### `onEditorChange?: EditorChangeHandler`
+Callback function that is triggered for any editor change event, including text changes and selection changes.
+
+### `loadingFallback?: () => React.ReactNode`
+A function that returns a React node to be displayed while the editor is loading. If not provided, nothing will be shown during loading.
+
+### `className?: string`
+CSS class name to be applied to the editor container.
+
+### `style?: React.CSSProperties`
+Inline styles to be applied to the editor container.
+
+### `dangerouslySetInnerHTML?: { __html: string | TrustedHTML }`
+Allows setting the initial HTML content of the editor. Use with caution as it can expose your application to XSS attacks if the HTML content is not properly sanitized.
+
+### `blots?: BlotConstructor[]`
+Custom blot constructors to be registered with the editor. Blots are the building blocks of Quill's content model and can be used to create custom formatting or content types.
+
+## Example Usage
+
+```tsx
+import { QuillEditor } from 'quill-next-react';
+import { Delta } from 'quill-next';
+
+function MyEditor() {
+  const initialContent = new Delta()
+    .insert('Hello ')
+    .insert('World', { bold: true });
+
+  return (
+    <QuillEditor
+      defaultValue={initialContent}
+      config={{
+        theme: 'snow',
+        modules: {
+          toolbar: true
+        }
+      }}
+      onTextChange={(delta, oldContent, source) => {
+        console.log('Content changed:', delta);
+      }}
+      placeholder="Start writing..."
+    />
+  );
+}
+```
+
+## Notes
+
+- The editor requires a theme to be loaded. By default, it uses the 'next' theme if no theme is specified in the config.
+- The component handles cleanup automatically when unmounted.
+- All event handlers are optional and can be used to build custom functionality around the editor. 

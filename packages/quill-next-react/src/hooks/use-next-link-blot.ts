@@ -48,13 +48,21 @@ export function useNextLinkBlot(options?: ILinkBlotOptions): BlotConstructor {
         window.open(this.domNode.getAttribute('href') || '', '_blank');
       }
 
+      #handleMouseEnter = (): void => {
+        this.#quill?.emitter.emit(messages.NextLinkMouseEnter, this);
+      }
+
+      #handleMouseLeave = (): void => {
+        this.#quill?.emitter.emit(messages.NextLinkMouseLeave, this);
+      }
+
       override attach(): void {
         super.attach();
         this.#quill = this.fetchQuill();
 
-        this.#quill?.emitter.emit(messages.NextLinkAttached, this);
-
         this.domNode.addEventListener('click', this.#handleClick);
+        this.domNode.addEventListener('mouseenter', this.#handleMouseEnter);
+        this.domNode.addEventListener('mouseleave', this.#handleMouseLeave);
 
         onAttach?.(this.domNode);
       }
@@ -62,11 +70,12 @@ export function useNextLinkBlot(options?: ILinkBlotOptions): BlotConstructor {
       override detach(): void {
         onDetach?.(this.domNode);
 
-        this.#quill?.emitter.emit(messages.NextLinkDetached, this);
         this.#quill = null;
 
         super.detach();
         this.domNode.removeEventListener('click', this.#handleClick);
+        this.domNode.removeEventListener('mouseenter', this.#handleMouseEnter);
+        this.domNode.removeEventListener('mouseleave', this.#handleMouseLeave);
       }
 
     }
