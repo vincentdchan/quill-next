@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { fromEvent, takeUntil, timer, switchMap, tap, debounceTime } from "rxjs";
+import { takeUntil, timer } from "rxjs";
 import { Link } from "quill-next";
 import { useQuill } from "../hooks/use-quill";
 import { useQuillEvent } from "../hooks/use-quill-event";
@@ -7,6 +7,7 @@ import { RectAnchor } from "../components/rect-anchor.component";
 import { messages } from "../messages";
 import { useDispose } from "../hooks/use-dispose";
 import { useQuillEditorChange } from "../hooks/use-quill-editor-change";
+import { debounce } from "lodash-es";
 
 export interface ILinkToolbarRenderProps {
   link: string;
@@ -61,46 +62,41 @@ function LinkToolbarPlugin(props: ILinkToolbarPluginProps) {
     }
   });
 
-  const handleNextLinkAttached = useCallback((link: Link) => {
-    const domNode = link.domNode;
-    if (!domNode) {
+  const isMouseEnterRef = useRef(false);
+
+  const debouncedHandleNextLinkMouseEnter = useCallback(debounce((link: Link) => {
+    if (!isMouseEnterRef.current) {
       return;
     }
-    let isMouseEnter = false;
-    fromEvent<MouseEvent>(domNode, 'mouseenter')
-      .pipe(
-        tap(() => isMouseEnter = true),
-        debounceTime(MOUSE_HANDLE_DELAY_TIME),
-        takeUntil(dispose$)
-      ).subscribe(() => {
-        if (!isMouseEnter) {
-          return;
-        }
-        const rect = link.domNode?.getBoundingClientRect();
-        if (!rect) {
-          return;
-        }
-        setLinkRect(rect);
-        const index = quill.getIndex(link);
-        const length = link.length();
+    const rect = link.domNode?.getBoundingClientRect();
+    if (!rect) {
+      return;
+    }
+    setLinkRect(rect);
+    const index = quill.getIndex(link);
+    const length = link.length();
 
-        setValue({
-          link: link.domNode?.getAttribute('href') || "",
-          index,
-          length,
-        });
-      });
-    fromEvent<MouseEvent>(domNode, 'mouseleave')
-      .pipe(
-        tap(() => isMouseEnter = false),
-        switchMap(() => timer(MOUSE_HANDLE_DELAY_TIME)),
-        takeUntil(dispose$)
-      ).subscribe(() => {
-        checkHoveringAndCloseRef.current();
-      });
+    setValue({
+      link: link.domNode?.getAttribute('href') || "",
+      index,
+      length,
+    });
+  }, MOUSE_HANDLE_DELAY_TIME), [quill]);
+
+  const handleNextLinkMouseEnter = useCallback((link: Link) => {
+    isMouseEnterRef.current = true;
+    debouncedHandleNextLinkMouseEnter(link);
+  }, [debouncedHandleNextLinkMouseEnter]);
+
+  const handleNextLinkMouseLeave = useCallback(() => {
+    isMouseEnterRef.current = false;
+    timer(MOUSE_HANDLE_DELAY_TIME).pipe(takeUntil(dispose$)).subscribe(() => {
+      checkHoveringAndCloseRef.current();
+    });
   }, [dispose$]);
 
-  useQuillEvent(quill, messages.NextLinkAttached, handleNextLinkAttached);
+  useQuillEvent(quill, messages.NextLinkMouseEnter, handleNextLinkMouseEnter);
+  useQuillEvent(quill, messages.NextLinkMouseLeave, handleNextLinkMouseLeave);
 
   const handleMouseEnter = useCallback(() => {
     setIsHovering(true);

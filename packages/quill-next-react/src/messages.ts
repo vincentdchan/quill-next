@@ -1,5 +1,4 @@
-
 export const messages = {
-  NextLinkAttached: "NextLinkAttached",
-  NextLinkDetached: "NextLinkDetached",
+  NextLinkMouseEnter: "NextLink_MouseEnter",
+  NextLinkMouseLeave: "NextLink_MouseLeave",
 } as const;
