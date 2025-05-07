@@ -33,3 +33,55 @@ export default function App() {
 }`
   }}
 />
+
+## How to create a plugin
+
+The principle of the plugin system is to leverage the power of React.
+A plugin is a React component as the children of the `QuillEditor` component.
+
+The plugin can render elements, or only provide some hooks to extend the editor's behavior.
+
+
+```tsx
+const MyPlugin = () => {
+  return <div>My Plugin</div>
+}
+
+<QuillEditor>
+  <MyPlugin />
+</QuillEditor>
+```
+
+### Use hooks to extend the editor's behavior
+
+You can use the hooks provided by the `quill-next-react` package to extend the editor's behavior.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { useEffect } from 'react'
+import { QuillEditor, useQuill } from 'quill-next-react'
+
+const MyPlugin = () => {
+  const quill = useQuill();
+  
+  useEffect(() => {
+    quill.setContents([
+      {
+        insert: 'This is a plugin',
+      },
+    ]);
+  }, [quill]);
+}
+
+export default function App() {
+  return (
+    <QuillEditor>
+      <MyPlugin />
+    </QuillEditor>
+  );
+}
+    `
+  }}
+/>
+
