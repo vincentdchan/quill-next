@@ -26,12 +26,10 @@ import { QuillEditor } from 'quill-next-react';
 
 export default function App() {
   return (
-    <div>
-      <QuillEditor
-        defaultValue={new Delta().insert("Hello world")}
-        config={{ theme: "next"}}
-      />
-    </div>
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello world")}
+      config={{ theme: "next"}}
+    />
   )
 }`
   }}
@@ -114,6 +112,28 @@ Type: `BlotConstructor[]` Optional: `true`
 
 Custom blot constructors to be registered with the editor. Blots are the building blocks of Quill's content model and can be used to create custom formatting or content types.
 
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor, useNextLinkBlot } from 'quill-next-react';
+import { NotionLinkToolbarPlugin, NotionToolbarPlugin } from "quill-next-react/notion-like";
+
+export default function App() {
+  const LinkBlot = useNextLinkBlot();
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello ").insert("Google", { link: "https://www.google.com" })}
+      blots={[LinkBlot]}
+      config={{ theme: "next"}}
+    >
+      <NotionToolbarPlugin />
+      <NotionLinkToolbarPlugin />
+    </QuillEditor>
+  )
+}`
+  }}
+/>
 
 ### children
 

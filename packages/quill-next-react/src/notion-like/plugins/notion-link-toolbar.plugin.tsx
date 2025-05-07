@@ -1,4 +1,3 @@
-import React from "react";
 import { NotionLinkToolbar } from "../components/notion-link-toolbar.component";
 import { LinkToolbarPlugin } from "../../plugins/link-toolbar-plugin";
 
