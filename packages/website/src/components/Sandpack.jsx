@@ -312,8 +312,8 @@ export const SandpackWithReact = ({
       theme="dark"
       customSetup={{ 
         dependencies: { 
-          "quill-next": "2.0.4-alpha.1",
-          "quill-next-react": "1.0.0-alpha.4" 
+          "quill-next": "2.0.4-alpha.2",
+          "quill-next-react": "1.0.1" 
         }
       }}
       files={files}
