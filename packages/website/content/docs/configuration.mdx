@@ -5,7 +5,130 @@ title: Configuration
 Quill allows several ways to customize it to suit your needs. This section is dedicated to tweaking existing functionality. See the [Modules](/docs/modules/) section for adding new functionality and the [Themes](/docs/themes/) section for styling.
 
 
-## Container
+## React
+
+The `QuillEditor` component is a React wrapper around the Quill rich text editor.
+It provides a fully-featured text editor with customizable options and event handlers.
+
+### Props
+
+### defaultValue
+
+Type: `Delta` Optional: `true`
+
+The initial content of the editor. This should be a Quill Delta object that represents the initial state of the editor.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+
+export default function App() {
+  return (
+    <div>
+      <QuillEditor
+        defaultValue={new Delta().insert("Hello world")}
+        config={{ theme: "next"}}
+      />
+    </div>
+  )
+}`
+  }}
+/>
+
+### readOnly
+
+Type: `boolean` Optional: `true`
+
+When set to `true`, the editor will be in read-only mode, preventing users from making changes to the content.
+
+### config
+
+Type: `QuillOptions` Optional: `true`
+
+Configuration options for the Quill editor instance. This includes settings like:
+- `theme`: The editor theme ('snow', 'bubble', or 'next')
+- `modules`: Configuration for editor modules
+- `placeholder`: Placeholder text when editor is empty
+- And other Quill-specific options, you can refer to [Options](/docs/configuration/#options) for more details.
+
+### onReady
+
+Type: `(quill: Quill) => void` Optional: `true`
+
+Callback function that is called when the editor is fully initialized and ready to use. The callback receives the Quill instance as a parameter.
+
+
+### onTextChange
+
+Type: `(delta: Delta, oldContent: Delta, source: EmitterSource) => void` Optional: `true`
+
+Callback function that is triggered whenever the editor's content changes. It provides:
+- `delta`: The changes made to the content
+- `oldContent`: The previous content state
+- `source`: The source of the change (e.g., 'user', 'api', 'silent')
+
+### onSelectionChange
+
+Type: `(range: Range, oldRange: Range, source: EmitterSource) => void` Optional: `true`
+
+Callback function that is triggered when the user's selection in the editor changes. It provides:
+- `range`: The new selection range
+- `oldRange`: The previous selection range
+- `source`: The source of the selection change
+
+### onEditorChange
+
+Type: `EditorChangeHandler` Optional: `true`
+
+Callback function that is triggered for any editor change event, including text changes and selection changes.
+
+
+### loadingFallback
+
+Type: `() => React.ReactNode` Optional: `true`
+
+A function that returns a React node to be displayed while the editor is loading. If not provided, nothing will be shown during loading.
+
+### className
+
+Type: `string` Optional: `true`
+
+CSS class name to be applied to the editor container.
+
+### style
+
+Type: `React.CSSProperties` Optional: `true`
+Inline styles to be applied to the editor container.
+
+### dangerouslySetInnerHTML
+
+Type: `{ __html: string | TrustedHTML }` Optional: `true`
+
+Allows setting the initial HTML content of the editor. Use with caution as it can expose your application to XSS attacks if the HTML content is not properly sanitized.
+
+### blots
+
+Type: `BlotConstructor[]` Optional: `true`
+
+Custom blot constructors to be registered with the editor. Blots are the building blocks of Quill's content model and can be used to create custom formatting or content types.
+
+
+### children
+
+Type: `React.ReactNode` Optional: `true`
+
+This is the most important prop of the `QuillEditor` component.
+Quill Next leverages the children props to mount the plugins.
+You can use the all the hooks we provide in the `quill-next-react` package to implement your own plugins.
+
+With the power of the plugins, you can dynamically load the functions you need.
+
+
+## Vanilla
+
+### Container
 
 Quill requires a container where the editor will be appended. You can pass in either a CSS selector or a DOM object.
 
@@ -20,7 +143,7 @@ const quill = new Quill(container);
 
 If the container is not empty, Quill will initialize with the existing contents.
 
-## Options
+### Options
 
 To configure Quill, pass in an options object:
 
@@ -41,20 +164,20 @@ const quill = new Quill('#editor', options);
 
 The following keys are recognized:
 
-### bounds
+#### bounds
 
 Default: `document.body`
 
 DOM Element or a CSS selector for a DOM Element, within which the editor's ui elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries.
 
 
-### debug
+#### debug
 
 Default: `warn`
 
 Shortcut for [debug](/docs/api/#debug). Note `debug` is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default.
 
-### formats
+#### formats
 
 Default: `null`
 
@@ -97,7 +220,7 @@ quill.setContents(
 `}}
 />
 
-### placeholder
+#### placeholder
 
 Default: None
 
@@ -115,7 +238,7 @@ const quill = new Quill('#editor', options);
 />
 
 
-### readOnly
+#### readOnly
 
 Default: `false`
 
@@ -143,12 +266,12 @@ quill.setContents(
 `}}
 />
 
-### registry
+#### registry
 
 Default: `null`
 
 By default all formats defined by Quill are supported in the editor contents through a shared registry between editor instances. Use `formats` to restrict formatting for simple use cases and `registry` for greater customization. Specifying this `registry` option will ignore the `formatting` option. Learn more about [Registries](/docs/registries/).
 
-### theme
+#### theme
 
 Name of theme to use. The builtin options are `"bubble"` or `"snow"`. An invalid or falsy value will load a default minimal theme. Note the theme's specific stylesheet still needs to be included manually. See [Themes](/docs/themes/) for more information.
