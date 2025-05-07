@@ -1,0 +1,35 @@
+---
+title: Plugins
+---
+
+Quill Next is built with a plugin system that allows you to extend the editor's functionality.
+
+You can place the plugins as the children of the `QuillEditor` component.
+
+```tsx
+<QuillEditor>
+  {/* Your plugins */}
+</QuillEditor>
+```
+
+For example, you can use the `NotionToolbarPlugin` to add a toolbar to the editor.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+import { NotionToolbarPlugin } from "quill-next-react/notion-like";
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello World")}
+      config={{ theme: "next"}}
+    >
+      <NotionToolbarPlugin />
+    </QuillEditor>
+  )
+}`
+  }}
+/>

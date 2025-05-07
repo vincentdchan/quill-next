@@ -16,6 +16,16 @@ const items = [
     url: '/docs/configuration',
   },
   {
+    title: 'Plugins',
+    url: '/docs/plugins/plugins',
+    children: [
+      {
+        title: 'Builtin Plugins',
+        url: '/docs/plugins/builtin-plugins',
+      },
+    ],
+  },
+  {
     title: 'Formats',
     url: '/docs/formats',
   },
