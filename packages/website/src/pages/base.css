@@ -255,35 +255,11 @@ hr {
    ========================================================================== */
 
 /**
- * 1. Change font properties to `inherit` in all browsers (opinionated).
- * 2. Remove the margin in Firefox and Safari.
- */
-
-button,
-input,
-select,
-textarea {
-  font: inherit; /* 1 */
-  margin: 0; /* 2 */
-}
-
-/**
  * Restore the font weight unset by the previous rule.
  */
 
 optgroup {
   font-weight: bold;
-}
-
-/**
- * Show the overflow in IE.
- * 1. Show the overflow in Edge.
- */
-
-button,
-input {
-  /* 1 */
-  overflow: visible;
 }
 
 /**
@@ -404,15 +380,6 @@ textarea {
 [type='search']::-webkit-search-cancel-button,
 [type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
-}
-
-/**
- * Correct the text style of placeholders in Chrome, Edge, and Safari.
- */
-
-::-webkit-input-placeholder {
-  color: inherit;
-  opacity: 0.54;
 }
 
 /**

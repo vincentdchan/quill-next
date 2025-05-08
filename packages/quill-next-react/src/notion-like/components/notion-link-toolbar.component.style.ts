@@ -29,6 +29,8 @@ export const notionLinkToolbar = css({
     outline: "none",
     fontSize: "12px",
     flex: "1",
+    background: "transparent",
+    color: "#222",
   },
 
   ".qn-notion-link-toolbar-button": {

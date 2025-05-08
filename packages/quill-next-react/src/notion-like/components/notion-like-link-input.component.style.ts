@@ -49,5 +49,6 @@ export const notionLinkInputInnerContainer = css({
     paddingLeft: "8px",
     paddingRight: "8px",
     background: "transparent",
+    color: "#222",
   }
 });
