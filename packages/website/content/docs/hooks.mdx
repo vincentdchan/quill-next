@@ -154,26 +154,76 @@ Quill's selection changes, the formats of the selected text are returned through
 selected, `null` is returned.
 
 ```tsx
+const quill = useQuill();
 const formats = useQuillFormats();
 
 return (
   <div className="toolbar">
-    <button className={classNames({ active: Boolean(formats?.bold) })}>Bold</button>
+    <button
+      className={classNames({ active: Boolean(formats?.bold) })}
+      onClick={() => quill.format('bold', true)}
+    >
+      Bold
+    </button>
   </div>
 );
 ```
 
 ### useQuillInput
 
+TODO
+
 ### useQuillEditorChange
+
+`useQuillEditorChange` is the combination of `useQuillTextChange` and `useQuillSelectionChange`.
+
+The first argument of the callback function is the type of the change. It could be `text-change` or `selection-change`.
+
+```tsx
+useQuillEditorChange((type: EditorChangeType, ...args) => {
+  console.log(type, ...args);
+  // TODO: update the state
+});
+```
+
+<Callout>
+  The function is wrapped to be persistent. So you don't need to use with `useCallback`.
+</Callout>
 
 ### useQuillTextChange
 
+This hook is used to detect when the user's text changes.
+
+```tsx
+useQuillTextChange((delta: Delta, oldDelta: Delta, source: EmitterSource) => {
+  console.log(delta, oldDelta, source);
+  // TODO: update the state
+});
+```
+
+<Callout>
+  The function is wrapped to be persistent. So you don't need to use with `useCallback`.
+</Callout>
+
 ### useQuillSelectionChange
+
+This hook is used to detect when the user's selection changes.
+
+```tsx
+useQuillSelectionChange((range: Range, oldRange: Range, source: EmitterSource) => {
+  console.log(range, oldRange, source);
+  // TODO: update the state
+});
+```
+
+<Callout>
+  The function is wrapped to be persistent. So you don't need to use with `useCallback`.
+</Callout>
 
 ### useQuillArrowIndex
 
+TODO
+
 ### useQuillKeyboardBinding
 
-
-
+TODO
