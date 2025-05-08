@@ -20,7 +20,7 @@ import Clipboard from './modules/clipboard.js';
 import History from './modules/history.js';
 import Keyboard from './modules/keyboard.js';
 import Uploader from './modules/uploader.js';
-import Delta, { Op, OpIterator, AttributeMap } from 'quill-delta';
+import Delta, { Op, OpIterator, AttributeMap } from 'quill-delta-es';
 import Input from './modules/input.js';
 import UINode from './modules/uiNode.js';
 

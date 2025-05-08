@@ -1,6 +1,6 @@
 {
   "name": "quill-next",
-  "version": "2.0.4-alpha.2",
+  "version": "2.0.4-alpha.3",
   "description": "Your powerful, rich text editor",
   "author": "Vincent Chan <okcdz@diverse.space>",
   "contributors": [
@@ -13,7 +13,7 @@
     "eventemitter3": "^5.0.1",
     "lodash-es": "^4.17.21",
     "parchment": "^3.0.0",
-    "quill-delta": "^5.1.0"
+    "quill-delta-es": "^5.2.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.9",

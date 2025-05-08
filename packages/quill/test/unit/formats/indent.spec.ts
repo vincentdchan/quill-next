@@ -1,4 +1,4 @@
-import Delta from 'quill-delta';
+import Delta from 'quill-delta-es';
 import {
   createScroll as baseCreateScroll,
   createRegistry,

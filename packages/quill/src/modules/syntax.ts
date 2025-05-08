@@ -1,4 +1,4 @@
-import Delta from 'quill-delta';
+import Delta from 'quill-delta-es';
 import { ClassAttributor, Scope } from 'parchment';
 import type { Blot, ScrollBlot } from 'parchment';
 import Inline from '../blots/inline.js';

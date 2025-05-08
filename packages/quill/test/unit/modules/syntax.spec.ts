@@ -1,5 +1,5 @@
 import hljs from 'highlight.js';
-import Delta from 'quill-delta';
+import Delta from 'quill-delta-es';
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 import Quill from '../../../src/core.js';
 import Bold from '../../../src/formats/bold.js';

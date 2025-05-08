@@ -1,4 +1,4 @@
-import Delta from 'quill-delta';
+import Delta from 'quill-delta-es';
 import Editor from '../../../src/core/editor.js';
 import {
   createScroll as baseCreateScroll,
