@@ -149,6 +149,20 @@ const quill = useQuill();
 
 ### useQuillFormats
 
+`useQuillFormats` is a highly useful hook when building a custom toolbar using the plugin system.  When
+Quill's selection changes, the formats of the selected text are returned through this hook. If no text is
+selected, `null` is returned.
+
+```tsx
+const formats = useQuillFormats();
+
+return (
+  <div className="toolbar">
+    <button className={classNames({ active: Boolean(formats?.bold) })}>Bold</button>
+  </div>
+);
+```
+
 ### useQuillInput
 
 ### useQuillEditorChange
