@@ -98,7 +98,7 @@ const MyBlot = useReactBlot({
 Here's a complete example of how to use the `useReactBlot` hook to create a custom callout blot:
 
 ```tsx
-import { useReactBlot } from 'quill-next-react';
+import { useReactBlot, QuillEditor } from 'quill-next-react';
 
 const CalloutBlot = useReactBlot({
   blotName: 'callout',
@@ -119,6 +119,18 @@ const CalloutBlot = useReactBlot({
     console.log('Callout blot attached to DOM');
   }
 });
+
+// Use the blot with QuillEditor
+function MyEditor() {
+  return (
+    <QuillEditor
+      blots={[CalloutBlot]}
+      config={{
+        theme: 'snow'
+      }}
+    />
+  );
+}
 ```
 
 ## Best Practices
@@ -134,4 +146,5 @@ const CalloutBlot = useReactBlot({
 - The hook must be used within a React component
 - The created blot will be automatically registered with Quill
 - Changes to the `render` function will automatically update the blot's appearance
-- The blot will be properly cleaned up when the component unmounts 
+- The blot will be properly cleaned up when the component unmounts
+- Make sure to import `QuillEditor` as a named import from 'quill-next-react' 
