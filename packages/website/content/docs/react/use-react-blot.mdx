@@ -1,0 +1,150 @@
+---
+title: useReactBlot Hook
+description: A React hook for creating custom blots in Quill editor with React components.
+---
+
+# useReactBlot Hook
+
+The `useReactBlot` hook allows you to create custom blots in Quill editor using React components. This makes it easier to create rich, interactive content blocks within your editor.
+
+## Props
+
+### `blotName` (Required)
+The unique name for your custom blot. This name will be used to identify your blot in the editor.
+
+```tsx
+const MyBlot = useReactBlot({
+  blotName: 'my-custom-blot',
+  // ... other props
+});
+```
+
+### `className` (Required)
+A CSS class name that Quill will use to identify and match your blot in the editor content. This class name must be unique and consistent.
+
+```tsx
+const MyBlot = useReactBlot({
+  className: 'my-custom-blot-class',
+  // ... other props
+});
+```
+
+### `render` (Required)
+A function that returns the React component to be rendered for your blot. This is where you define how your custom blot should look and behave.
+
+```tsx
+const MyBlot = useReactBlot({
+  render: () => (
+    <div className="my-custom-blot">
+      <h3>My Custom Content</h3>
+      <p>This is a custom blot rendered with React!</p>
+    </div>
+  ),
+  // ... other props
+});
+```
+
+### `scope` (Optional)
+Defines the scope of your blot. This determines how the blot behaves in relation to other content in the editor.
+
+```tsx
+const MyBlot = useReactBlot({
+  scope: BlotScope.BLOCK, // or BlotScope.INLINE
+  // ... other props
+});
+```
+
+### `tagName` (Optional)
+The HTML tag that will be used as the base element for your blot. If not specified, it defaults to 'div'.
+
+```tsx
+const MyBlot = useReactBlot({
+  tagName: 'section',
+  // ... other props
+});
+```
+
+### `create` (Optional)
+A function that creates the initial DOM element for your blot. This is useful when you need custom initialization logic.
+
+```tsx
+const MyBlot = useReactBlot({
+  create: (value) => {
+    const node = document.createElement('div');
+    node.setAttribute('data-custom-value', value);
+    return node;
+  },
+  // ... other props
+});
+```
+
+### `onAttach` (Optional)
+A callback function that runs when your blot is attached to the DOM. This is useful for setting up any necessary event listeners or initializations.
+
+```tsx
+const MyBlot = useReactBlot({
+  onAttach: (domNode) => {
+    // Set up event listeners
+    domNode.addEventListener('click', handleClick);
+    // Initialize any third-party libraries
+    initializeLibrary(domNode);
+  },
+  // ... other props
+});
+```
+
+## Example Usage
+
+Here's a complete example of how to use the `useReactBlot` hook to create a custom callout blot:
+
+```tsx
+import { useReactBlot, QuillEditor } from 'quill-next-react';
+
+const CalloutBlot = useReactBlot({
+  blotName: 'callout',
+  className: 'ql-callout',
+  tagName: 'div',
+  scope: BlotScope.BLOCK,
+  render: () => (
+    <div className="callout-container">
+      <div className="callout-icon">💡</div>
+      <div className="callout-content">
+        <h4>Important Note</h4>
+        <p>This is a custom callout block created with React!</p>
+      </div>
+    </div>
+  ),
+  onAttach: (node) => {
+    // Add any initialization logic here
+    console.log('Callout blot attached to DOM');
+  }
+});
+
+// Use the blot with QuillEditor
+function MyEditor() {
+  return (
+    <QuillEditor
+      blots={[CalloutBlot]}
+      config={{
+        theme: 'snow'
+      }}
+    />
+  );
+}
+```
+
+## Best Practices
+
+1. Always provide a unique `blotName` and `className` to avoid conflicts with other blots
+2. Use the `scope` prop to properly define how your blot should behave in the editor
+3. Keep your `render` function focused on the presentation of your blot
+4. Use `onAttach` for any DOM-related setup that can't be handled in React
+5. Consider using TypeScript for better type safety and developer experience
+
+## Notes
+
+- The hook must be used within a React component
+- The created blot will be automatically registered with Quill
+- Changes to the `render` function will automatically update the blot's appearance
+- The blot will be properly cleaned up when the component unmounts
+- Make sure to import `QuillEditor` as a named import from 'quill-next-react' 

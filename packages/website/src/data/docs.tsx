@@ -16,6 +16,20 @@ const items = [
     url: '/docs/configuration',
   },
   {
+    title: 'Plugins',
+    url: '/docs/plugins/plugins',
+    children: [
+      {
+        title: 'Builtin Plugins',
+        url: '/docs/plugins/builtin-plugins',
+      },
+    ],
+  },
+  {
+    title: 'Hooks',
+    url: '/docs/hooks',
+  },
+  {
     title: 'Formats',
     url: '/docs/formats',
   },
@@ -62,8 +76,8 @@ const items = [
     url: '/docs/modules',
     children: [
       {
-        title: 'Toolbar',
-        url: '/docs/modules/toolbar',
+        title: 'Legacy Toolbar',
+        url: '/docs/modules/legacy-toolbar',
       },
       {
         title: 'Keyboard',

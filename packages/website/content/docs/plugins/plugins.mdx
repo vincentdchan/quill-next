@@ -1,0 +1,185 @@
+---
+title: Plugins
+---
+
+Quill Next is built with a plugin system that allows you to extend the editor's functionality.
+
+You can place the plugins as the children of the `QuillEditor` component.
+
+```tsx
+<QuillEditor>
+  {/* Your plugins */}
+</QuillEditor>
+```
+
+For example, you can use the `NotionToolbarPlugin` to add a toolbar to the editor.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+import { NotionToolbarPlugin } from "quill-next-react/notion-like";
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello World")}
+      config={{ theme: "next"}}
+    >
+      <NotionToolbarPlugin />
+    </QuillEditor>
+  )
+}`
+  }}
+/>
+
+Quill Next provides a suite of utilities to help you create your own plugins, and also offers a set of
+built-in plugins for learning and understanding the hooks. These built-in plugins are styled after Notion and
+are located under the `quill-next-react/notion-like` namespace.
+
+You are free to ignore them and build your
+plugins entirely from scratch.
+
+## How to create a plugin
+
+The principle of the plugin system is to leverage the power of React.
+A plugin is a React component as the children of the `QuillEditor` component.
+
+The plugin can render elements, or only provide some hooks to extend the editor's behavior.
+
+
+```tsx
+const MyPlugin = () => {
+  return <div>My Plugin</div>
+}
+
+<QuillEditor>
+  <MyPlugin />
+</QuillEditor>
+```
+
+### Use hooks to extend the editor's behavior
+
+You can use the hooks provided by the `quill-next-react` package to extend the editor's behavior.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { useEffect } from 'react'
+import { QuillEditor, useQuill } from 'quill-next-react'
+
+const MyPlugin = () => {
+  const quill = useQuill();
+  
+  useEffect(() => {
+    quill.setContents([
+      {
+        insert: 'This is a plugin',
+      },
+    ]);
+  }, [quill]);
+}
+
+export default function App() {
+  return (
+    <QuillEditor>
+      <MyPlugin />
+    </QuillEditor>
+  );
+}
+    `
+  }}
+/>
+
+### Example: Notion-like Toolbar
+
+The implementation of the Notion-like toolbar is very simple.
+It uses the `ToolbarPlugin` and the `NotionToolbar` component.
+
+In the implementation of the `NotionToolbar` component, we can easily
+access the quill instance with the `useQuill` hook.
+
+When the style button is clicked, we can use the `quill.format` method to
+format the text.
+
+```tsx
+interface INotionToolbarProps {
+  formats: Record<string, unknown>;  // receive the formats of the selected text
+}
+
+const DISABLE_FORMATS: string[] = [
+  "code-block",
+];
+
+function NotionToolbar(props: INotionToolbarProps) {
+  const quill = useQuill();  // Access the quill instance
+  const { formats } = props;
+
+  const disableSet = useMemo(() => {
+    return new Set(DISABLE_FORMATS);
+  }, [DISABLE_FORMATS]);
+
+  const isDisabled = Object.keys(formats).some((format) => disableSet.has(format));
+  if (isDisabled) {
+    return null;
+  }
+
+  return (
+    <div className="qn-notion-toolbar-container" css={notionToolbarContainer}>
+      <NotionToolbarButton
+        onClick={() => quill.format("bold", !formats["bold"])}
+        active={!!formats["bold"]}
+        svg={BoldSvg}
+      />
+      <NotionToolbarButton
+        onClick={() => quill.format("italic", !formats["italic"])}
+        active={!!formats["italic"]}
+        svg={ItalicSvg}
+      />
+      <NotionToolbarButton
+        onClick={() => quill.format("underline", !formats["underline"])}
+        active={!!formats["underline"]}
+        svg={UnderlineSvg}
+      />
+      <NotionToolbarButton
+        onClick={() => quill.format("strike", !formats["strike"])}
+        active={!!formats["strike"]}
+        svg={StrikeSvg}
+      />
+    </div>
+  )
+}
+
+function NotionToolbarPlugin(props: INotionToolbarPluginProps) {
+  return <ToolbarPlugin {...props}
+    render={({ formats }) => (
+      <NotionToolbar formats={formats} />
+    )}
+  />;
+}
+```
+
+### Demo
+
+Try to select some text and see the toolbar.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+import { NotionToolbarPlugin } from "quill-next-react/notion-like";
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello World")}
+      config={{ theme: "next"}}
+    >
+      <NotionToolbarPlugin />
+    </QuillEditor>
+  )
+}`
+  }}
+/>

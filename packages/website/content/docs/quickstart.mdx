@@ -20,12 +20,10 @@ import { QuillEditor } from 'quill-next-react';
 
 export default function App() {
   return (
-    <div>
-      <QuillEditor
-        defaultValue={new Delta().insert("Hello world")}
-        config={{ theme: "next"}}
-      />
-    </div>
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello world")}
+      config={{ theme: "next"}}
+    />
   )
 }`
   }}

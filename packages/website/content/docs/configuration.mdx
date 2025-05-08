@@ -112,6 +112,11 @@ Type: `BlotConstructor[]` Optional: `true`
 
 Custom blot constructors to be registered with the editor. Blots are the building blocks of Quill's content model and can be used to create custom formatting or content types.
 
+In the following example, we register a custom blot constructor for the `Link` blot.
+We pass the blot constructor to the `blots` prop of the `QuillEditor` component.
+
+Now you can hover over the link and see the toolbar.
+
 <SandpackWithReact
   files={{
     "/App.js": `
@@ -134,6 +139,8 @@ export default function App() {
 }`
   }}
 />
+
+You can define your own blots by extending blots from `parchment`.
 
 ### children
 

@@ -1,7 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { withoutSSR } from './NoSSR';
 
-const QuillEditor = lazy(() => import("quill-next-react"));
+const QuillEditor = lazy(async () => {
+  const { QuillEditor } = await import("quill-next-react");
+  return { default: QuillEditor };
+});
 
 const Editor = ({
   children,

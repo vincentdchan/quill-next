@@ -32,14 +32,20 @@ Cross platform support is important to many JavaScript libraries, but the criter
 
 All of these benefits come in an easy to use package. Quill ships with sane defaults you can immediately use with just a few lines of JavaScript:
 
-<SandpackWithQuillTemplate
+<SandpackWithReact
   files={{
-    'index.js': `
-const quill = new Quill('#editor', {
-  modules: { toolbar: true },
-  theme: 'snow'
-});
-`
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello world")}
+      config={{ theme: "next"}}
+    />
+  )
+}`
   }}
 />
 
