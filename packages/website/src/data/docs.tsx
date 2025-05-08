@@ -76,8 +76,8 @@ const items = [
     url: '/docs/modules',
     children: [
       {
-        title: 'Toolbar',
-        url: '/docs/modules/toolbar',
+        title: 'Legacy Toolbar',
+        url: '/docs/modules/legacy-toolbar',
       },
       {
         title: 'Keyboard',
