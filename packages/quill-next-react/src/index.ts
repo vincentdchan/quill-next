@@ -36,9 +36,9 @@ export {
   useQuillSelectionChange,
   type SelectionChangeHandler,
   useQuillArrowIndex,
+  useQuillKeyboardBinding,
   useNextImageBlot,
   useNextLinkBlot,
-  useQuillKeyboardBinding,
   QuillNextImage,
 
   type IToolbarPluginProps,

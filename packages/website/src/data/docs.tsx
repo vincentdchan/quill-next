@@ -26,6 +26,10 @@ const items = [
     ],
   },
   {
+    title: 'Hooks',
+    url: '/docs/hooks',
+  },
+  {
     title: 'Formats',
     url: '/docs/formats',
   },
