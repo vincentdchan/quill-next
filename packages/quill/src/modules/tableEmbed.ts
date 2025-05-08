@@ -1,5 +1,5 @@
-import Delta, { OpIterator } from 'quill-delta';
-import type { Op, AttributeMap } from 'quill-delta';
+import Delta, { OpIterator } from 'quill-delta-es';
+import type { Op, AttributeMap } from 'quill-delta-es';
 import Module from '../core/module.js';
 
 export type CellData = {

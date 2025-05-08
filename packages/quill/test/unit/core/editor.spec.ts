@@ -1,4 +1,4 @@
-import Delta from 'quill-delta';
+import Delta from 'quill-delta-es';
 import Editor from '../../../src/core/editor.js';
 import Block from '../../../src/blots/block.js';
 import { Range } from '../../../src/core/selection.js';
