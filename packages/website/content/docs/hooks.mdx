@@ -14,6 +14,124 @@ Conversely, hooks not starting with `useQuill` should be used before `QuillEdito
 
 ### useEmbedBlot
 
+`useEmbedBlot` is the most powerful hook, allowing us to easily extend Quill's embed content with React
+components. With this hook, you can readily implement features like mentions.
+
+```tsx
+import { useEmbedBlot } from "quill-next-react";
+
+const MyEditor = () => {
+  const MentionBlot = useEmbedBlot({
+    blotName: "mention",
+    tagName: "SPAN",
+    className: "qn-mention",
+    render: (options: IRenderOptions) => {
+      return <Mention value={options.value as string} />;
+    },
+    onAttach: (domNode: HTMLElement) => {
+      domNode.style.whiteSpace = "pre-wrap";
+      domNode.style.wordBreak = "break-word";
+    }
+  });
+  return (
+    <QuillEditor blots={[MentionBlot]}>
+    </QuillEditor>
+  )
+}
+```
+
+#### blotName
+
+Required: `true`
+
+The unique name for your custom blot. This name will be used to identify your blot in the editor.
+
+```tsx
+const MyBlot = useEmbedBlot({
+  blotName: 'my-custom-blot',
+  // ... other props
+});
+```
+
+#### className
+
+Required: `true`
+
+A CSS class name that Quill will use to identify and match your blot in the editor content.
+This class name must be unique and consistent.
+Quill will use this class name to find the blot in the editor content.
+
+```tsx
+const MyBlot = useEmbedBlot({
+  className: 'my-custom-blot-class',
+  // ... other props
+});
+```
+
+#### render
+
+Required: `true`
+
+A function that returns the React component to be rendered for your blot. This is where you define how your custom blot should look and behave.
+
+```tsx
+const MyBlot = useEmbedBlot({
+  render: () => (
+    <div className="my-custom-blot">
+      <h3>My Custom Content</h3>
+      <p>This is a custom blot rendered with React!</p>
+    </div>
+  ),
+  // ... other props
+});
+```
+
+#### scope
+
+Required: `false`
+
+Defines the scope of your blot. This determines how the blot behaves in relation to other content in the editor.
+
+```tsx
+const MyBlot = useEmbedBlot({
+  scope: BlotScope.BLOCK, // or BlotScope.INLINE
+  // ... other props
+});
+```
+
+#### create
+
+Required: `false`
+
+A function that creates the initial DOM element for your blot. This is useful when you need custom initialization logic.
+
+```tsx
+const MyBlot = useEmbedBlot({
+  create: (value) => {
+    const node = document.createElement('div');
+    node.setAttribute('data-custom-value', value);
+    return node;
+  },
+  // ... other props
+});
+```
+
+#### onAttach
+
+Required: `false`
+
+A callback function that runs when your blot is attached to the DOM. This is useful for setting up any necessary event listeners or initializations.
+
+```tsx
+const MyBlot = useEmbedBlot({
+  onAttach: (domNode) => {
+    // Initialize any third-party libraries
+    initializeLibrary(domNode);
+  },
+  // ... other props
+});
+```
+
 ### useNextLinkBlot
 
 ### useNextImageBlot
@@ -21,6 +139,13 @@ Conversely, hooks not starting with `useQuill` should be used before `QuillEdito
 ## Plugin Hooks
 
 ### useQuill
+
+This hook is the most common hook in the plugin system.
+It provides access to the quill instance and the quill editor.
+
+```tsx
+const quill = useQuill();
+```
 
 ### useQuillFormats
 
