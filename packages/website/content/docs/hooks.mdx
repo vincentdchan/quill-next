@@ -134,6 +134,34 @@ const MyBlot = useEmbedBlot({
 
 ### useNextLinkBlot
 
+`useNextLinkBlot` is a great example of how Quill Next uses the hook mechanism to extend Quill's
+functionality. `useNextLinkBlot` is designed to be used in conjunction with the `NotionLinkToolbarPlugin`.
+`useNextLinkBlot` returns a Blot type that overrides Quill's native Link, while the `NotionLinkToolbarPlugin`
+is responsible for displaying a toolbar when the mouse hovers over a link.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor, useNextLinkBlot } from 'quill-next-react';
+import { NotionLinkToolbarPlugin, NotionToolbarPlugin } from "quill-next-react/notion-like";
+
+export default function App() {
+  const LinkBlot = useNextLinkBlot();
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello ").insert("Google", { link: "https://www.google.com" })}
+      blots={[LinkBlot]}
+      config={{ theme: "next"}}
+    >
+      <NotionToolbarPlugin />
+      <NotionLinkToolbarPlugin />
+    </QuillEditor>
+  )
+}`
+  }}
+/>
+
 ### useNextImageBlot
 
 ## Plugin Hooks
