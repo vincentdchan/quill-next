@@ -4,3 +4,52 @@ title: Builtin Plugins
 
 Quill Next comes with a set of built-in plugins that are ready to use.
 
+## Toolbar Plugin
+
+The `ToolbarPlugin` is a plugin that renders a toolbar at the top of the selected
+text.
+You can use it to render a custom toolbar or use the built-in Notion-like toolbar.
+
+### Usage
+
+This plugin uses the `render` prop to render a custom toolbar.
+The parameters are:
+
+- `bounds`: The bounds of the selected text.
+- `formats`: The formats of the selected text.
+
+### Example
+
+```tsx
+<ToolbarPlugin
+  render={({ bounds, formats }) => {
+    return <div>Toolbar</div>;
+  }}
+/>
+```
+
+### Notion-like Toolbar
+
+#### Demo
+
+Try to select some text and see the toolbar.
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+import { NotionToolbarPlugin } from "quill-next-react/notion-like";
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello World")}
+      config={{ theme: "next"}}
+    >
+      <NotionToolbarPlugin />
+    </QuillEditor>
+  )
+}`
+  }}
+/>
