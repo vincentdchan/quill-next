@@ -6,10 +6,32 @@ Quill Next comes ready to use in several convenient forms.
 
 ## npm
 
+### React
+
+The react integration is the recommended way to use Quill Next.
+You can still use the vanilla API if you prefer.
+
+```bash
+npm install quill-next quill-next-react
+```
+
+```js
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello world")}
+      config={{ theme: "next"}}
+    />
+  )
+}
+```
+
 ### Vanilla
 
-If your project uses bundlers such as [Webpack](https://webpack.js.org/) or [Vite](https://vitejs.dev/),
-it's recommended to install Quill Next via [npm](https://www.npmjs.com/).
+If you don't use React, you can still use Quill Next with the vanilla API.
 
 ```bash
 npm install quill-next@{{site.version}}
@@ -41,27 +63,6 @@ import { Delta } from 'quill-next';
 ```js
 import "quill-next/dist/quill.core.css";
 ```
-
-### React
-
-```bash
-npm install quill-next-react
-```
-
-```js
-import { Delta } from 'quill-next'
-import { QuillEditor } from 'quill-next-react';
-
-export default function App() {
-  return (
-    <QuillEditor
-      defaultValue={new Delta().insert("Hello world")}
-      config={{ theme: "next"}}
-    />
-  )
-}
-```
-
 
 ## CDN
 
