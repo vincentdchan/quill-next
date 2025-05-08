@@ -45,57 +45,49 @@ const PostLayout = ({ title, pageType, filePath, permalink, children }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <Layout title={title}>
+    <Layout title={title} showFooter={false}>
       <div id="docs-wrapper" className="container">
-        <div className="row">
-          <div
-            id="sidebar-container"
-            className={classNames('three', 'columns', {
-              active: isNavOpen,
-            })}
+        <div
+          id="sidebar-container"
+          className={classNames('three', 'columns', {
+            active: isNavOpen,
+          })}
+        >
+          <button
+            className="sidebar-button"
+            onClick={() => {
+              setIsNavOpen(!isNavOpen);
+            }}
           >
-            <button
-              className="sidebar-button"
-              onClick={() => {
-                setIsNavOpen(!isNavOpen);
-              }}
-            >
-              Document Navigation
-            </button>
-            <ul className="sidebar-list">
-              {docsItems.map((item) => (
-                <SidebarItem key={item.url} item={item} />
-              ))}
-            </ul>
-          </div>
-          <div id="docs-container" className="nine columns">
-            <div className={classNames('row', styles.breadcrumbRow)}>
-              <div className={styles.breadcrumb}>
-                <span>Documentation</span>
-                <span>{title}</span>
-              </div>
-              <div className={styles.editOnGitHub}>
-                <a
-                  href={process.env.github + filePath}
-                  target="_blank"
-                  title="Edit on GitHub"
-                >
-                  Edit page on GitHub ↗
-                </a>
-              </div>
+            Document Navigation
+          </button>
+          <ul className="sidebar-list">
+            {docsItems.map((item) => (
+              <SidebarItem key={item.url} item={item} />
+            ))}
+          </ul>
+        </div>
+        <div id="docs-container" className="nine columns">
+          <div className={classNames('row', styles.breadcrumbRow)}>
+            <div className={styles.breadcrumb}>
+              <span>Documentation</span>
+              <span>{title}</span>
             </div>
-            <article id="content-container" className={styles.content}>
-              <h1 id={slug(title)}>{title}</h1>
-              {children}
-            </article>
+            <div className={styles.editOnGitHub}>
+              <a
+                href={process.env.github + filePath}
+                target="_blank"
+                title="Edit on GitHub"
+              >
+                Edit page on GitHub ↗
+              </a>
+            </div>
           </div>
+          <article id="content-container" className={styles.content}>
+            <h1 id={slug(title)}>{title}</h1>
+            {children}
+          </article>
         </div>
-
-        <div className="row">
-          <hr />
-        </div>
-
-        <OpenSource />
       </div>
     </Layout>
   );

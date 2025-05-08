@@ -11,20 +11,22 @@ const jost = Jost({
   subsets: ['latin'],
 });
 
-const Layout = ({ children, title }) => {
+const Layout = ({ children, title, showFooter = true }) => {
   return (
     <>
       <SEO title={title} />
       <Header />
       {children}
-      <footer>
+      {showFooter && (
+        <footer>
         <div className="container">
           <div className="logo row">
             <LogoIcon />
           </div>
-          <h1 className={jost.className}>Your powerful and extensible rich text editor.</h1>
-        </div>
-      </footer>
+            <h1 className={jost.className}>Your powerful and extensible rich text editor.</h1>
+          </div>
+        </footer>
+      )}
     </>
   );
 };
