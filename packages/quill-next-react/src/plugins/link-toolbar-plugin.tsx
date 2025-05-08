@@ -3,7 +3,7 @@ import { takeUntil, timer } from "rxjs";
 import { Link } from "quill-next";
 import { useQuill } from "../hooks/use-quill";
 import { useQuillEvent } from "../hooks/use-quill-event";
-import { RectAnchor } from "../components/rect-anchor.component";
+import { PortalRectAnchor } from "../components/rect-anchor.component";
 import { messages } from "../messages";
 import { useDispose } from "../hooks/use-dispose";
 import { useQuillEditorChange } from "../hooks/use-quill-editor-change";
@@ -110,7 +110,7 @@ function LinkToolbarPlugin(props: ILinkToolbarPluginProps) {
   }, []);
 
   return (
-    <RectAnchor
+    <PortalRectAnchor
       parentElement={parentSelector}
       verticalPadding={verticalPadding}
       bounds={linkRect}

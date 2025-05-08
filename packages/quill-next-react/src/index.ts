@@ -20,7 +20,7 @@ import { useQuillKeyboardBinding } from "./hooks/use-quill-keyboard-binding";
 import { QuillNextImage, useNextImageBlot } from "./components/quill-next-image.component";
 import { IToolbarPluginProps, ToolbarPlugin } from "./plugins/toolbar-plugin";
 import { LinkToolbarPlugin } from "./plugins/link-toolbar-plugin";
-import { RectAnchor, RectAnchorProps } from "./components/rect-anchor.component";
+import { PortalRectAnchor, type RectAnchorProps, InlineRectAnchor } from "./components/rect-anchor.component";
 
 export {
   QuillEditor,
@@ -44,7 +44,8 @@ export {
   type IToolbarPluginProps,
   ToolbarPlugin,
   LinkToolbarPlugin,
-  RectAnchor,
+  PortalRectAnchor,
+  InlineRectAnchor,
   type RectAnchorProps,
 
   type EditorChangeHandler,

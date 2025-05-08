@@ -9,10 +9,14 @@ import {
 } from "rxjs";
 import Quill, { Bounds } from "quill-next";
 import { useQuill } from "../hooks/use-quill";
-import { RectAnchor } from "../components/rect-anchor.component";
+import { PortalRectAnchor } from "../components/rect-anchor.component";
 import { useQuillFormats } from "../hooks/use-quill-formats";
+import { useToolbarSignal } from "../hooks/use-toolbar-signal";
+import { ToolbarSignal } from "../classes/toolbar-signal.class";
+import { getBoundsFromQuill, limitBoundsInRect } from "../utils/bounds";
 
 export interface IToolbarRenderProps {
+  toolbarSignal: ToolbarSignal;
   bounds: Bounds;
   formats: Record<string, unknown>;
 }
@@ -23,30 +27,10 @@ export interface IToolbarPluginProps {
   render: (props: IToolbarRenderProps) => React.ReactNode;
 }
 
-function limitBoundsInRect(bounds: Bounds, rect: Bounds): Bounds | null {
-  const top = Math.max(bounds.top, rect.top);
-
-  if (top > rect.bottom) {
-    return null;
-  }
-
-  if (bounds.bottom < rect.top) {
-    return null;
-  }
-
-  return {
-    left: Math.max(bounds.left, rect.left),
-    right: Math.min(bounds.right, rect.right),
-    top,
-    bottom: Math.min(bounds.bottom, rect.bottom),
-    width: Math.min(bounds.width, rect.width),
-    height: Math.min(bounds.height, rect.height),
-  };
-}
-
 function ToolbarPlugin(props: IToolbarPluginProps) {
   const { parentSelector, verticalPadding } = props;
   const quill = useQuill();
+  const toolbarSignal = useToolbarSignal();
   const formats = useQuillFormats();
   const [bounds, setBounds] = useState<Bounds | null>(null);
 
@@ -86,6 +70,9 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
         takeUntil(dispose$)
       )
       .subscribe(() => {
+        if (toolbarSignal.isKeepingOpen) {
+          return;
+        }
         setBounds(null);
       });
 
@@ -104,28 +91,10 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
         if (isMouseDown) {
           return;
         }
-        const range = quill.getSelection(false);
-        if (!range || range.length === 0) {
-          return;
-        }
 
-        const lines = quill.getLines(range.index, range.length);
-        if (lines.length === 1) {
-          const bounds = quill.selection.getBounds(range.index, range.length);
-          if (bounds != null) {
-            position(bounds);
-          }
-        } else {
-          const lastLine = lines[lines.length - 1];
-          const index = quill.getIndex(lastLine);
-          const length = Math.min(
-            lastLine.length() - 1,
-            range.index + range.length - index
-          );
-          const indexBounds = quill.selection.getBounds(index, length);
-          if (indexBounds != null) {
-            position(indexBounds);
-          }
+        const bounds = getBoundsFromQuill(quill);
+        if (bounds) {
+          position(bounds);
         }
       });
 
@@ -136,12 +105,12 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
   }, [quill]);
 
   return (
-    <RectAnchor
+    <PortalRectAnchor
       parentElement={parentSelector}
       bounds={bounds}
       className="qn-toolbar-container"
       verticalPadding={verticalPadding}
-      render={() => props.render({ bounds, formats })}
+      render={() => props.render({ bounds, formats, toolbarSignal })}
     />
   );
 }

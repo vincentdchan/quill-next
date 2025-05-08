@@ -13,7 +13,7 @@ export interface RectAnchorProps {
   onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-function RectAnchor(props: RectAnchorProps) {
+function PortalRectAnchor(props: RectAnchorProps) {
   const {
     className,
     bounds,
@@ -102,6 +102,98 @@ function RectAnchor(props: RectAnchorProps) {
   );
 }
 
+PortalRectAnchor.displayName = "PortalRectAnchor";
+
+function InlineRectAnchor(props: RectAnchorProps) {
+  const {
+    className,
+    bounds,
+    parentElement,
+    verticalPadding = 12,
+    placement = "top",
+    render,
+    onMouseEnter,
+    onMouseLeave,
+  } = props;
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [parentRect, setParentRect] = useState<DOMRect | null>(null);
+  const [contentRect, setContentRect] = useState<DOMRect | null>(null);
+  const [isPrerendering, setIsPrerendering] = useState(true);
+
+  useLayoutEffect(() => {
+    let parentContainer: HTMLElement | null = null;
+
+    if (typeof parentElement === "string") {
+      parentContainer = document.querySelector(parentElement) as HTMLElement;
+    } else if (parentElement instanceof HTMLElement) {
+      parentContainer = parentElement;
+    } else {
+      parentContainer = document.body;
+    }
+
+    if (!parentContainer) {
+      console.warn("Parent container not found");
+      return;
+    }
+
+    const rect = parentContainer.getBoundingClientRect();
+    setParentRect(rect);
+
+    const resizeObserver = new ResizeObserver(() => {
+      requestAnimationFrame(() => {
+        const newRect = parentContainer.getBoundingClientRect();
+        setParentRect(newRect);
+      });
+    });
+    resizeObserver.observe(parentContainer);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [parentElement]);
+
+  useLayoutEffect(() => {
+    if (!isPrerendering || !bounds) {
+      return;
+    }
+    const rect = containerRef.current?.getBoundingClientRect() ?? null;
+    setContentRect(rect);
+    setIsPrerendering(false);
+
+  }, [bounds, isPrerendering]);
+
+  return (
+    <div className={className}>
+      {bounds && (
+        <div
+          ref={containerRef}
+          style={
+            isPrerendering || !contentRect
+              ? {
+                  position: "fixed",
+                  left: -1000,
+                  top: -1000,
+                }
+              : computeToolbarPosition(
+                  bounds,
+                  verticalPadding,
+                  placement,
+                  parentRect,
+                  contentRect
+                )
+          }
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          {render()}
+        </div>
+      )}
+    </div>
+  );
+}
+
+InlineRectAnchor.displayName = "InlineRectAnchor";
+
 function computeToolbarPosition(
   bounds: Bounds,
   verticalPadding: number,
@@ -138,6 +230,4 @@ function computeToolbarPosition(
   };
 }
 
-RectAnchor.displayName = "RectAnchor";
-
-export { RectAnchor };
+export { PortalRectAnchor, InlineRectAnchor };

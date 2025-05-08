@@ -1,16 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { QuillEditor, IQuillEditorProps } from "./editor.component";
 import { Delta } from "quill-next";
-import { useNextImageBlot } from "./components/quill-next-image.component";
 import { SlashCommandPlugin } from "./plugins/slash-command-plugin";
 import { CommandPlugin } from "./plugins/command-plugin";
-import { useNextLinkBlot } from "./hooks/use-next-link-blot";
 import {
-  NotionToolbarPlugin,
   NotionMenuList,
   NotionMenuItemHeader,
   NotionMenuItem,
-  NotionLinkToolbarPlugin,
+  NotionLikeQuillEditor,
 } from "./notion-like";
 
 interface CommandItem {
@@ -28,12 +25,8 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
     { key: "image", content: "Image" },
     { key: "canvas", content: "Canvas" },
   ];
-  const { blots = [] } = props;
-  const ImageBlot = useNextImageBlot();
-  const LinkBlot = useNextLinkBlot();
   return (
-    <QuillEditor {...props} blots={[...blots, ImageBlot, LinkBlot]}>
-      <NotionToolbarPlugin />
+    <NotionLikeQuillEditor {...props}>
       <SlashCommandPlugin
         length={slashCommands.length}
         render={({ selectedIndex, content, apply }) => (
@@ -69,8 +62,7 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
           </NotionMenuList>
         )}
       />
-      <NotionLinkToolbarPlugin />
-    </QuillEditor>
+    </NotionLikeQuillEditor>
   );
 }
 
