@@ -1,9 +1,10 @@
 import { NotionLinkToolbar, type INotionLinkToolbarProps } from "./components/notion-link-toolbar.component";
-import { NotionToolbar, type INotionToolbarProps } from "./components/notion-toolbar.component";
-import { NotionToolbarButton, type INotionToolbarButtonProps } from "./components/notion-toolbar-button.component";
+import { NotionToolbar, type INotionToolbarProps } from "./components/toolbar/notion-toolbar.component";
+import { NotionToolbarButton, type INotionToolbarButtonProps } from "./components/toolbar/notion-toolbar-button.component";
 import { NotionMenuList, NotionMenuItemHeader, NotionMenuItem } from "./components/notion-menu-list.component";
 import { NotionLinkToolbarPlugin } from "./plugins/notion-link-toolbar.plugin";
 import { NotionToolbarPlugin, type INotionToolbarPluginProps } from "./plugins/notion-toolbar-plugin";
+import { NotionLikeQuillEditor, type NotionLikeQuillEditorProps } from "./components/notion-like-quill-editor.component";
 
 export {
   NotionLinkToolbar,
@@ -19,4 +20,7 @@ export {
   NotionLinkToolbarPlugin,
   NotionToolbarPlugin,
   type INotionToolbarPluginProps,
+
+  NotionLikeQuillEditor,
+  type NotionLikeQuillEditorProps,
 };

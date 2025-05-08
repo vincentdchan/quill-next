@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useQuillInput, type IUseQuillInputResult } from "../hooks/use-quill-input";
-import { RectAnchor } from "../components/rect-anchor.component";
+import { PortalRectAnchor } from "../components/rect-anchor.component";
 import { Subject, fromEvent, takeUntil } from "rxjs";
 import { useQuill } from "../hooks/use-quill";
 import { useQuillArrowIndex } from "../hooks/use-quill-arrow-index";
@@ -77,7 +77,7 @@ function CommandPlugin(props: ICommandPluginProps) {
   }
 
   return (
-    <RectAnchor
+    <PortalRectAnchor
       className="qn-command-container"
       bounds={inputResult.bounds}
       placement="bottom"

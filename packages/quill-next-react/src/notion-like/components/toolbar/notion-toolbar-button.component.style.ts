@@ -9,7 +9,7 @@ export const notionToolbarButton = css({
   fill: "rgb(50, 48, 44)",
   borderRadius: "6px",
   height: "28px",
-  width: "28px",
+  // width: "28px",
   padding: "6px",
   boxSizing: "border-box",
   isolation: "isolate",

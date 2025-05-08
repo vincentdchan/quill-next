@@ -15,3 +15,14 @@ export const notionToolbarContainer = css({
   boxSizing: 'border-box',
   isolation: 'isolate'
 });
+
+export const notionLinkButton = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+
+  "& > svg": {
+    width: '16px',
+    height: '16px',
+  },
+});

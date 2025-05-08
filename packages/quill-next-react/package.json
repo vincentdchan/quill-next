@@ -1,6 +1,6 @@
 {
   "name": "quill-next-react",
-  "version": "1.0.2-alpha.1",
+  "version": "1.0.2-alpha.2",
   "author": "Vincent Chan <okcdz@diverse.space>",
   "repository": {
     "type": "git",
@@ -67,6 +67,7 @@
     "typescript": "^5.8.3",
     "vite": "^6.2.5",
     "vite-plugin-css-injected-by-js": "^3.5.2",
+    "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.1.1"
   }
 }
