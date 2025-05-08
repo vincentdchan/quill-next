@@ -20,7 +20,7 @@
 
 <hr/>
 
-**Quill Next** is a modern rich text editor built on the foundation of [Quill](https://quilljs.com/) by [Jason Chen](https://twitter.com/jhchen) and [Byron Milligan](https://twitter.com/byronmilligan). This fork is currently a personal project, aiming to keep Quill thriving and evolving.
+**Quill Next** is a modern rich text editor built on the foundation of [Quill](https://quilljs.com/). This fork is currently a personal project, aiming to keep Quill thriving and evolving.
 
 Project Goals
 -------------
@@ -34,7 +34,43 @@ Project Goals
 4. **Compatibility**: Quill Next will remain fully compatible with the original Quill's API and Delta data structures.
 
 
+## Key differences with Quill
+
+- **Delta ES**: Quill Next uses [Delta ES](https://github.com/vincentdchan/delta-es) as the Delta data structure, which is a fork of [Delta](https://github.com/quilljs/delta) with ES module. _You should not aware of this, unless you are a core developer of Quill_.
+  - Use `lodash-es` instead of `lodash` internally.
+  - This helps to reduce the bundle size. And be friendly to tree shaking.
+- **Destory method**: Quill Next adds a `destroy` method to the Quill object, which is used to destroy the editor and destroy all the modules. This helps to avoid memory leaks.
+
+```ts
+const quill = new Quill('#editor');
+quill.destroy();  // the modules are also destroyed
+```
+- Exports built-in modules as ES modules.
+  - Keyboard: `quill/modules/keyboard`
+
 ## Quickstart
+
+### React Quill
+
+```bash
+npm install quill-next quill-next-react
+```
+
+```tsx
+import { Delta } from 'quill-next'
+import { QuillEditor } from 'quill-next-react';
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={new Delta().insert("Hello world")}
+      config={{ theme: "next"}}
+    />
+  )
+}
+```
+
+### Vanilla Quill
 
 Instantiate a new Quill object with a css selector for the div that should become the editor.
 
