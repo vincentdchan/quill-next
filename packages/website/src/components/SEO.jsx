@@ -28,6 +28,7 @@ const SEO = ({ title, permalink }) => {
       <meta property="og:site_name" content="Quill" />
       <title>{pageTitle}</title>
       <meta name="description" content={process.env.description} />
+      <meta name="algolia-site-verification"  content="6DB5AC699A16F40C" />
     </Head>
   );
 };
