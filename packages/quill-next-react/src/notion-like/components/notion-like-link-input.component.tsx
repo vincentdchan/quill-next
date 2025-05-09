@@ -38,6 +38,9 @@ function NotionLikeLinkInputContent(props: NotionLikeLinkInputContentProps) {
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+
       const result = validateAndNormalizeUrlWithHttps(value);
       if (result.isValid) {
         setHasError(false);

@@ -7,7 +7,13 @@ import styles from "./DeltaPreview.module.scss";
 
 const defaultDelta = new Delta([
   {
-    insert: "Hello, world!",
+    insert: "Hello, world!\n",
+    attributes: {
+      bold: true,
+    },
+  },
+  {
+    insert: "Please type something to see the delta preview.",
   },
 ]);
 
@@ -27,7 +33,9 @@ function DeltaPreview() {
       <NotionLikeQuillEditor
         onReady={(quill) => {
           quillRef.current = quill;
-          handleTextChange();
+          setTimeout(() => {
+            handleTextChange();
+          }, 200);
         }}
         defaultValue={defaultDelta}
         onTextChange={handleTextChange}
@@ -36,36 +44,40 @@ function DeltaPreview() {
         }}
       >
       </NotionLikeQuillEditor>
-      <Highlight
-        code={content}
-        language="json"
-        theme={{
-          ...themes.vsDark,
-        }}
-      >
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={style}>
-            <code>
-              {tokens.map((line, i) =>
-                i === tokens.length - 1 &&
-                line[0].empty &&
-                line.length === 1 ? null : (
-                  <div key={i} {...getLineProps({ line, key: i })}>
-                    {line.map((token, key) => {
-                      const { myKey, ...rest } = getTokenProps({ token, key });
-                      return (
-                        <span key={key} {...rest} />
-                      );
-                    })}
-                  </div>
-                ),
-              )}
-            </code>
-          </pre>
-        )}
-      </Highlight>
+      <div className={styles.deltaHightlightContainer}>
+        <Highlight
+          code={content}
+          language="json"
+          theme={{
+            ...themes.vsDark,
+          }}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre className={className} style={style}>
+              <code>
+                {tokens.map((line, i) =>
+                  i === tokens.length - 1 &&
+                  line[0].empty &&
+                  line.length === 1 ? null : (
+                    <div key={i} {...getLineProps({ line, key: i })}>
+                      {line.map((token, key) => {
+                        const { myKey, ...rest } = getTokenProps({ token, key });
+                        return (
+                          <span key={key} {...rest} />
+                        );
+                      })}
+                    </div>
+                  ),
+                )}
+              </code>
+            </pre>
+          )}
+        </Highlight>
+      </div>
     </div>
   );
 }
+
+DeltaPreview.displayName = "DeltaPreview";
 
 export default DeltaPreview;
