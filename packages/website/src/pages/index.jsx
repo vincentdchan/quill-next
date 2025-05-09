@@ -97,6 +97,7 @@ const jost = Jost({
 });
 
 const EnhancedEditor = lazy(() => import('../components/EnhancedEditor'));
+const DeltaPreview = lazy(() => import('../components/DeltaPreview'));
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -199,22 +200,6 @@ const IndexPage = () => {
           </div>
 
           <div id="laptop-container" onClick={() => setIsDemoActive(true)}>
-            {/* <div id="camera-container">
-              {[0, 1, 2].map((index) => (
-                <div
-                  key={index}
-                  className={classNames('camera', {
-                    active: activeIndex === index,
-                  })}
-                  onClick={() => {
-                    setActiveIndex(index);
-                    setIsDemoActive(true);
-                  }}
-                >
-                  <div className="dot" />
-                </div>
-              ))}
-            </div> */}
             <NoSSR>
               <div id="demo-container">
                 <div
@@ -257,15 +242,13 @@ const IndexPage = () => {
               </Link>
             </div>
             <div className="columns">
-              <ScaleIcon />
+              <NoSSR>
+                <Suspense fallback={null}>
+                  <DeltaPreview />
+                </Suspense>
+              </NoSSR>
             </div>
           </div>
-
-          {/* <div id="github-wrapper">
-            <div id="github-container">
-              <GitHub />
-            </div>
-          </div> */}
 
           <hr />
 

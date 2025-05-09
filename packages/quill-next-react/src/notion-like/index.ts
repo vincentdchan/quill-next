@@ -21,6 +21,6 @@ export {
   NotionToolbarPlugin,
   type INotionToolbarPluginProps,
 
-  NotionLikeQuillEditor,
+  NotionLikeQuillEditor as default,
   type NotionLikeQuillEditorProps,
 };

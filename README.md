@@ -58,7 +58,7 @@ npm install quill-next quill-next-react
 
 ```tsx
 import { Delta } from 'quill-next'
-import { QuillEditor } from 'quill-next-react';
+import QuillEditor from 'quill-next-react';
 
 export default function App() {
   return (

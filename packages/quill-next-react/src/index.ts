@@ -23,7 +23,7 @@ import { LinkToolbarPlugin } from "./plugins/link-toolbar-plugin";
 import { PortalRectAnchor, type RectAnchorProps, InlineRectAnchor } from "./components/rect-anchor.component";
 
 export {
-  QuillEditor,
+  QuillEditor as default,
   QuillContext,
   ForkedRegistry,
   useEmbedBlot,
