@@ -11,10 +11,10 @@ module.exports = {
   highlightjs: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0',
   katex: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist',
   url: homepage,
-  title: 'Quill - Your powerful rich text editor',
-  shortTitle: 'Quill Rich Text Editor',
+  title: 'Quill Next - Your powerful and extensible rich text editor',
+  shortTitle: 'Quill Next Editor',
   description:
-    'Quill is a free, open source WYSIWYG editor built for the modern web. Completely customize it for any need with its modular architecture and expressive API.',
+    'Quill Next is a free, open source rich text editor built for the modern web. Completely customize it for any need with its modular architecture and expressive API.',
   shortDescription:
-    'Quill is a free, open source rich text editor built for the modern web.',
+    'Quill Next is a free, open source rich text editor built for the modern web.',
 };

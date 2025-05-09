@@ -8,7 +8,7 @@ const SEO = ({ title, permalink }) => {
 
   return (
     <Head>
-      <meta name="twitter:site" content="@quilljs" />
+      <meta name="twitter:site" content="@cdz_solo" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={process.env.shortDescription} />
       <meta
