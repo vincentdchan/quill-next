@@ -124,9 +124,9 @@ const Header = () => {
               <OctocatIcon />
             </a>
             <DocSearch
-              appId="ZTZN3V01SS"
-              indexName="quilljsdev"
-              apiKey="7e6ff70a985e6af9bfea77c780411b9a"
+              appId="DRO756VI60"
+              indexName="quill-next-diverse"
+              apiKey="8a84cb0c427dc920ba1814e8a8c4f8ef"
             />
           </nav>
           <button
