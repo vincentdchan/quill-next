@@ -99,8 +99,30 @@ const jost = Jost({
 const EnhancedEditor = lazy(() => import('../components/EnhancedEditor'));
 const DeltaPreview = lazy(() => import('../components/DeltaPreview'));
 const AnimatedBackground = lazy(() => import('../components/AnimatedBackground'));
+const SandpackWithReact = lazy(async() => {
+  const { SandpackWithReact } = await import('../components/Sandpack');
+  return { default: SandpackWithReact };
+});
 
 const inter = Inter({ subsets: ['latin'] })
+
+const quillMeetsReactCode = `
+import { Delta } from 'quill-next';
+import QuillEditor from 'quill-next-react';
+import { NotionToolbarPlugin } from "quill-next-react/notion-like";
+
+const defaultValue = new Delta().insert("Hello World! Select some text to see the toolbar.");
+
+export default function App() {
+  return (
+    <QuillEditor
+      defaultValue={defaultValue}
+    >
+      <NotionToolbarPlugin />
+    </QuillEditor>
+  );
+}
+`
 
 const IndexPage = () => {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -269,7 +291,15 @@ const IndexPage = () => {
               </Link>
             </div>
             <div className="columns">
-              <ScaleIcon />
+              <NoSSR>
+                <Suspense fallback={null}>
+                  <SandpackWithReact
+                    files={{
+                      "/App.js": quillMeetsReactCode
+                    }}
+                  />
+                </Suspense>
+              </NoSSR>
             </div>
           </div>
         </div>
