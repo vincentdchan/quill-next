@@ -22,7 +22,7 @@ The initial content of the editor. This should be a Quill Delta object that repr
   files={{
     "/App.js": `
 import { Delta } from 'quill-next'
-import { QuillEditor } from 'quill-next-react';
+import QuillEditor from 'quill-next-react';
 
 export default function App() {
   return (
@@ -121,7 +121,7 @@ Now you can hover over the link and see the toolbar.
   files={{
     "/App.js": `
 import { Delta } from 'quill-next'
-import { QuillEditor, useNextLinkBlot } from 'quill-next-react';
+import QuillEditor, { useNextLinkBlot } from 'quill-next-react';
 import { NotionLinkToolbarPlugin, NotionToolbarPlugin } from "quill-next-react/notion-like";
 
 export default function App() {

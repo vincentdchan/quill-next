@@ -240,7 +240,7 @@ importers:
         specifier: ^8.57.0
         version: 8.57.1
       quill-next:
-        specifier: workspace:2.0.4-alpha.3
+        specifier: workspace:2.0.4
         version: link:../quill
       react:
         specifier: ^18.2.0

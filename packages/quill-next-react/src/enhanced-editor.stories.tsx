@@ -3,11 +3,10 @@ import { QuillEditor, IQuillEditorProps } from "./editor.component";
 import { Delta } from "quill-next";
 import { SlashCommandPlugin } from "./plugins/slash-command-plugin";
 import { CommandPlugin } from "./plugins/command-plugin";
-import {
+import NotionLikeQuillEditor, {
   NotionMenuList,
   NotionMenuItemHeader,
   NotionMenuItem,
-  NotionLikeQuillEditor,
 } from "./notion-like";
 
 interface CommandItem {
