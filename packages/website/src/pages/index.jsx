@@ -66,8 +66,9 @@ const content = () => {
                 <h1>Quill Next Editor</h1>
                 <p><br></p>
                 <p>
-                  Quill Next is a fork of <a href="https://github.com/slab/quill/">Quill</a>.
-                  Created by <span class="qn-mention" data-value="Vincent Chan">Vincent Chan</span>
+                  <b>Quill Next</b> is a modern rich text editor built on the foundation of <a href="https://github.com/slab/quill/">Quill</a>.
+                  Created by <span class="qn-mention" data-value="Vincent Chan">Vincent Chan</span>.
+                  This fork is currently a personal project, aiming to keep Quill thriving and evolving.
                 </p>
                 <p><br></p>
                 <iframe class="ql-video ql-align-center" src="https://player.vimeo.com/video/253905163" width="500" height="280" allowfullscreen></iframe>
@@ -87,11 +88,6 @@ const content = () => {
 <span class="hljs-comment">// Open your browser's developer console to try out the API!</span>
 </pre>
                 <p><br></p>
-                <p><br></p>
-                <p class="ql-align-center"><strong>Built with</strong></p>
-                <p class="ql-align-center"><span class="ql-formula" data-value="x^2 + (y - \\sqrt[3]{x^2})^2 = 1"></span></p>
-                <p><br></p>
-
 `;
 };
 
