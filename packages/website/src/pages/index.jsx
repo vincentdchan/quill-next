@@ -98,6 +98,7 @@ const jost = Jost({
 
 const EnhancedEditor = lazy(() => import('../components/EnhancedEditor'));
 const DeltaPreview = lazy(() => import('../components/DeltaPreview'));
+const AnimatedBackground = lazy(() => import('../components/AnimatedBackground'));
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -227,6 +228,11 @@ const IndexPage = () => {
             </NoSSR>
           </div>
         </div>
+        <NoSSR>
+          <Suspense fallback={null}>
+            <AnimatedBackground className="animated-background" />
+          </Suspense>
+        </NoSSR>
       </div>
 
       <div id="features-container">

@@ -59,9 +59,12 @@ const components = {
                 line[0].empty &&
                 line.length === 1 ? null : (
                   <div key={i} {...getLineProps({ line, key: i })}>
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
+                    {line.map((token, key) => {
+                      const { myKey, ...rest } = getTokenProps({ token, key });
+                      return (
+                        <span key={myKey} {...rest} />
+                      );
+                    })}
                   </div>
                 ),
               )}

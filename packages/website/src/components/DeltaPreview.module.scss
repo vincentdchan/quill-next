@@ -1,0 +1,11 @@
+
+.deltaPreviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.deltaHightlightContainer {
+  max-height: 480px;
+  overflow-y: auto;
+}
