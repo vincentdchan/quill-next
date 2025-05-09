@@ -393,7 +393,7 @@ const ShadertoyReact = ({
   }, [fragmentShader, mouse]); // Re-trigger render loop setup if fragmentShader changes (though full re-init handles it)
 
   const handleMouseDown = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
+    // const rect = canvasRef.current?.getBoundingClientRect();
     const x = event.clientX; //  - rect.left; // Use clientX for broader consistency
     const y = event.clientY; //  - rect.top;
     setMouse(prev => ({ ...prev, x: x, y: y, clickX: x, clickY: y, isMouseDown: true }));
@@ -405,7 +405,7 @@ const ShadertoyReact = ({
 
   const handleMouseMove = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
     if (mouse.isMouseDown) {
-      const rect = canvasRef.current?.getBoundingClientRect();
+      // const rect = canvasRef.current?.getBoundingClientRect();
       const x = event.clientX; // - rect.left;
       const y = event.clientY; // - rect.top;
       setMouse(prev => ({ ...prev, x: x, y: y }));
