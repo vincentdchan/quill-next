@@ -10,7 +10,7 @@ export interface NotionLikeDropdownMenuProps {
   children?: React.ReactNode;
 }
 
-function NotionLikeDropdownMenu(props: NotionLikeDropdownMenuProps) {
+function NotionLikeDropdownMenu(props: NotionLikeDropdownMenuProps): React.ReactElement {
   const { children } = props;
   return (
     <div css={notionLikeDropdownMenuContainer}>
@@ -27,7 +27,7 @@ export interface NotionLikeDropdownMenuItemProps {
   children?: React.ReactNode;
 }
 
-function NotionLikeDropdownMenuItem(props: NotionLikeDropdownMenuItemProps) {
+function NotionLikeDropdownMenuItem(props: NotionLikeDropdownMenuItemProps): React.ReactElement {
   const { active, children, onClick } = props;
   return (
     <div

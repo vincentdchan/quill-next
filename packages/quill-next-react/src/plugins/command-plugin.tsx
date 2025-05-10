@@ -19,7 +19,7 @@ export interface ICommandPluginProps {
   render?: (options: ICommandRenderOptions) => React.ReactNode;
 }
 
-function CommandPlugin(props: ICommandPluginProps) {
+function CommandPlugin(props: ICommandPluginProps): React.ReactElement {
   const { trigger, length, render, onEnter } = props;
   const quill = useQuill();
   const inputResultRef = useRef<IUseQuillInputResult | null>(null);
@@ -66,7 +66,7 @@ function CommandPlugin(props: ICommandPluginProps) {
       }
     });
 
-    return () => {
+    return (): void => {
       dispose$.next();
       dispose$.complete();
     };

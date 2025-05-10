@@ -46,7 +46,7 @@ export function useEmbedBlot(
       static override scope: Scope = blotScope;
       static override className = className;
 
-      static override value(_domNode: Node) {
+      static override value(_domNode: Node): unknown {
         const domNode = _domNode as HTMLElement;
         const value = domNode.getAttribute("data-value");
         if (value) {
@@ -55,7 +55,7 @@ export function useEmbedBlot(
         return super.value(_domNode);
       }
 
-      static override create(value?: unknown) {
+      static override create(value?: unknown): HTMLElement {
         if (create) {
           return create(value) as HTMLElement;
         }
@@ -106,7 +106,7 @@ export function useEmbedBlot(
         this.render();
       }
 
-      render() {
+      render(): void {
         this.root.render(renderFuncRef.current({
           value: this.#value,
           attributes: this.#attributes,

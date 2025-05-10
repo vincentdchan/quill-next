@@ -1,3 +1,4 @@
+import React from 'react';
 import { Delta } from 'quill-next';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QuillEditor } from './editor.component';
@@ -27,7 +28,7 @@ export const Snow: Story = {
 
 export const Bubble: Story = {
   decorators: [
-    (Story) => (
+    (Story): React.ReactElement => (
       <div style={{ margin: '3em' }}>
         {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
         <Story />
@@ -47,7 +48,7 @@ export const Bubble: Story = {
 
 export const Next: Story = {
   decorators: [
-    (Story) => (
+    (Story): React.ReactElement => (
       <div style={{ margin: '3em' }}>
         {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
         <Story />

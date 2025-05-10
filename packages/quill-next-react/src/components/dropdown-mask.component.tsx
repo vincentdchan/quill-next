@@ -7,7 +7,7 @@ export interface IDropdownMaskProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-function DropdownMask(props: IDropdownMaskProps) {
+function DropdownMask(props: IDropdownMaskProps): React.ReactElement {
   const { children, className, onClick } = props;
 
   return (

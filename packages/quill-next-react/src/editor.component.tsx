@@ -28,7 +28,7 @@ export interface IQuillEditorProps {
   blots?: BlotConstructor[];
 }
 
-function makeQuillWithBlots(container: HTMLElement, options: QuillOptions, blots?: BlotConstructor[]) {
+function makeQuillWithBlots(container: HTMLElement, options: QuillOptions, blots?: BlotConstructor[]): Quill {
   const originalImports = Quill.imports;
   const newImports = {
     ...originalImports,
@@ -53,7 +53,7 @@ function makeQuillWithBlots(container: HTMLElement, options: QuillOptions, blots
 }
 
 async function loadTheme(theme: string): Promise<void> {
-  const insertTheme = (theme: string, content: string) => {
+  const insertTheme = (theme: string, content: string): void => {
     let styleElement: HTMLStyleElement | null = null;
     const existingStyleElement = document.head.querySelectorAll(`style[data-quill-theme="${theme}"]`);
     if (existingStyleElement.length > 0) {
@@ -79,7 +79,7 @@ async function loadTheme(theme: string): Promise<void> {
   }
 }
 
-const QuillEditor = (props: IQuillEditorProps) => {
+const QuillEditor = (props: IQuillEditorProps): React.ReactNode => {
   const {
     config,
     children,
@@ -119,7 +119,7 @@ const QuillEditor = (props: IQuillEditorProps) => {
         console.error('Error loading theme:', err);
       });
 
-    return () => {
+    return (): void => {
       cancel = true;
     }
   }, [config?.theme]);
@@ -156,7 +156,7 @@ const QuillEditor = (props: IQuillEditorProps) => {
       }
     }
 
-    return () => {
+    return (): void => {
       quill.destroy();
     }
   }, [themeLoaded]);

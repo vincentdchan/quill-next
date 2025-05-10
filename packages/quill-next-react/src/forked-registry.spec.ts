@@ -14,7 +14,7 @@ describe("ForkedRegistry", () => {
   it("register custom blot", () => {
     class CustomBlot extends BlockBlot {
       static blotName: string = "custom";
-      static create(value: string) {
+      static create(value: string): HTMLElement {
         const node = super.create(value);
         node.setAttribute("data-custom", value);
         return node;

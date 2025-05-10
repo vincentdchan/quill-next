@@ -28,7 +28,7 @@ const PARAGRAPH_OPTIONS: INotionLikeSelectOption[] = [
   { label: "Heading 3", key: "heading-3", value: { header: 3 } },
 ];
 
-function NotionToolbar(props: INotionToolbarProps) {
+function NotionToolbar(props: INotionToolbarProps): React.ReactElement {
   const quill = useQuill();
   const { formats, toolbarSignal } = props;
 

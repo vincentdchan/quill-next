@@ -1,7 +1,8 @@
+import React from "react";
 import { NotionLinkToolbar } from "../components/notion-link-toolbar.component";
 import { LinkToolbarPlugin } from "../../plugins/link-toolbar-plugin";
 
-function NotionLinkToolbarPlugin() {
+function NotionLinkToolbarPlugin(): React.ReactElement {
   return <LinkToolbarPlugin render={(props) => <NotionLinkToolbar {...props} />} />;
 }
 

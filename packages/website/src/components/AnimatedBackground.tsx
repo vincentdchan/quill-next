@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import ShadertoyReact from './ShadertoyReact';
 
 export interface AnimatedBackgroundProps {
@@ -44,7 +44,7 @@ void main() {
 }
 `;
 
-function AnimatedBackground({ className }: AnimatedBackgroundProps) {
+function AnimatedBackground({ className }: AnimatedBackgroundProps): React.ReactElement {
   const channel0 = useMemo(() => {
     const img = new Image();
     img.src = '/assets/images/channels/channel0.png';

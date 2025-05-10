@@ -8,7 +8,7 @@ export function useDispose(): Subject<void> {
   }
 
   useEffect(() => {
-    return () => {
+    return (): void => {
       dispose.current.next();
       dispose.current.complete();
     };

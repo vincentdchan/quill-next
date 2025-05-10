@@ -7,7 +7,7 @@ export interface INotionToolbarButtonProps {
   children?: React.ReactNode;
 }
 
-function NotionToolbarButton(props: INotionToolbarButtonProps) {
+function NotionToolbarButton(props: INotionToolbarButtonProps): React.ReactElement {
   const { children, onClick, active } = props;
   return (
     <div

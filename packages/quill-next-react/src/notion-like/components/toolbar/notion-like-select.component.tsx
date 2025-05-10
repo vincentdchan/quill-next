@@ -18,7 +18,7 @@ export interface INotionLikeSelectProps {
   onSelect?: (value: INotionLikeSelectOption) => void;
 }
 
-function NotionLikeSelect(props: INotionLikeSelectProps) {
+function NotionLikeSelect(props: INotionLikeSelectProps): React.ReactElement {
   const { value, options, onSelect } = props;
   const [showDropdown, setShowDropdown] = useState(false);
   const [bounds, setBounds] = useState<DOMRect | null>(null);

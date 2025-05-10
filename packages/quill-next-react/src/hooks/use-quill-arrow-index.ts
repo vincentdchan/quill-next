@@ -20,7 +20,7 @@ export function useQuillArrowIndex(length: number): [number, (index: number) => 
 
   const keyDownHandlerRef = useRef<(e: KeyboardEvent) => void | null>(null);
   keyDownHandlerRef.current = useMemo(() => {
-    return (e: KeyboardEvent) => {
+    return (e: KeyboardEvent): void => {
       if (length < 0) {
         return;
       }
@@ -45,12 +45,12 @@ export function useQuillArrowIndex(length: number): [number, (index: number) => 
   }, [length]);
 
   useEffect(() => {
-    const keydownHandler = (e: KeyboardEvent) => {
+    const keydownHandler = (e: KeyboardEvent): void => {
       keyDownHandlerRef.current?.(e);
     }
     quill.root.addEventListener("keydown", keydownHandler, { capture: true });
 
-    return () => {
+    return (): void => {
       quill.root.removeEventListener("keydown", keydownHandler, { capture: true });
     };
   }, [quill, keyDownHandlerRef]);
