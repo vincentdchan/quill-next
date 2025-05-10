@@ -4,6 +4,7 @@ import {
   notionLikeDropdownMenuItemContainer,
   notionLikeDropdownMenuItem,
 } from "./notion-like-dropdown-menu.style";
+import CheckMarkSvg from "./checkmark.svg?react";
 
 export interface NotionLikeDropdownMenuProps {
   children?: React.ReactNode;
@@ -21,12 +22,13 @@ function NotionLikeDropdownMenu(props: NotionLikeDropdownMenuProps) {
 NotionLikeDropdownMenu.displayName = "NotionLikeDropdownMenu";
 
 export interface NotionLikeDropdownMenuItemProps {
+  active?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   children?: React.ReactNode;
 }
 
 function NotionLikeDropdownMenuItem(props: NotionLikeDropdownMenuItemProps) {
-  const { children, onClick } = props;
+  const { active, children, onClick } = props;
   return (
     <div
       css={notionLikeDropdownMenuItemContainer}
@@ -34,6 +36,7 @@ function NotionLikeDropdownMenuItem(props: NotionLikeDropdownMenuItemProps) {
     >
       <div css={notionLikeDropdownMenuItem}>
         {children}
+        {active && <div className="checkmark"><CheckMarkSvg /></div>}
       </div>
     </div>
   )

@@ -36,4 +36,10 @@ export const notionLikeDropdownMenuItem = css({
   paddingLeft: "8px",
   paddingRight: "8px",
   fontFamily: "Inter, sans-serif",
+
+  ".checkmark": {
+    marginLeft: "auto",
+    minWidth: "0px",
+    flexShrink: 0,
+  },
 });

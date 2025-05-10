@@ -57,6 +57,7 @@ function NotionLikeSelect(props: INotionLikeSelectProps) {
                   {options.map((option) => (
                     <NotionLikeDropdownMenuItem
                       key={option.key}
+                      active={option.key === value.key}
                       onClick={() => {
                         onSelect?.(option);
                         setShowDropdown(false);
