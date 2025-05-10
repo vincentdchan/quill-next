@@ -9,6 +9,7 @@ import LinkSvg from "./link.svg?react";
 import ChevronDownSvg from "./chevron-down.svg?react";
 import { notionToolbarContainer, notionLinkButton } from "./notion-toolbar.component.style";
 import { NotionLikeLinkInput } from "../notion-like-link-input.component";
+import { NotionLikeSelect } from "./notion-like-select.component";
 import { ToolbarSignal } from "../../../classes/toolbar-signal.class";
 
 export interface INotionToolbarProps {
@@ -42,6 +43,7 @@ function NotionToolbar(props: INotionToolbarProps) {
   return (
     <>
       <div className="qn-notion-toolbar-container" css={notionToolbarContainer}>
+        <NotionLikeSelect />
         <NotionToolbarButton
           onClick={() => quill.format("bold", !formats["bold"])}
           active={!!formats["bold"]}

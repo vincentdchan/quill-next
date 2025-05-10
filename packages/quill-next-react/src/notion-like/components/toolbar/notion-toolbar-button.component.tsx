@@ -11,6 +11,8 @@ function NotionToolbarButton(props: INotionToolbarButtonProps) {
   const { children, onClick, active } = props;
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={"qn-notion-toolbar-button" + (active ? " active" : "")}
       css={notionToolbarButton}
       onClick={onClick}
