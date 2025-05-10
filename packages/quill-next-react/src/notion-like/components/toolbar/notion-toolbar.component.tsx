@@ -9,7 +9,7 @@ import LinkSvg from "./link.svg?react";
 import ChevronDownSvg from "./chevron-down.svg?react";
 import { notionToolbarContainer, notionLinkButton } from "./notion-toolbar.component.style";
 import { NotionLikeLinkInput } from "../notion-like-link-input.component";
-import { NotionLikeSelect } from "./notion-like-select.component";
+import { NotionLikeSelect, INotionLikeSelectOption } from "./notion-like-select.component";
 import { ToolbarSignal } from "../../../classes/toolbar-signal.class";
 
 export interface INotionToolbarProps {
@@ -19,6 +19,13 @@ export interface INotionToolbarProps {
 
 const DISABLE_FORMATS: string[] = [
   "code-block",
+];
+
+const PARAGRAPH_OPTIONS: INotionLikeSelectOption[] = [
+  { label: "Text", value: "text" },
+  { label: "Heading 1", value: "heading-1" },
+  { label: "Heading 2", value: "heading-2" },
+  { label: "Heading 3", value: "heading-3" },
 ];
 
 function NotionToolbar(props: INotionToolbarProps) {
@@ -43,7 +50,11 @@ function NotionToolbar(props: INotionToolbarProps) {
   return (
     <>
       <div className="qn-notion-toolbar-container" css={notionToolbarContainer}>
-        <NotionLikeSelect />
+        <NotionLikeSelect
+          options={PARAGRAPH_OPTIONS}
+          value={PARAGRAPH_OPTIONS[0]}
+          onChange={(value) => quill.format("paragraph", value)}
+        />
         <NotionToolbarButton
           onClick={() => quill.format("bold", !formats["bold"])}
           active={!!formats["bold"]}
