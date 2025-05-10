@@ -1,14 +1,5 @@
 import { css } from "@emotion/react";
 
-// global mask container
-export const notionLinkInputMask = css({
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-});
-
 export const notionLinkContentContainer = css({
   borderRadius: "10px",
   background: "white",

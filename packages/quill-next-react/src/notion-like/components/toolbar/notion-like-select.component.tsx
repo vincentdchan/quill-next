@@ -1,5 +1,8 @@
+import { useRef, useState, useCallback } from "react";
 import { notionLikeSelect } from "./notion-like-select.component.style";
 import ChevronDownSvg from "./chevron-down.svg?react";
+import { NotionLikeDropdownMenu } from "./notion-like-dropdown-menu";
+import { createPortal } from "react-dom";
 
 export interface INotionLikeSelectOption {
   label: string;
@@ -14,11 +17,27 @@ export interface INotionLikeSelectProps {
 
 function NotionLikeSelect(props: INotionLikeSelectProps) {
   const { value } = props;
+  const [showDropdown, setShowDropdown] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = useCallback(() => {
+    setShowDropdown(!showDropdown);
+  }, [showDropdown]);
+
   return (
-    <div role="button" tabIndex={0} css={notionLikeSelect}>
-      {value.label}
-      <ChevronDownSvg />
-    </div>
+    <>
+      <div
+        role="button"
+        tabIndex={0}
+        css={notionLikeSelect}
+        ref={containerRef}
+        onClick={handleClick}
+      >
+        {value.label}
+        <ChevronDownSvg />
+      </div>
+      {showDropdown && createPortal(<NotionLikeDropdownMenu />, document.body)}
+    </>
   )
 }
 

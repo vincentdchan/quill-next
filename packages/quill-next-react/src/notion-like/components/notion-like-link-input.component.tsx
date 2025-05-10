@@ -4,7 +4,6 @@ import { timer, takeUntil } from "rxjs";
 import { createPortal } from "react-dom";
 import {
   notionLinkContentContainer,
-  notionLinkInputMask,
   notionLinkInputContainer,
   notionLinkInputInnerContainer,
 } from "./notion-like-link-input.component.style";
@@ -14,6 +13,7 @@ import { getBoundsFromQuill } from "../../utils/bounds";
 import { validateAndNormalizeUrlWithHttps } from "../../utils/url";
 import { InlineRectAnchor } from "../../components/rect-anchor.component";
 import { useDispose } from "../../hooks/use-dispose";
+import { DropdownMask } from "../../components/dropdown-mask.component";
 
 interface NotionLikeLinkInputContentProps {
   onSubmit?: (value: string) => void;
@@ -133,9 +133,8 @@ function NotionLikeLinkInput(props: INotionLikeLinkInputProps) {
 
   return (
     createPortal(
-      <div
+      <DropdownMask
         className={maskClassName}
-        css={notionLinkInputMask}
         onClick={onCancel}
       >
         {bounds && (
@@ -147,7 +146,7 @@ function NotionLikeLinkInput(props: INotionLikeLinkInputProps) {
             )}
           />
         )}
-      </div>,
+      </DropdownMask>,
       document.body,
     )
   );
