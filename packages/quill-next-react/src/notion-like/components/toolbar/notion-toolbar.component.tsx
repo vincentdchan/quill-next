@@ -22,10 +22,10 @@ const DISABLE_FORMATS: string[] = [
 ];
 
 const PARAGRAPH_OPTIONS: INotionLikeSelectOption[] = [
-  { label: "Text", value: "text" },
-  { label: "Heading 1", value: "heading-1" },
-  { label: "Heading 2", value: "heading-2" },
-  { label: "Heading 3", value: "heading-3" },
+  { label: "Text", key: "text" },
+  { label: "Heading 1", key: "heading-1" },
+  { label: "Heading 2", key: "heading-2" },
+  { label: "Heading 3", key: "heading-3" },
 ];
 
 function NotionToolbar(props: INotionToolbarProps) {
@@ -53,7 +53,7 @@ function NotionToolbar(props: INotionToolbarProps) {
         <NotionLikeSelect
           options={PARAGRAPH_OPTIONS}
           value={PARAGRAPH_OPTIONS[0]}
-          onChange={(value) => quill.format("paragraph", value)}
+          onSelect={(value) => quill.format("paragraph", value)}
         />
         <NotionToolbarButton
           onClick={() => quill.format("bold", !formats["bold"])}

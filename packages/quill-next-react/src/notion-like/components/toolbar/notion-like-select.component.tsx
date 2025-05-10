@@ -1,27 +1,35 @@
 import { useRef, useState, useCallback } from "react";
 import { notionLikeSelect } from "./notion-like-select.component.style";
 import ChevronDownSvg from "./chevron-down.svg?react";
-import { NotionLikeDropdownMenu } from "./notion-like-dropdown-menu";
+import { NotionLikeDropdownMenu, NotionLikeDropdownMenuItem } from "./notion-like-dropdown-menu";
+import { DropdownMask } from "../../../components/dropdown-mask.component";
+import { InlineRectAnchor } from "../../../components/rect-anchor.component";
 import { createPortal } from "react-dom";
 
 export interface INotionLikeSelectOption {
   label: string;
-  value: string;
+  key: string;
 }
 
 export interface INotionLikeSelectProps {
   options: INotionLikeSelectOption[];
   value: INotionLikeSelectOption;
-  onChange?: (value: string) => void;
+  onSelect?: (value: string) => void;
 }
 
 function NotionLikeSelect(props: INotionLikeSelectProps) {
-  const { value } = props;
+  const { value, options, onSelect } = props;
   const [showDropdown, setShowDropdown] = useState(false);
+  const [bounds, setBounds] = useState<DOMRect | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleClick = useCallback(() => {
     setShowDropdown(!showDropdown);
+
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setBounds(rect);
+    }
   }, [showDropdown]);
 
   return (
@@ -36,7 +44,32 @@ function NotionLikeSelect(props: INotionLikeSelectProps) {
         {value.label}
         <ChevronDownSvg />
       </div>
-      {showDropdown && createPortal(<NotionLikeDropdownMenu />, document.body)}
+      {showDropdown && createPortal(
+        <DropdownMask>
+          {bounds && (
+            <InlineRectAnchor
+              bounds={bounds}
+              placement="bottom"
+              verticalPadding={4}
+              render={() => (
+                <NotionLikeDropdownMenu>
+                  {options.map((option) => (
+                    <NotionLikeDropdownMenuItem
+                      key={option.key}
+                      onClick={() => {
+                        onSelect?.(option.key);
+                        setShowDropdown(false);
+                      }}
+                    >
+                      {option.label}
+                    </NotionLikeDropdownMenuItem>
+                  ))}
+                </NotionLikeDropdownMenu>
+              )}
+            />
+          )}
+        </DropdownMask>,
+        document.body)}
     </>
   )
 }
