@@ -9,12 +9,13 @@ import { createPortal } from "react-dom";
 export interface INotionLikeSelectOption {
   label: string;
   key: string;
+  value: Record<string, unknown>;
 }
 
 export interface INotionLikeSelectProps {
   options: INotionLikeSelectOption[];
   value: INotionLikeSelectOption;
-  onSelect?: (value: string) => void;
+  onSelect?: (value: INotionLikeSelectOption) => void;
 }
 
 function NotionLikeSelect(props: INotionLikeSelectProps) {
@@ -57,7 +58,7 @@ function NotionLikeSelect(props: INotionLikeSelectProps) {
                     <NotionLikeDropdownMenuItem
                       key={option.key}
                       onClick={() => {
-                        onSelect?.(option.key);
+                        onSelect?.(option);
                         setShowDropdown(false);
                       }}
                     >

@@ -18,6 +18,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    defaultValue: new Delta().insert("Hello World! Select some text to see the toolbar."),
+    defaultValue: new Delta()
+    .insert("Heading 1\n", { header: 1 })
+    .insert("Heading 2\n", { header: 2 })
+    .insert("Heading 3\n", { header: 3 })
+    .insert("Hello World! Select some text to see the toolbar."),
   },
 };
