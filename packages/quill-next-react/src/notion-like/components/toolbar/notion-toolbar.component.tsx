@@ -9,6 +9,7 @@ import LinkSvg from "./link.svg?react";
 import ChevronDownSvg from "./chevron-down.svg?react";
 import { notionToolbarContainer, notionLinkButton } from "./notion-toolbar.component.style";
 import { NotionLikeLinkInput } from "../notion-like-link-input.component";
+import { NotionLikeSelect, INotionLikeSelectOption } from "./notion-like-select.component";
 import { ToolbarSignal } from "../../../classes/toolbar-signal.class";
 
 export interface INotionToolbarProps {
@@ -18,6 +19,13 @@ export interface INotionToolbarProps {
 
 const DISABLE_FORMATS: string[] = [
   "code-block",
+];
+
+const PARAGRAPH_OPTIONS: INotionLikeSelectOption[] = [
+  { label: "Text", key: "text", value: { header: false } },
+  { label: "Heading 1", key: "heading-1", value: { header: 1 } },
+  { label: "Heading 2", key: "heading-2", value: { header: 2 } },
+  { label: "Heading 3", key: "heading-3", value: { header: 3 } },
 ];
 
 function NotionToolbar(props: INotionToolbarProps) {
@@ -34,6 +42,18 @@ function NotionToolbar(props: INotionToolbarProps) {
     setShowLinkInput(!showLinkInput);
   }, [showLinkInput]);
 
+  const selectedType = useMemo(() => {
+    return PARAGRAPH_OPTIONS.find((option) => option.value.header === formats.header) ?? PARAGRAPH_OPTIONS[0];
+  }, [formats]);
+
+  const handleSelectType = useCallback((option: INotionLikeSelectOption) => {
+    const { value } = option;
+
+    Object.entries(value).forEach(([key, value]) => {
+      quill.format(key, value);
+    });
+  }, [quill]);
+
   const isDisabled = Object.keys(formats).some((format) => disableSet.has(format));
   if (isDisabled) {
     return null;
@@ -42,6 +62,11 @@ function NotionToolbar(props: INotionToolbarProps) {
   return (
     <>
       <div className="qn-notion-toolbar-container" css={notionToolbarContainer}>
+        <NotionLikeSelect
+          options={PARAGRAPH_OPTIONS}
+          value={selectedType}
+          onSelect={handleSelectType}
+        />
         <NotionToolbarButton
           onClick={() => quill.format("bold", !formats["bold"])}
           active={!!formats["bold"]}
