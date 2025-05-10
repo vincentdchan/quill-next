@@ -11,7 +11,7 @@ export interface INotionLinkToolbarProps {
 
 const MIN_WIDTH = 60;
 
-function NotionLinkToolbar(props: INotionLinkToolbarProps) {
+function NotionLinkToolbar(props: INotionLinkToolbarProps): React.ReactElement {
   const { link: url, index, length } = props;
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);

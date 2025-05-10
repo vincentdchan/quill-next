@@ -8,7 +8,7 @@ const Shimmer = memo(() => {
   );
 });
 
-export function QuillNextImage(options: IRenderOptions) {
+export function QuillNextImage(options: IRenderOptions): React.ReactElement {
   const { naturalWidth = 800, naturalHeight = 20 } = options.attributes;
   const imageRef = useRef<HTMLImageElement>(null);
   const [imageWidth, setImageWidth] = useState(naturalWidth);

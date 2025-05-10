@@ -13,7 +13,7 @@ export interface RectAnchorProps {
   onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-function PortalRectAnchor(props: RectAnchorProps) {
+function PortalRectAnchor(props: RectAnchorProps): React.ReactElement {
   const {
     className,
     bounds,
@@ -104,7 +104,7 @@ function PortalRectAnchor(props: RectAnchorProps) {
 
 PortalRectAnchor.displayName = "PortalRectAnchor";
 
-function InlineRectAnchor(props: RectAnchorProps) {
+function InlineRectAnchor(props: RectAnchorProps): React.ReactElement {
   const {
     className,
     bounds,

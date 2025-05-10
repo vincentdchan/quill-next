@@ -79,7 +79,7 @@ async function loadTheme(theme: string): Promise<void> {
   }
 }
 
-const QuillEditor = (props: IQuillEditorProps) => {
+const QuillEditor = (props: IQuillEditorProps): React.ReactNode => {
   const {
     config,
     children,

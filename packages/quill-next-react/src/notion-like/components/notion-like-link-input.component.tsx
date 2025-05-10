@@ -19,7 +19,7 @@ interface NotionLikeLinkInputContentProps {
   onSubmit?: (value: string) => void;
 }
 
-function NotionLikeLinkInputContent(props: NotionLikeLinkInputContentProps) {
+function NotionLikeLinkInputContent(props: NotionLikeLinkInputContentProps): React.ReactElement {
   const { onSubmit } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const dispose$ = useDispose();

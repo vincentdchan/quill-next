@@ -5,7 +5,7 @@ export interface INotionMenuList {
   children?: React.ReactNode;
 }
 
-function NotionMenuList(props: INotionMenuList) {
+function NotionMenuList(props: INotionMenuList): React.ReactElement {
   const { children } = props;
   return <div className="qn-notion-menu-list" css={notionMenuList}>{children}</div>;
 }
@@ -16,7 +16,7 @@ export interface INotionMenuItemHeader {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-function NotionMenuItemHeader(props: INotionMenuItemHeader) {
+function NotionMenuItemHeader(props: INotionMenuItemHeader): React.ReactElement {
   const { children, onClick } = props;
   return (
     <div className="qn-notion-menu-item-header" css={notionMenuItemHeader} onClick={onClick}>
@@ -25,7 +25,7 @@ function NotionMenuItemHeader(props: INotionMenuItemHeader) {
   );
 }
 
-function NotionMenuItem(props: INotionMenuItemHeader) {
+function NotionMenuItem(props: INotionMenuItemHeader): React.ReactElement {
   const { children, active, onClick } = props;
   return (
     <div
