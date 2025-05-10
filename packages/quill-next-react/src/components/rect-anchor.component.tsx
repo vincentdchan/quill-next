@@ -56,7 +56,7 @@ function PortalRectAnchor(props: RectAnchorProps): React.ReactElement {
     });
     resizeObserver.observe(parentContainer);
 
-    return () => {
+    return (): void => {
       resizeObserver.disconnect();
     };
   }, [parentElement]);
@@ -147,7 +147,7 @@ function InlineRectAnchor(props: RectAnchorProps): React.ReactElement {
     });
     resizeObserver.observe(parentContainer);
 
-    return () => {
+    return (): void => {
       resizeObserver.disconnect();
     };
   }, [parentElement]);

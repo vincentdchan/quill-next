@@ -24,7 +24,7 @@ export interface ILinkToolbarPluginProps {
 const DEFAULT_VERTICAL_PADDING = 8;
 const MOUSE_HANDLE_DELAY_TIME = 400;
 
-function LinkToolbarPlugin(props: ILinkToolbarPluginProps) {
+function LinkToolbarPlugin(props: ILinkToolbarPluginProps): React.ReactElement {
   const { parentSelector, verticalPadding = DEFAULT_VERTICAL_PADDING, render } = props;
   const quill = useQuill();
   const [linkRect, setLinkRect] = useState<DOMRect | null>(null);
@@ -35,7 +35,7 @@ function LinkToolbarPlugin(props: ILinkToolbarPluginProps) {
   const checkHoveringAndCloseRef = useRef(() => {});
 
   useEffect(() => {
-    checkHoveringAndCloseRef.current = () => {
+    checkHoveringAndCloseRef.current = (): void => {
       if (!isHovering) {
         setLinkRect(null);
         setValue(null);

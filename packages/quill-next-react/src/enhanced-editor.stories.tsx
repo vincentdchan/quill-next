@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { QuillEditor, IQuillEditorProps } from "./editor.component";
 import { Delta } from "quill-next";
@@ -19,7 +20,7 @@ const atCommands: CommandItem[] = [
   { key: "John Doe", content: "John Doe" },
 ];
 
-function WrappedQuillEditor(props: IQuillEditorProps) {
+function WrappedQuillEditor(props: IQuillEditorProps): React.ReactElement {
   const slashCommands: CommandItem[] = [
     { key: "image", content: "Image" },
     { key: "canvas", content: "Canvas" },
@@ -28,7 +29,7 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
     <NotionLikeQuillEditor {...props}>
       <SlashCommandPlugin
         length={slashCommands.length}
-        render={({ selectedIndex, content, apply }) => (
+        render={({ selectedIndex, content, apply }): React.ReactElement => (
           <NotionMenuList>
             <NotionMenuItemHeader>Input: {content}</NotionMenuItemHeader>
             {slashCommands.map((item, index) => (
@@ -49,7 +50,7 @@ function WrappedQuillEditor(props: IQuillEditorProps) {
         render={({ selectedIndex, content, apply }) => (
           <NotionMenuList>
             <NotionMenuItemHeader>Input: {content}</NotionMenuItemHeader>
-            {atCommands.map((item, index) => (
+            {atCommands.map((item, index): React.ReactElement => (
               <NotionMenuItem
                 key={item.key}
                 active={index === selectedIndex}

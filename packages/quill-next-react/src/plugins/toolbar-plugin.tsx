@@ -27,7 +27,7 @@ export interface IToolbarPluginProps {
   render: (props: IToolbarRenderProps) => React.ReactNode;
 }
 
-function ToolbarPlugin(props: IToolbarPluginProps) {
+function ToolbarPlugin(props: IToolbarPluginProps): React.ReactElement {
   const { parentSelector, verticalPadding } = props;
   const quill = useQuill();
   const toolbarSignal = useToolbarSignal();
@@ -51,7 +51,7 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
 
     const editorChange$ = fromEvent(quill, Quill.events.EDITOR_CHANGE);
 
-    const position = (reference: Bounds) => {
+    const position = (reference: Bounds): void => {
       const containerRect = quill.container.getBoundingClientRect();
 
       const limitedBounds = limitBoundsInRect(reference, containerRect);
@@ -98,7 +98,7 @@ function ToolbarPlugin(props: IToolbarPluginProps) {
         }
       });
 
-    return () => {
+    return (): void => {
       dispose$.next();
       dispose$.complete();
     };

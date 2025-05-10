@@ -10,13 +10,13 @@ export function useQuillEvent(quill: Quill | null, eventName: string, callback?:
       return;
     }
 
-    const handler = (...args: any[]) => {
+    const handler = (...args: any[]): void => {
       callbackRef.current?.(...args);
     }
 
     quill.on(eventName, handler);
 
-    return () => {
+    return (): void => {
       quill.off(eventName, handler);
     }
   }, [quill, eventName]);

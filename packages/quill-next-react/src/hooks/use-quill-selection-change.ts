@@ -5,7 +5,7 @@ import { useQuillEvent } from "./use-quill-event";
 
 export type SelectionChangeHandler = (range: Range, oldRange: Range, source: EmitterSource) => void
 
-export function useQuillSelectionChange(callback: SelectionChangeHandler) {
+export function useQuillSelectionChange(callback: SelectionChangeHandler): void {
   const quill = useQuill();
   return useQuillEvent(quill, Quill.events.SELECTION_CHANGE, callback);
 }

@@ -90,7 +90,7 @@ export interface INotionLikeLinkInputProps {
   onCancel?: () => void;
 }
 
-function NotionLikeLinkInput(props: INotionLikeLinkInputProps) {
+function NotionLikeLinkInput(props: INotionLikeLinkInputProps): React.ReactElement {
   const { toolbarSignal, onCancel, maskClassName } = props;
   const quill = useQuill();
   const [bounds, setBounds] = useState<Bounds | null>(null);
@@ -104,7 +104,7 @@ function NotionLikeLinkInput(props: INotionLikeLinkInputProps) {
     const selection = quill.getSelection(false);
     toolbarSignal.setIsKeepingOpen(true);
 
-    return () => {
+    return (): void => {
       toolbarSignal.setIsKeepingOpen(false);
       window.requestAnimationFrame(() => {
         quill.setSelection(selection);
@@ -113,7 +113,7 @@ function NotionLikeLinkInput(props: INotionLikeLinkInputProps) {
   }, [quill]);
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent): void => {
       if (e.key === "Escape") {
         onCancel?.();
       }
@@ -121,7 +121,7 @@ function NotionLikeLinkInput(props: INotionLikeLinkInputProps) {
 
     window.addEventListener("keydown", handleKeyDown);
 
-    return () => {
+    return (): void => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onCancel]);

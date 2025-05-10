@@ -17,7 +17,7 @@ export function useNextLinkBlot(options?: ILinkBlotOptions): BlotConstructor {
   return useMemo((): BlotConstructor => {
     return class extends Link {
 
-      static override create(value: string) {
+      static override create(value: string): HTMLElement {
         const node = super.create(value) as HTMLElement;
         node.setAttribute('href', this.sanitize(value));
         node.setAttribute('rel', 'noopener noreferrer');

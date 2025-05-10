@@ -21,6 +21,7 @@ module.exports = {
     "@typescript-eslint/no-this-alias": 0,
     "@typescript-eslint/ban-ts-comment": 1,
     "@typescript-eslint/no-unused-vars": 2,
+    "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/explicit-member-accessibility": [2, {
       accessibility: "no-public"
     }],

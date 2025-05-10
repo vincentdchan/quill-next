@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, memo } from "react";
 import { type IRenderOptions, useEmbedBlot } from "../hooks/use-react-blot";
 import { imageContainer, imageShimmer } from "./quill-next-image.component.style";
-
+import { BlotConstructor } from "parchment";
 const Shimmer = memo(() => {
   return (
     <div className="qn-image-shimmer" css={imageShimmer} />
@@ -44,7 +44,7 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
   );
 }
 
-export function useNextImageBlot() {
+export function useNextImageBlot(): BlotConstructor {
   return useEmbedBlot({
     blotName: "image",
     className: "qn-image",
