@@ -26,6 +26,9 @@ const PARAGRAPH_OPTIONS: INotionLikeSelectOption[] = [
   { label: "Heading 1", key: "heading-1", value: { header: 1 } },
   { label: "Heading 2", key: "heading-2", value: { header: 2 } },
   { label: "Heading 3", key: "heading-3", value: { header: 3 } },
+  { label: "Bulleted List", key: "bulleted-list", value: { list: "bullet" } },
+  { label: "Numbered List", key: "numbered-list", value: { list: "ordered" } },
+  { label: "Quote", key: "quote", value: { blockquote: true } },
 ];
 
 function NotionToolbar(props: INotionToolbarProps): React.ReactElement {
@@ -43,7 +46,12 @@ function NotionToolbar(props: INotionToolbarProps): React.ReactElement {
   }, [showLinkInput]);
 
   const selectedType = useMemo(() => {
-    return PARAGRAPH_OPTIONS.find((option) => option.value.header === formats.header) ?? PARAGRAPH_OPTIONS[0];
+    return PARAGRAPH_OPTIONS.find((option) => {
+      const keys = Object.keys(option.value);
+      return keys.every((key) => {
+        return option.value[key] === formats[key];
+      });
+    }) ?? PARAGRAPH_OPTIONS[0];
   }, [formats]);
 
   const handleSelectType = useCallback((option: INotionLikeSelectOption) => {
