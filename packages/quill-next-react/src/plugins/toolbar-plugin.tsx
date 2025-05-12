@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  Subject,
   fromEvent,
   takeUntil,
   merge,
-  debounceTime,
   filter,
 } from "rxjs";
+import { throttle } from "lodash-es";
 import Quill, { Bounds } from "quill-next";
 import { useQuill } from "../hooks/use-quill";
 import { PortalRectAnchor } from "../components/rect-anchor.component";
@@ -14,6 +13,7 @@ import { useQuillFormats } from "../hooks/use-quill-formats";
 import { useToolbarSignal } from "../hooks/use-toolbar-signal";
 import { ToolbarSignal } from "../classes/toolbar-signal.class";
 import { getBoundsFromQuill, limitBoundsInRect } from "../utils/bounds";
+import { useDispose } from "../hooks/use-dispose";
 
 export interface IToolbarRenderProps {
   toolbarSignal: ToolbarSignal;
@@ -33,10 +33,9 @@ function ToolbarPlugin(props: IToolbarPluginProps): React.ReactElement {
   const toolbarSignal = useToolbarSignal();
   const formats = useQuillFormats();
   const [bounds, setBounds] = useState<Bounds | null>(null);
+  const dispose$ = useDispose();
 
   useEffect(() => {
-    const dispose$ = new Subject<void>();
-
     let isMouseDown = false;
     const quillContainerMouseDown$ = fromEvent(quill.container, "mousedown");
     const quillContainerMouseUp$ = fromEvent(quill.container, "mouseup");
@@ -76,33 +75,76 @@ function ToolbarPlugin(props: IToolbarPluginProps): React.ReactElement {
         setBounds(null);
       });
 
-    const scroll$ = fromEvent(quill.root, "scroll");
+    const handleScroll = throttle(() => {
+      if (isMouseDown) {
+        return;
+      }
+
+      const bounds = getBoundsFromQuill(quill);
+      if (bounds) {
+        position(bounds);
+      }
+    }, 30);
 
     merge(
-      scroll$,
       editorChange$.pipe(
         filter(([eventName]) => eventName === Quill.events.SELECTION_CHANGE),
-        debounceTime(100),
       ),
       quillContainerMouseUp$
     )
       .pipe(takeUntil(dispose$))
-      .subscribe(() => {
-        if (isMouseDown) {
-          return;
-        }
+      .subscribe(handleScroll);
 
-        const bounds = getBoundsFromQuill(quill);
-        if (bounds) {
-          position(bounds);
-        }
-      });
+    let currentElement: HTMLElement | null = quill.root;
+    while (currentElement) {
+      const style = window.getComputedStyle(currentElement);
+      const overflowY = style.overflowY;
+      const overflowX = style.overflowX;
+      const isScrollable = overflowY === "auto" || overflowY === "scroll" || overflowX === "auto" || overflowX === "scroll";
 
-    return (): void => {
-      dispose$.next();
-      dispose$.complete();
-    };
-  }, [quill]);
+      if (isScrollable) {
+        const scroll$ = fromEvent(currentElement, "scroll");
+        scroll$.pipe(takeUntil(dispose$)).subscribe(() => {
+          if (isMouseDown) {
+            return;
+          }
+
+          const bounds = getBoundsFromQuill(quill);
+          if (bounds) {
+            position(bounds);
+          }
+        });
+      }
+
+      if (currentElement === document.body || currentElement === document.documentElement) {
+        const windowScroll$ = fromEvent(window, "scroll");
+        const documentScroll$ = fromEvent(document, "scroll");
+        const documentElementScroll$ = fromEvent(document.documentElement, "scroll");
+
+        merge(
+          windowScroll$,
+          documentScroll$,
+          documentElementScroll$,
+        )
+        .pipe(takeUntil(dispose$))
+        .subscribe(handleScroll);
+      }
+
+      if (currentElement === document.body) {
+        // Once we reach the body, we can stop traversing up for element-specific scroll,
+        // as window/document listeners cover the rest.
+        // However, you might still want to check document.documentElement
+        // if body isn't the primary scroller.
+        currentElement = document.documentElement; // Check documentElement next
+        if (currentElement === document.documentElement && !isScrollable) { // if documentElement wasn't scrollable, break
+            break;
+        }
+        continue; // Continue to ensure documentElement scroll listener is attached if needed
+      }
+
+      currentElement = currentElement.parentElement;
+    }
+  }, [quill, dispose$]);
 
   return (
     <PortalRectAnchor
