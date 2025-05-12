@@ -19,6 +19,7 @@ export default defineConfig({
     lib: {
       entry: {
         "notion-like": resolve(__dirname, "src/notion-like/index.ts"),
+        "markdown": resolve(__dirname, "src/markdown/index.ts"),
         index: resolve(__dirname, "src/index.ts"),
       },
       formats: ["es"],
@@ -34,6 +35,7 @@ export default defineConfig({
         "parchment",
         "rxjs",
         "lodash-es",
+        "marked",
       ],
     },
   },
