@@ -73,7 +73,7 @@ const content = () => {
                 <p><br></p>
                 <iframe class="ql-video ql-align-center" src="https://player.vimeo.com/video/253905163" width="500" height="280" allowfullscreen></iframe>
                 <p><br></p>
-                <h2 class="ql-align-center">Getting Started is Easy</h2>
+                <h2>Getting Started is Easy</h2>
                 <p><br></p>
                 <pre data-language="javascript" class="ql-syntax" spellcheck="false"><span class="hljs-comment">// &lt;link href="${cdn}/quill.snow.css" rel="stylesheet"&gt;</span>
 <span class="hljs-comment">// &lt;script src="${cdn}/quill.js"&gt;&lt;/script&gt;</span>
