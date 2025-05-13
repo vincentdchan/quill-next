@@ -124,6 +124,44 @@ export default function App() {
 }
 `
 
+const quillMeetsMarkdownCode = `
+import { useEffect, useState } from 'react';
+import { Delta } from 'quill-next';
+import QuillEditor from 'quill-next-react';
+import { MarkdownPlugin } from "quill-next-react/markdown";
+
+const defaultMarkdown = \`
+# Quill Next Editor
+
+## Subheading
+
+### Subsubheading
+
+This is a long markdown example. **Bold text** is **bold**. *Italic text* is *italic*.
+
+This is a long markdown example. **Bold text** is **bold**. *Italic text* is *italic*.
+\`;
+
+export default function App() {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (value >= defaultMarkdown.length) return;
+    const interval = setInterval(() => {
+      setValue(value + 1);
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [value]);
+
+  return (
+    <QuillEditor readOnly>
+      <MarkdownPlugin value={defaultMarkdown.slice(0, value)} />
+    </QuillEditor>
+  );
+}
+`
+
 const IndexPage = () => {
   const [activeIndex, setActiveIndex] = useState(1);
   const [isDemoActive, setIsDemoActive] = useState(false);
@@ -286,6 +324,10 @@ const IndexPage = () => {
               <span>
                 Delivering rich features, built for extension.
               </span>
+              <ul>
+                <li>Support hot plugging</li>
+                <li>Support lazy loading</li>
+              </ul>
               <Link className="action-link" href="/docs/quickstart">
                 Learn More
               </Link>
@@ -302,6 +344,31 @@ const IndexPage = () => {
               </NoSSR>
             </div>
           </div>
+
+          <hr />
+
+          <div className="feature row">
+            <div className="columns details">
+              <h2>Built-in Markdown Support</h2>
+              <span>
+                Friendly Markdown output for your content in the AI era.
+              </span>
+            </div>
+            <div className="columns">
+              <NoSSR>
+                <Suspense fallback={null}>
+                  <SandpackWithReact
+                    preferPreview
+                    defaultShowPreview
+                    files={{
+                      "/App.js": quillMeetsMarkdownCode
+                    }}
+                  />
+                </Suspense>
+              </NoSSR>
+            </div>
+          </div>
+
         </div>
       </div>
     </Layout>

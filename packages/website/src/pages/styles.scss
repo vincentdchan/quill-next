@@ -59,10 +59,6 @@ hr {
   border-top: 1px solid #d9dce1;
 }
 
-li {
-  list-style: none;
-}
-
 table {
   text-align: left;
 }
@@ -827,6 +823,10 @@ body.home .arrow .shaft {
   letter-spacing: 0.1rem;
   line-height: 200%;
   padding-right: 2em;
+}
+
+.feature .details > ul {
+  font-size: 1.33rem;
 }
 
 /*** Home Demo ***/
