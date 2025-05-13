@@ -124,6 +124,26 @@ export default function App() {
 }
 `
 
+const quillMeetsMarkdownCode = `
+import { Delta } from 'quill-next';
+import QuillEditor from 'quill-next-react';
+import { MarkdownPlugin } from "quill-next-react/markdown";
+
+const defaultMarkdown = \`
+# Hello World
+
+This is a long markdown example.
+\`;
+
+export default function App() {
+  return (
+    <QuillEditor>
+      <MarkdownPlugin value={defaultMarkdown} />
+    </QuillEditor>
+  );
+}
+`
+
 const IndexPage = () => {
   const [activeIndex, setActiveIndex] = useState(1);
   const [isDemoActive, setIsDemoActive] = useState(false);
@@ -306,6 +326,29 @@ const IndexPage = () => {
               </NoSSR>
             </div>
           </div>
+
+          <hr />
+
+          <div className="feature row">
+            <div className="columns details">
+              <h2>Built-in Markdown Support</h2>
+              <span>
+                Friendly Markdown output for your content in the AI era.
+              </span>
+            </div>
+            <div className="columns">
+              <NoSSR>
+                <Suspense fallback={null}>
+                  <SandpackWithReact
+                    files={{
+                      "/App.js": quillMeetsMarkdownCode
+                    }}
+                  />
+                </Suspense>
+              </NoSSR>
+            </div>
+          </div>
+
         </div>
       </div>
     </Layout>
