@@ -71,24 +71,14 @@ const content = () => {
                   This fork is currently a personal project, aiming to keep Quill thriving and evolving.
                 </p>
                 <p><br></p>
-                <p><a href="https://github.com/vincentdchan/quill-next?tab=readme-ov-file#key-differences-with-quill">Check the differences</a></p>
+                <ul>
+                  <li><a href="https://github.com/vincentdchan/quill-next?tab=readme-ov-file#key-differences-with-quill">Check the differences</a></li>
+                  <li><a href="https://quill-next.diverse.space/docs/quickstart">Documentation</a></li>
+                  <li><a href="https://github.com/vincentdchan/quill-next">Github</a></li>
+                </ul>
                 <p><br></p>
-                <h2>Getting Started is Easy</h2>
+                <h2>Embedded elements</h2>
                 <p><br></p>
-                <pre data-language="javascript" class="ql-syntax" spellcheck="false"><span class="hljs-comment">// &lt;link href="${cdn}/quill.snow.css" rel="stylesheet"&gt;</span>
-<span class="hljs-comment">// &lt;script src="${cdn}/quill.js"&gt;&lt;/script&gt;</span>
-
-<span class="hljs-keyword">const</span> quill = <span class="hljs-keyword">new</span> Quill(<span class="hljs-string">'#editor'</span>, {
-  modules: {
-    toolbar: <span class="hljs-string">'#toolbar'</span>
-  },
-  theme: <span class="hljs-string">'snow'</span>
-});
-
-<span class="hljs-comment">// Open your browser's developer console to try out the API!</span>
-</pre>
-                <p><br></p>
-                <h2>Embedded Video</h2>
                 <iframe class="ql-video ql-align-center" src="https://player.vimeo.com/video/253905163" width="500" height="280" allowfullscreen></iframe>
 `;
 };
