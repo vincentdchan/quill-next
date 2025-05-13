@@ -4,6 +4,44 @@ title: Builtin Plugins
 
 Quill Next comes with a set of built-in plugins that are ready to use.
 
+## Markdown Plugin
+
+The `MarkdownPlugin` is a plugin that renders a markdown content in the editor.
+
+### Usage
+
+<SandpackWithReact
+  files={{
+    "/App.js": `
+import { Delta } from 'quill-next'
+import QuillEditor from 'quill-next-react';
+import { MarkdownPlugin } from "quill-next-react/markdown";
+
+const defaultMarkdown = \`
+# Quill Next Editor
+
+## Subheading
+
+### Subsubheading
+
+This is a long markdown example. **Bold text** is **bold**. *Italic text* is *italic*.
+
+This is a long markdown example. **Bold text** is **bold**. *Italic text* is *italic*.
+\`;
+
+export default function App() {
+  return (
+    <QuillEditor
+      config={{ theme: "next"}}
+    >
+      <MarkdownPlugin value={defaultMarkdown} />
+    </QuillEditor>
+  )
+}`
+  }}
+/>
+
+
 ## Toolbar Plugin
 
 The `ToolbarPlugin` is a plugin that renders a toolbar at the top of the selected
