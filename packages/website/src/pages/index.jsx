@@ -351,7 +351,7 @@ const IndexPage = () => {
             <div className="columns details">
               <h2>Built-in Markdown Support</h2>
               <span>
-                Friendly Markdown output for your content in the AI era.
+                Friendly Markdown plugin for your content in the AI era.
               </span>
             </div>
             <div className="columns">
