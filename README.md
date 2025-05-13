@@ -5,7 +5,7 @@
   <a href="https://quill-next.diverse.space/" title="Quill"><img alt="Quill Logo" src="./images/quill-next.png" width="400"></a>
 </p>
 <p align="center">
-  <a title="Documentation" href="https://quill-next.diverse.space/quickstart"><strong>Documentation</strong></a>
+  <a title="Documentation" href="https://quill-next.diverse.space/docs/quickstart"><strong>Documentation</strong></a>
   &#x2022;
   <a title="Development" href="https://github.com/vincentdchan/quill-next/blob/main/.github/DEVELOPMENT.md"><strong>Development</strong></a>
   &#x2022;
@@ -47,6 +47,8 @@ quill.destroy();  // the modules are also destroyed
 ```
 - Exports built-in modules as ES modules.
   - Keyboard: `quill/modules/keyboard`
+- React integration package: `quill-next-react`
+  - [Plugins](https://quill-next.diverse.space/docs/plugins/plugins) and [hooks](https://quill-next.diverse.space/docs/plugins/plugins) for React.
 
 ## Quickstart
 
