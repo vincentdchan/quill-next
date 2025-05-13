@@ -147,9 +147,12 @@ export default function App() {
   }, [value]);
 
   return (
-    <QuillEditor readOnly>
-      <MarkdownPlugin value={defaultMarkdown.slice(0, value)} />
-    </QuillEditor>
+    <div>
+      <QuillEditor readOnly>
+        <MarkdownPlugin value={defaultMarkdown.slice(0, value)} />
+      </QuillEditor>
+      <button onClick={() => setValue(0)}>Reset</button>
+    </div>
   );
 }
 `
