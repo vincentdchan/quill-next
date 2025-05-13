@@ -286,6 +286,10 @@ const IndexPage = () => {
               <span>
                 Delivering rich features, built for extension.
               </span>
+              <ul>
+                <li>Support hot plugging</li>
+                <li>Support lazy loading</li>
+              </ul>
               <Link className="action-link" href="/docs/quickstart">
                 Learn More
               </Link>
