@@ -71,7 +71,7 @@ const content = () => {
                   This fork is currently a personal project, aiming to keep Quill thriving and evolving.
                 </p>
                 <p><br></p>
-                <iframe class="ql-video ql-align-center" src="https://player.vimeo.com/video/253905163" width="500" height="280" allowfullscreen></iframe>
+                <p><a href="https://github.com/vincentdchan/quill-next?tab=readme-ov-file#key-differences-with-quill">Check the differences</a></p>
                 <p><br></p>
                 <h2>Getting Started is Easy</h2>
                 <p><br></p>
@@ -88,6 +88,8 @@ const content = () => {
 <span class="hljs-comment">// Open your browser's developer console to try out the API!</span>
 </pre>
                 <p><br></p>
+                <h2>Embedded Video</h2>
+                <iframe class="ql-video ql-align-center" src="https://player.vimeo.com/video/253905163" width="500" height="280" allowfullscreen></iframe>
 `;
 };
 
@@ -299,27 +301,6 @@ const IndexPage = () => {
         <div className="container">
           <div className="feature row">
             <div className="columns details">
-              <h2>Built on Delta</h2>
-              <span>
-                Clean, readable JSON describing your content.
-              </span>
-              <Link className="action-link" href="/docs/quickstart">
-                Learn More
-              </Link>
-            </div>
-            <div className="columns">
-              <NoSSR>
-                <Suspense fallback={null}>
-                  <DeltaPreview />
-                </Suspense>
-              </NoSSR>
-            </div>
-          </div>
-
-          <hr />
-
-          <div className="feature row">
-            <div className="columns details">
               <h2>Quill meets React</h2>
               <span>
                 Delivering rich features, built for extension.
@@ -369,6 +350,26 @@ const IndexPage = () => {
             </div>
           </div>
 
+          <hr />
+
+          <div className="feature row">
+            <div className="columns details">
+              <h2>Built on Delta</h2>
+              <span>
+                Clean, readable JSON describing your content.
+              </span>
+              <Link className="action-link" href="/docs/quickstart">
+                Learn More
+              </Link>
+            </div>
+            <div className="columns">
+              <NoSSR>
+                <Suspense fallback={null}>
+                  <DeltaPreview />
+                </Suspense>
+              </NoSSR>
+            </div>
+          </div>
         </div>
       </div>
     </Layout>

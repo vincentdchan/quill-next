@@ -7,9 +7,9 @@ import styles from "./DeltaPreview.module.scss";
 
 const defaultDelta = new Delta([
   {
-    insert: "Hello, world!\n",
+    insert: "Example\n",
     attributes: {
-      bold: true,
+      header: 1,
     },
   },
   {
