@@ -1,11 +1,12 @@
 import { useState, useCallback, useRef, memo } from "react";
-import { type IRenderOptions, useEmbedBlot } from "../hooks/use-react-blot";
-import { imageContainer, imageShimmer } from "./quill-next-image.component.style";
+import { type IRenderOptions, useEmbedBlot } from "../hooks/use-embed-blot";
+import {
+  imageContainer,
+  imageShimmer,
+} from "./quill-next-image.component.style";
 import { BlotConstructor } from "parchment";
 const Shimmer = memo(() => {
-  return (
-    <div className="qn-image-shimmer" css={imageShimmer} />
-  );
+  return <div className="qn-image-shimmer" css={imageShimmer} />;
 });
 
 export function QuillNextImage(options: IRenderOptions): React.ReactElement {
@@ -15,7 +16,7 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
   const [imageHeight, setImageHeight] = useState(naturalHeight);
   const [isLoading, setIsLoading] = useState(true);
   const onLoad = useCallback(() => {
-    setIsLoading(false)
+    setIsLoading(false);
 
     setImageWidth(imageRef.current?.naturalWidth || naturalWidth);
     setImageHeight(imageRef.current?.naturalHeight || naturalHeight);
@@ -28,18 +29,12 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
       className="qn-image-container"
       css={imageContainer}
       style={{
-        width: imageWidth + 'px',
+        width: imageWidth + "px",
         aspectRatio: aspectRatio,
       }}
     >
-      {isLoading ? (
-        <Shimmer />
-      ) : <></>}
-      <img
-        ref={imageRef}
-        src={options.value as string}
-        onLoad={onLoad}
-      />
+      {isLoading ? <Shimmer /> : <></>}
+      <img ref={imageRef} src={options.value as string} onLoad={onLoad} />
     </div>
   );
 }
@@ -48,6 +43,7 @@ export function useNextImageBlot(): BlotConstructor {
   return useEmbedBlot({
     blotName: "image",
     className: "qn-image",
+    scope: "block",
     onAttach: (domNode: HTMLElement) => {
       domNode.style.maxWidth = "100%";
     },

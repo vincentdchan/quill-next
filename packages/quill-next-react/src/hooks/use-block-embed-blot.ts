@@ -1,0 +1,97 @@
+import { useMemo, useEffect, useRef } from "react";
+import { BlockEmbed } from "quill-next";
+import { BlotConstructor, Root } from "parchment";
+import { createRoot, Root as ReactRoot } from "react-dom/client";
+
+export interface IRenderOptions {
+  value: unknown;
+  attributes?: Record<string, unknown>;
+}
+
+export type RenderFunc = (optoins: IRenderOptions) => React.ReactNode;
+
+export interface IUseBlockEmbedBlotOptions {
+  blotName: string;
+  tagName?: string;
+  className?: string;
+  create?: (value?: unknown) => HTMLElement;
+  onAttach?: (domNode: HTMLElement) => void;
+  render: RenderFunc;
+}
+
+export function useBlockEmbedBlot(
+  options: IUseBlockEmbedBlotOptions
+): BlotConstructor {
+  const { blotName, tagName, className, create, onAttach, render } = options;
+
+  const renderFuncRef = useRef<RenderFunc>(render);
+  renderFuncRef.current = useMemo(() => render, [render]);
+
+  return useMemo(() => {
+    return class extends BlockEmbed {
+      static override blotName: string = blotName;
+      static override tagName = tagName || "div";
+      static override className = className;
+
+      static override create(value?: unknown): HTMLElement {
+        if (create) {
+          return create(value) as HTMLElement;
+        }
+        const s = super.create(value) as HTMLElement;
+        s.setAttribute("contenteditable", "false");
+        s.setAttribute("data-blot-name", blotName);
+        return s;
+      }
+
+      private root: ReactRoot | null;
+      #value: unknown = undefined;
+      #attributes: Record<string, unknown> = {};
+
+      constructor(scroll: Root, domNode: Node, value?: unknown) {
+        super(scroll, domNode);
+        if (value) {
+          this.#value = value;
+        }
+      }
+
+      override attach(): void {
+        if (onAttach) {
+          onAttach(this.domNode as HTMLElement);
+        }
+
+        this.root = createRoot(this.domNode as HTMLElement);
+        this.render();
+      }
+
+      override detach(): void {
+        if (this.root) {
+          const root = this.root;
+          this.root = null;
+          requestAnimationFrame(() => {
+            root.unmount();
+          });
+        }
+      }
+
+      override value(): unknown {
+        return {
+          [blotName]: this.#value,
+        };
+      }
+
+      override format(name: string, value: string): void {
+        this.#attributes[name] = value;
+        this.render();
+      }
+
+      render(): void {
+        this.root.render(
+          renderFuncRef.current({
+            value: this.#value,
+            attributes: this.#attributes,
+          })
+        );
+      }
+    };
+  }, [blotName, tagName, className]);
+}

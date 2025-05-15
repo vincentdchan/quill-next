@@ -53,6 +53,7 @@ import Picker from './ui/picker.js';
 import ColorPicker from './ui/color-picker.js';
 import IconPicker from './ui/icon-picker.js';
 import Tooltip from './ui/tooltip.js';
+import { BlockEmbed } from './blots/block.js';
 
 import BubbleTheme from './themes/bubble.js';
 import SnowTheme from './themes/snow.js';
@@ -144,6 +145,6 @@ export type {
   NormalizedBinding,
 };
 
-export { Link, Keyboard };
+export { Link, Keyboard, BlockEmbed };
 
 export default Quill;

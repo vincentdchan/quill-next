@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useEffect } from "react";
 import { createRoot, Root as ReactRoot } from "react-dom/client";
 import { BlotConstructor, EmbedBlot, Scope, Root } from "parchment";
 
-export type BlotScope = 'block' | 'inline';
+export type BlotScope = "block" | "inline";
 
 export interface IRenderOptions {
   value: unknown;
@@ -11,7 +11,7 @@ export interface IRenderOptions {
 
 export type RenderFunc = (optoins: IRenderOptions) => React.ReactNode;
 
-export interface IReactBlotOptions {
+export interface IUseEmbedBlotOptions {
   blotName: string;
   scope?: BlotScope;
   tagName?: string;
@@ -24,10 +24,9 @@ export interface IReactBlotOptions {
   render: RenderFunc;
 }
 
-export function useEmbedBlot(
-  options: IReactBlotOptions,
-): BlotConstructor {
-  const { blotName, className, tagName, create, render, scope, onAttach } = options;
+export function useEmbedBlot(options: IUseEmbedBlotOptions): BlotConstructor {
+  const { blotName, className, tagName, create, render, scope, onAttach } =
+    options;
 
   const renderFuncRef = useRef<RenderFunc>(render);
   useEffect(() => {
@@ -36,13 +35,13 @@ export function useEmbedBlot(
 
   return useMemo(() => {
     let blotScope = Scope.INLINE;
-    if (scope === 'block') {
+    if (scope === "block") {
       blotScope = Scope.BLOCK;
     }
 
     return class extends EmbedBlot {
       static override blotName: string = blotName;
-      static override tagName = tagName || 'div';
+      static override tagName = tagName || "div";
       static override scope: Scope = blotScope;
       static override className = className;
 
@@ -98,7 +97,7 @@ export function useEmbedBlot(
       override value(): unknown {
         return {
           [blotName]: this.#value,
-        }
+        };
       }
 
       override format(name: string, value: string): void {
@@ -107,11 +106,13 @@ export function useEmbedBlot(
       }
 
       render(): void {
-        this.root.render(renderFuncRef.current({
-          value: this.#value,
-          attributes: this.#attributes,
-        }))
+        this.root.render(
+          renderFuncRef.current({
+            value: this.#value,
+            attributes: this.#attributes,
+          })
+        );
       }
-    }
+    };
   }, [scope, blotName, tagName, create]);
 }
