@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, memo } from "react";
+import { useState, useCallback, useRef, memo, useEffect } from "react";
 import {
   useBlockEmbedBlot,
   type IRenderOptions,
@@ -6,16 +6,18 @@ import {
 import { imageContainer, imageShimmer } from "./quill-next-image.style";
 import { BlotConstructor } from "parchment";
 import { ImageResizeTool } from "./image-resize-tool";
+import { isNumber } from "lodash-es";
 
 const Shimmer = memo(() => {
   return <div className="qn-image-shimmer" css={imageShimmer} />;
 });
 
 export function QuillNextImage(options: IRenderOptions): React.ReactElement {
-  const { naturalWidth = 800, naturalHeight = 20 } = options.attributes;
+  const { getBlotIndex, attributes } = options;
+  const widthValue = attributes?.width;
   const imageRef = useRef<HTMLImageElement>(null);
-  const [imageWidth, setImageWidth] = useState(naturalWidth);
-  const [imageHeight, setImageHeight] = useState(naturalHeight);
+  const [imageNaturalWidth, setImageNaturalWidth] = useState<number>(options.attributes.naturalWidth ? options.attributes.naturalWidth as number : 800);
+  const [imageNaturalHeight, setImageNaturalHeight] = useState<number>(options.attributes.naturalHeight ? options.attributes.naturalHeight as number : 20);
   const [isLoading, setIsLoading] = useState(true);
   const [isHover, setIsHover] = useState(false);
   const [tempWidth, setTempWidth] = useState<number | undefined>(undefined);
@@ -30,14 +32,22 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
 
   const onLoad = useCallback(() => {
     setIsLoading(false);
-
-    setImageWidth(imageRef.current?.naturalWidth || naturalWidth);
-    setImageHeight(imageRef.current?.naturalHeight || naturalHeight);
+    if (imageRef.current) {
+      setImageNaturalWidth(imageRef.current.naturalWidth);
+      setImageNaturalHeight(imageRef.current.naturalHeight);
+    }
   }, []);
 
-  const aspectRatio = (imageWidth as number) / (imageHeight as number);
+  let width: number;
+  if (isNumber(tempWidth)) {
+    width = tempWidth;
+  } else if (isNumber(widthValue)) {
+    width = widthValue;
+  } else {
+    width = imageNaturalWidth;
+  }
 
-  const width = tempWidth || imageWidth;
+  const aspectRatio = imageNaturalWidth / imageNaturalHeight;
 
   return (
     <div
@@ -52,7 +62,7 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
     >
       {isLoading ? <Shimmer /> : <></>}
       <img ref={imageRef} src={options.value as string} onLoad={onLoad} />
-      {isHover && <ImageResizeTool setTempWidth={setTempWidth} />}
+      {isHover && <ImageResizeTool setTempWidth={setTempWidth} getBlotIndex={getBlotIndex} />}
     </div>
   );
 }

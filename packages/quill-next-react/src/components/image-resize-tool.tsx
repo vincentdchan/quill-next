@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { resizeHandleStyle, imageResizeTool } from "./image-resize-tool.style";
 import { useDispose } from "../hooks/use-dispose";
 import { fromEvent, takeUntil } from "rxjs";
+import Quill, { Delta } from "quill-next";
+import { useQuill } from "../hooks/use-quill";
 
 interface ResizeHandleProps {
   isLeft?: boolean;
@@ -39,11 +41,13 @@ ResizeHandle.displayName = "ResizeHandle";
 export interface IImageResizeToolProps {
   minWidth?: number;
   setTempWidth: (width: number | undefined) => void;
+  getBlotIndex: () => number;
 }
 
 function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
-  const { minWidth = 100, setTempWidth } = props;
+  const { minWidth = 100, setTempWidth, getBlotIndex } = props;
   const dispose$ = useDispose();
+  const quill = useQuill();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseDown =
@@ -79,8 +83,17 @@ function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
 
       mouseUp$.pipe(takeUntil(dispose$)).subscribe(() => {
         setTempWidth(undefined);
-        // create delta
-        // apply delta
+
+        const blotIndex = getBlotIndex();
+        if (blotIndex === -1) {
+          return;
+        }
+
+        const delta = new Delta().retain(blotIndex).retain(1, {
+          width: newWidth,
+        });
+
+        quill.updateContents(delta);
       });
     };
 

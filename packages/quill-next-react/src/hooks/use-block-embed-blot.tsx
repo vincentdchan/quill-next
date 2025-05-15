@@ -1,11 +1,13 @@
 import { useMemo, useRef } from "react";
-import { BlockEmbed, Delta } from "quill-next";
+import Quill, { BlockEmbed, Delta } from "quill-next";
 import { BlotConstructor, Root } from "parchment";
 import { createRoot, Root as ReactRoot } from "react-dom/client";
+import { QuillContext } from "../context/quill-context";
 
 export interface IRenderOptions {
   value: unknown;
   attributes?: Record<string, unknown>;
+  getBlotIndex(): number;
 }
 
 export type RenderFunc = (optoins: IRenderOptions) => React.ReactNode;
@@ -90,12 +92,31 @@ export function useBlockEmbedBlot(
         this.render();
       }
 
+      private _getBlotIndex = (): number => {
+        const quill = this._getQuill();
+        if (!quill) {
+          return -1;
+        }
+        return quill.getIndex(this);
+      }
+
+      private _getQuill(): Quill | null {
+        if (!this.scroll?.domNode?.parentNode) {
+          return null;
+        }
+    
+        return Quill.find(this.scroll.domNode.parentNode) as Quill | null;
+      }
+
       render(): void {
         this.root.render(
-          renderFuncRef.current({
-            value: this.#value,
-            attributes: this.#attributes,
-          })
+          <QuillContext.Provider value={this._getQuill()}>
+            {renderFuncRef.current({
+              value: this.#value,
+              attributes: this.#attributes,
+              getBlotIndex: this._getBlotIndex,
+            })}
+          </QuillContext.Provider>
         );
       }
     };
