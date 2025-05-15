@@ -6,27 +6,46 @@ import {
   useEmbedBlot,
   type BlotScope,
   type IRenderOptions,
-  type IReactBlotOptions,
-} from "./hooks/use-react-blot";
+  type IUseEmbedBlotOptions,
+} from "./hooks/use-embed-blot";
 import { useQuill } from "./hooks/use-quill";
 import { useQuillFormats } from "./hooks/use-quill-formats";
 import { useQuillInput } from "./hooks/use-quill-input";
 import { useQuillEditorChange } from "./hooks/use-quill-editor-change";
-import { useQuillTextChange, type TextChangeHandler } from "./hooks/use-quill-text-change";
-import { useQuillSelectionChange, type SelectionChangeHandler } from "./hooks/use-quill-selection-change";
+import {
+  useQuillTextChange,
+  type TextChangeHandler,
+} from "./hooks/use-quill-text-change";
+import {
+  useQuillSelectionChange,
+  type SelectionChangeHandler,
+} from "./hooks/use-quill-selection-change";
 import { useQuillArrowIndex } from "./hooks/use-quill-arrow-index";
 import { useNextLinkBlot } from "./hooks/use-next-link-blot";
 import { useQuillKeyboardBinding } from "./hooks/use-quill-keyboard-binding";
-import { QuillNextImage, useNextImageBlot } from "./components/quill-next-image.component";
+import {
+  QuillNextImage,
+  useNextImageBlot,
+} from "./components/quill-next-image";
 import { IToolbarPluginProps, ToolbarPlugin } from "./plugins/toolbar-plugin";
 import { LinkToolbarPlugin } from "./plugins/link-toolbar-plugin";
-import { PortalRectAnchor, type RectAnchorProps, InlineRectAnchor } from "./components/rect-anchor.component";
+import {
+  PortalRectAnchor,
+  type RectAnchorProps,
+  InlineRectAnchor,
+} from "./components/rect-anchor.component";
+import {
+  useBlockEmbedBlot,
+  type IUseBlockEmbedBlotOptions,
+} from "./hooks/use-block-embed-blot";
 
 export {
   QuillEditor as default,
   QuillContext,
   ForkedRegistry,
   useEmbedBlot,
+  useBlockEmbedBlot,
+  type IUseBlockEmbedBlotOptions,
   useQuill,
   useQuillFormats,
   useQuillInput,
@@ -40,17 +59,15 @@ export {
   useNextImageBlot,
   useNextLinkBlot,
   QuillNextImage,
-
   type IToolbarPluginProps,
   ToolbarPlugin,
   LinkToolbarPlugin,
   PortalRectAnchor,
   InlineRectAnchor,
   type RectAnchorProps,
-
   type EditorChangeHandler,
   type IQuillEditorProps,
   type BlotScope,
   type IRenderOptions,
-  type IReactBlotOptions,
+  type IUseEmbedBlotOptions as IReactBlotOptions,
 };

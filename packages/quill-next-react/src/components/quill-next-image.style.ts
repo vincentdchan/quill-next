@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 export const imageContainer = css({
   position: "relative",
   maxWidth: "100%",
+  cursor: "default",
 
   img: {
     width: "100%",

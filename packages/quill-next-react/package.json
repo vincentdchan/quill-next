@@ -1,6 +1,6 @@
 {
   "name": "quill-next-react",
-  "version": "1.0.4",
+  "version": "1.0.5-alpha.1",
   "author": "Vincent Chan <okcdz@diverse.space>",
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
     "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
-    "quill-next": "workspace:*",
+    "quill-next": "workspace:^2.0.5",
     "react": "*",
     "react-dom": "*"
   },
@@ -64,7 +64,7 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^8.57.0",
-    "quill-next": "workspace:2.0.4",
+    "quill-next": "workspace:^2.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass-embedded": "^1.87.0",

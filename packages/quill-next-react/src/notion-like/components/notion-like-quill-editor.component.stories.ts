@@ -19,9 +19,18 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     defaultValue: new Delta()
-    .insert("Heading 1\n", { header: 1 })
-    .insert("Heading 2\n", { header: 2 })
-    .insert("Heading 3\n", { header: 3 })
-    .insert("Hello World! Select some text to see the toolbar."),
+      .insert("Heading 1\n", { header: 1 })
+      .insert("Heading 2\n", { header: 2 })
+      .insert("Heading 3\n", { header: 3 })
+      .insert({
+        image:
+          "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+        attributes: {
+          naturalWidth: 800,
+          naturalHeight: 197,
+        },
+      })
+      .insert("\n")
+      .insert("Hello World! Select some text to see the toolbar."),
   },
 };
