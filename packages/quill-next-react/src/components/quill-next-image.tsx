@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, memo, useEffect } from "react";
+import { useState, useCallback, useRef, memo } from "react";
 import {
   useBlockEmbedBlot,
   type IRenderOptions,

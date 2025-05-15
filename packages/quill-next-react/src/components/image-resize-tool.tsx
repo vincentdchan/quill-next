@@ -11,7 +11,7 @@ interface ResizeHandleProps {
   onMouseUp?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-function ResizeHandle(props: ResizeHandleProps) {
+function ResizeHandle(props: ResizeHandleProps): React.ReactElement {
   let style: React.CSSProperties;
   if (props.isLeft) {
     style = {
@@ -51,6 +51,7 @@ function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleMouseDown =
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     (isLeft: boolean) => (e: React.MouseEvent<HTMLDivElement>) => {
       e.preventDefault();
       setIsDragging(true);
