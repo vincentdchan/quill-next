@@ -24,5 +24,6 @@ export const Basic: Story = {
       naturalWidth: 800,
       naturalHeight: 197,
     },
+    getBlotIndex: () => -1,
   },
 };
