@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import ShadertoyReact from './ShadertoyReact';
+import './AnimatedBackground.css';
 
 export interface AnimatedBackgroundProps {
   className?: string;
@@ -57,7 +58,7 @@ function AnimatedBackground({ className }: AnimatedBackgroundProps): React.React
   }, []);
 
   return (
-    <div className={className}>
+    <div className={`animated-background ${className || ''}`}>
       <ShadertoyReact
         fragmentShader={fragmentShader}
         iChannel0={channel0}

@@ -19,16 +19,7 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
   const [imageNaturalWidth, setImageNaturalWidth] = useState<number>(options.attributes.naturalWidth ? options.attributes.naturalWidth as number : 800);
   const [imageNaturalHeight, setImageNaturalHeight] = useState<number>(options.attributes.naturalHeight ? options.attributes.naturalHeight as number : 20);
   const [isLoading, setIsLoading] = useState(true);
-  const [isHover, setIsHover] = useState(false);
   const [tempWidth, setTempWidth] = useState<number | undefined>(undefined);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsHover(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHover(false);
-  }, []);
 
   const onLoad = useCallback(() => {
     setIsLoading(false);
@@ -53,8 +44,6 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
     <div
       className="qn-image-container"
       css={imageContainer}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       style={{
         width: width + "px",
         aspectRatio: aspectRatio,
@@ -62,7 +51,7 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
     >
       {isLoading ? <Shimmer /> : <></>}
       <img ref={imageRef} src={options.value as string} onLoad={onLoad} />
-      {isHover && <ImageResizeTool setTempWidth={setTempWidth} getBlotIndex={getBlotIndex} />}
+      {!isLoading && <ImageResizeTool setTempWidth={setTempWidth} getBlotIndex={getBlotIndex} />}
     </div>
   );
 }

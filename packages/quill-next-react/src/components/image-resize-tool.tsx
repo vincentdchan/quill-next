@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { resizeHandleStyle, imageResizeTool } from "./image-resize-tool.style";
 import { useDispose } from "../hooks/use-dispose";
 import { fromEvent, takeUntil } from "rxjs";
-import Quill, { Delta } from "quill-next";
+import { Delta } from "quill-next";
 import { useQuill } from "../hooks/use-quill";
 
 interface ResizeHandleProps {
@@ -17,13 +17,11 @@ function ResizeHandle(props: ResizeHandleProps) {
     style = {
       left: "8px",
       right: undefined,
-      cursor: "w-resize",
     };
   } else {
     style = {
       left: undefined,
       right: "8px",
-      cursor: "e-resize",
     };
   }
   return (
@@ -49,10 +47,13 @@ function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
   const dispose$ = useDispose();
   const quill = useQuill();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isHover, setIsHover] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleMouseDown =
     (isLeft: boolean) => (e: React.MouseEvent<HTMLDivElement>) => {
       e.preventDefault();
+      setIsDragging(true);
 
       const mouseMove$ = fromEvent<MouseEvent>(document, "mousemove");
       const mouseUp$ = fromEvent<MouseEvent>(document, "mouseup");
@@ -71,7 +72,10 @@ function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
         .subscribe((evt) => {
           evt.preventDefault();
 
-          const clientXDiff = evt.clientX - startClientX;
+          let clientXDiff = evt.clientX - startClientX;
+          if (isLeft) {
+            clientXDiff = -clientXDiff;
+          }
           newWidth = Math.round(startWidth + clientXDiff);
           newWidth = Math.max(newWidth, minWidth);
           if (newWidth === startWidth) {
@@ -83,6 +87,7 @@ function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
 
       mouseUp$.pipe(takeUntil(dispose$)).subscribe(() => {
         setTempWidth(undefined);
+        setIsDragging(false);
 
         const blotIndex = getBlotIndex();
         if (blotIndex === -1) {
@@ -97,14 +102,29 @@ function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
       });
     };
 
+  const handleMouseEnter = useCallback(() => {
+    setIsHover(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHover(false);
+  }, []);
+
   return (
-    <div ref={containerRef} css={imageResizeTool}>
+    <div
+      ref={containerRef}
+      css={imageResizeTool}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        opacity: isHover || isDragging ? 1 : 0,
+      }}
+    >
       <ResizeHandle
         isLeft
         onMouseDown={handleMouseDown(true)}
-        onMouseUp={() => {}}
       />
-      <ResizeHandle onMouseDown={handleMouseDown(false)} onMouseUp={() => {}} />
+      <ResizeHandle onMouseDown={handleMouseDown(false)} />
     </div>
   );
 }
