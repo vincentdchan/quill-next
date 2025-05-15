@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import { resizeHandleStyle, imageResizeTool } from "./image-resize-tool.style";
+import { useDispose } from "../hooks/use-dispose";
+import { fromEvent, takeUntil } from "rxjs";
 
 interface ResizeHandleProps {
   isLeft?: boolean;
@@ -34,11 +36,62 @@ function ResizeHandle(props: ResizeHandleProps) {
 
 ResizeHandle.displayName = "ResizeHandle";
 
-function ImageResizeTool(): React.ReactElement {
+export interface IImageResizeToolProps {
+  minWidth?: number;
+  setTempWidth: (width: number | undefined) => void;
+}
+
+function ImageResizeTool(props: IImageResizeToolProps): React.ReactElement {
+  const { minWidth = 100, setTempWidth } = props;
+  const dispose$ = useDispose();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseDown =
+    (isLeft: boolean) => (e: React.MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+
+      const mouseMove$ = fromEvent<MouseEvent>(document, "mousemove");
+      const mouseUp$ = fromEvent<MouseEvent>(document, "mouseup");
+
+      const startRect = containerRef.current?.getBoundingClientRect();
+      if (!startRect) {
+        return;
+      }
+
+      const startWidth = startRect.width;
+      const startClientX = e.clientX;
+      let newWidth = startWidth;
+
+      mouseMove$
+        .pipe(takeUntil(mouseUp$), takeUntil(dispose$))
+        .subscribe((evt) => {
+          evt.preventDefault();
+
+          const clientXDiff = evt.clientX - startClientX;
+          newWidth = Math.round(startWidth + clientXDiff);
+          newWidth = Math.max(newWidth, minWidth);
+          if (newWidth === startWidth) {
+            setTempWidth(undefined);
+          } else {
+            setTempWidth(newWidth);
+          }
+        });
+
+      mouseUp$.pipe(takeUntil(dispose$)).subscribe(() => {
+        setTempWidth(undefined);
+        // create delta
+        // apply delta
+      });
+    };
+
   return (
-    <div css={imageResizeTool}>
-      <ResizeHandle isLeft onMouseDown={() => {}} onMouseUp={() => {}} />
-      <ResizeHandle onMouseDown={() => {}} onMouseUp={() => {}} />
+    <div ref={containerRef} css={imageResizeTool}>
+      <ResizeHandle
+        isLeft
+        onMouseDown={handleMouseDown(true)}
+        onMouseUp={() => {}}
+      />
+      <ResizeHandle onMouseDown={handleMouseDown(false)} onMouseUp={() => {}} />
     </div>
   );
 }

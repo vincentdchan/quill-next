@@ -18,6 +18,7 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
   const [imageHeight, setImageHeight] = useState(naturalHeight);
   const [isLoading, setIsLoading] = useState(true);
   const [isHover, setIsHover] = useState(false);
+  const [tempWidth, setTempWidth] = useState<number | undefined>(undefined);
 
   const handleMouseEnter = useCallback(() => {
     setIsHover(true);
@@ -36,6 +37,8 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
 
   const aspectRatio = (imageWidth as number) / (imageHeight as number);
 
+  const width = tempWidth || imageWidth;
+
   return (
     <div
       className="qn-image-container"
@@ -43,13 +46,13 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
-        width: imageWidth + "px",
+        width: width + "px",
         aspectRatio: aspectRatio,
       }}
     >
       {isLoading ? <Shimmer /> : <></>}
       <img ref={imageRef} src={options.value as string} onLoad={onLoad} />
-      {isHover && <ImageResizeTool />}
+      {isHover && <ImageResizeTool setTempWidth={setTempWidth} />}
     </div>
   );
 }
