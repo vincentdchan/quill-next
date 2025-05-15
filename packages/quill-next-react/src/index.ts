@@ -26,7 +26,7 @@ import { useQuillKeyboardBinding } from "./hooks/use-quill-keyboard-binding";
 import {
   QuillNextImage,
   useNextImageBlot,
-} from "./components/quill-next-image.component";
+} from "./components/quill-next-image";
 import { IToolbarPluginProps, ToolbarPlugin } from "./plugins/toolbar-plugin";
 import { LinkToolbarPlugin } from "./plugins/link-toolbar-plugin";
 import {

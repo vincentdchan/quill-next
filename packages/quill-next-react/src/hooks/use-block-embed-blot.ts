@@ -1,5 +1,5 @@
-import { useMemo, useEffect, useRef } from "react";
-import { BlockEmbed } from "quill-next";
+import { useMemo, useRef } from "react";
+import { BlockEmbed, Delta } from "quill-next";
 import { BlotConstructor, Root } from "parchment";
 import { createRoot, Root as ReactRoot } from "react-dom/client";
 
@@ -52,6 +52,12 @@ export function useBlockEmbedBlot(
         if (value) {
           this.#value = value;
         }
+      }
+
+      override delta(): Delta {
+        return new Delta().insert(this.#value as any, {
+          ...this.#attributes,
+        });
       }
 
       override attach(): void {

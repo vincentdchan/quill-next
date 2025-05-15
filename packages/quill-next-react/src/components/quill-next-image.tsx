@@ -1,10 +1,12 @@
 import { useState, useCallback, useRef, memo } from "react";
-import { type IRenderOptions, useEmbedBlot } from "../hooks/use-embed-blot";
 import {
-  imageContainer,
-  imageShimmer,
-} from "./quill-next-image.component.style";
+  useBlockEmbedBlot,
+  type IRenderOptions,
+} from "../hooks/use-block-embed-blot";
+import { imageContainer, imageShimmer } from "./quill-next-image.style";
 import { BlotConstructor } from "parchment";
+import { ImageResizeTool } from "./image-resize-tool";
+
 const Shimmer = memo(() => {
   return <div className="qn-image-shimmer" css={imageShimmer} />;
 });
@@ -15,6 +17,16 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
   const [imageWidth, setImageWidth] = useState(naturalWidth);
   const [imageHeight, setImageHeight] = useState(naturalHeight);
   const [isLoading, setIsLoading] = useState(true);
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsHover(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHover(false);
+  }, []);
+
   const onLoad = useCallback(() => {
     setIsLoading(false);
 
@@ -28,6 +40,8 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
     <div
       className="qn-image-container"
       css={imageContainer}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       style={{
         width: imageWidth + "px",
         aspectRatio: aspectRatio,
@@ -35,15 +49,15 @@ export function QuillNextImage(options: IRenderOptions): React.ReactElement {
     >
       {isLoading ? <Shimmer /> : <></>}
       <img ref={imageRef} src={options.value as string} onLoad={onLoad} />
+      {isHover && <ImageResizeTool />}
     </div>
   );
 }
 
 export function useNextImageBlot(): BlotConstructor {
-  return useEmbedBlot({
+  return useBlockEmbedBlot({
     blotName: "image",
     className: "qn-image",
-    scope: "block",
     onAttach: (domNode: HTMLElement) => {
       domNode.style.maxWidth = "100%";
     },
