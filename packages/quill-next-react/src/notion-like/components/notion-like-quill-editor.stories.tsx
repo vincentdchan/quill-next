@@ -41,7 +41,7 @@ export const Basic: Story = {
 
 export const DarkMode: Story = {
   decorators: [
-    (Story) => {
+    (Story): any => {
       React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', 'dark');
       }, []);
