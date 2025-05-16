@@ -77,9 +77,11 @@ const content = () => {
                   <li><a href="https://github.com/vincentdchan/quill-next">Github</a></li>
                 </ul>
                 <p><br></p>
-                <h2>Embedded elements</h2>
+                <h2>Architectural Diagram</h2>
                 <p><br></p>
-                <iframe class="ql-video ql-align-center" src="https://player.vimeo.com/video/253905163" width="500" height="280" allowfullscreen></iframe>
+                <p>
+                  <img src="/assets/images/example-image.png" />
+                </p>
 `;
 };
 

@@ -1,6 +1,6 @@
 import type Quill from "quill-next";
-import QuillEditor, { type IQuillEditorProps, useNextLinkBlot, useEmbedBlot, IRenderOptions } from "quill-next-react";
-import { NotionLinkToolbarPlugin, NotionToolbarPlugin } from "quill-next-react/notion-like";
+import { type IQuillEditorProps, useNextLinkBlot, useEmbedBlot, IRenderOptions } from "quill-next-react";
+import NotionLikeEditor from "quill-next-react/notion-like";
 import Mention from "./Mention";
 
 export interface IEnhancedEditor extends IQuillEditorProps {
@@ -34,11 +34,9 @@ function EnhancedEditor(props: IEnhancedEditor) {
   }
 
   return (
-    <QuillEditor onReady={onReady} blots={[...(blots || []), LinkBlot, MentionBlot]} {...rest}>
-      <NotionToolbarPlugin />
-      <NotionLinkToolbarPlugin />
+    <NotionLikeEditor onReady={onReady} blots={[...(blots || []), LinkBlot, MentionBlot]} {...rest}>
       {children}
-    </QuillEditor>
+    </NotionLikeEditor>
   )
 }
 
