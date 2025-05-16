@@ -75,6 +75,7 @@ function NotionToolbar(props: INotionToolbarProps): React.ReactElement {
           options={PARAGRAPH_OPTIONS}
           value={selectedType}
           onSelect={handleSelectType}
+          tooltip="Turn into"
         />
         <NotionToolbarButton
           onClick={() => quill.format("bold", !formats["bold"])}

@@ -1,8 +1,8 @@
-import React, { useRef, useCallback, useState, useMemo, useEffect } from "react";
-import { Subject, timer, takeUntil } from "rxjs";
+import React, { useRef } from "react";
 import { PortalRectAnchor } from "../../../components/rect-anchor.component";
 import { notionToolbarButton } from "./notion-toolbar-button.style";
 import { NotionLikeTooltip } from "../notion-like-tooltip";
+import { useTooltipUtils } from "../../hooks/use-tooltip-utils";
 
 export interface INotionToolbarButtonProps {
   active?: boolean;
@@ -14,32 +14,7 @@ export interface INotionToolbarButtonProps {
 function NotionToolbarButton(props: INotionToolbarButtonProps): React.ReactElement {
   const { children, onClick, active, tooltip } = props;
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isHover, setIsHover] = useState(false);
-  const [rect, setRect] = useState<DOMRect | null>(null);
-  const cancel$ = useMemo(() => new Subject<void>(), []);
-  useEffect(() => {
-    return (): void => {
-      cancel$.next();
-      cancel$.complete();
-    }
-  }, [cancel$]);
-
-  const handleMouseEnter = useCallback(() => {
-    cancel$.next();
-
-    timer(200)
-      .pipe(takeUntil(cancel$))
-      .subscribe(() => {
-        setIsHover(true);
-        setRect(containerRef.current?.getBoundingClientRect());
-      });
-  }, [cancel$]);
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHover(false);
-    setRect(null);
-    cancel$.next();
-  }, [cancel$]);
+  const { isHover, rect, handleMouseEnter, handleMouseLeave } = useTooltipUtils({ containerRef });
 
   return (
     <>
