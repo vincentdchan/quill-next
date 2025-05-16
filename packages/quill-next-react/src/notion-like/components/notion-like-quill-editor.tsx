@@ -4,6 +4,7 @@ import { useNextLinkBlot } from "../../hooks/use-next-link-blot";
 import { useNextImageBlot } from "../../components/quill-next-image";
 import { NotionToolbarPlugin } from "../plugins/notion-toolbar-plugin";
 import { NotionLinkToolbarPlugin } from "../plugins/notion-link-toolbar.plugin";
+import { notionLikeQuillEditor } from "./notion-like-quill-editor.style";
 
 export interface NotionLikeQuillEditorProps extends IQuillEditorProps {}
 
@@ -14,7 +15,11 @@ function NotionLikeQuillEditor(
   const LinkBlot = useNextLinkBlot();
   const ImageBlot = useNextImageBlot();
   return (
-    <QuillEditor {...rest} blots={[...(blots || []), LinkBlot, ImageBlot]}>
+    <QuillEditor
+      css={notionLikeQuillEditor}
+      {...rest}
+      blots={[...(blots || []), LinkBlot, ImageBlot]}
+    >
       <NotionToolbarPlugin />
       <NotionLinkToolbarPlugin />
       {children}

@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { defaultFontFamily } from "../constants/font-family";
 
 export const notionMenuList = css({
   borderRadius: "10px",
@@ -8,7 +9,7 @@ export const notionMenuList = css({
   maxWidth: "calc(-24px + 100vw)",
   boxShadow: "rgba(0, 0, 0, 0.1) 0px 14px 28px -6px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px, rgba(84, 72, 49, 0.08) 0px 0px 0px 1px",
   overflow: "hidden",
-  fontFamily: "ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI Variable Display', 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol'",
+  fontFamily: defaultFontFamily,
   minWidth: "180px",
 });
 

@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
+import { defaultFontFamily } from "../constants/font-family";
 
 export const notionLinkToolbarContainer = css({
-  fontFamily: "Helvetica, Arial, sans-serif",
+  fontFamily: defaultFontFamily,
   borderRadius: "10px",
   background: "white",
   backdropFilter: "none",
