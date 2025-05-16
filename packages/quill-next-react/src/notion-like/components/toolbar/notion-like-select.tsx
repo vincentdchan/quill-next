@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from "react";
-import { notionLikeSelect } from "./notion-like-select.component.style";
+import { notionLikeSelect } from "./notion-like-select.style";
 import ChevronDownSvg from "./chevron-down.svg?react";
 import { NotionLikeDropdownMenu, NotionLikeDropdownMenuItem } from "./notion-like-dropdown-menu";
 import { DropdownMask } from "../../../components/dropdown-mask.component";
@@ -16,6 +16,7 @@ export interface INotionLikeSelectProps {
   options: INotionLikeSelectOption[];
   value: INotionLikeSelectOption;
   onSelect?: (value: INotionLikeSelectOption) => void;
+  tooltip?: string;
 }
 
 function NotionLikeSelect(props: INotionLikeSelectProps): React.ReactElement {
