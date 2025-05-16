@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { defaultFontFamily } from "../../constants/font-family";
 
 export const notionLikeDropdownMenuContainer = css({
   position: "relative",
@@ -35,7 +36,7 @@ export const notionLikeDropdownMenuItem = css({
   fontSize: "14px",
   paddingLeft: "8px",
   paddingRight: "8px",
-  fontFamily: "Inter, sans-serif",
+  fontFamily: defaultFontFamily,
 
   ".checkmark": {
     marginLeft: "auto",

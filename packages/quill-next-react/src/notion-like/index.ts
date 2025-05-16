@@ -4,7 +4,7 @@ import { NotionToolbarButton, type INotionToolbarButtonProps } from "./component
 import { NotionMenuList, NotionMenuItemHeader, NotionMenuItem } from "./components/notion-menu-list.component";
 import { NotionLinkToolbarPlugin } from "./plugins/notion-link-toolbar.plugin";
 import { NotionToolbarPlugin, type INotionToolbarPluginProps } from "./plugins/notion-toolbar-plugin";
-import { NotionLikeQuillEditor, type NotionLikeQuillEditorProps } from "./components/notion-like-quill-editor.component";
+import { NotionLikeQuillEditor, type NotionLikeQuillEditorProps } from "./components/notion-like-quill-editor";
 
 export {
   NotionLinkToolbar,

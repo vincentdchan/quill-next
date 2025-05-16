@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { NotionLikeQuillEditor } from "./notion-like-quill-editor.component";
+import { NotionLikeQuillEditor } from "./notion-like-quill-editor";
 import { Delta } from "quill-next";
 
 const meta = {
