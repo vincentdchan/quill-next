@@ -1,6 +1,6 @@
 import { NotionLinkToolbar, type INotionLinkToolbarProps } from "./components/notion-link-toolbar.component";
-import { NotionToolbar, type INotionToolbarProps } from "./components/toolbar/notion-toolbar.component";
-import { NotionToolbarButton, type INotionToolbarButtonProps } from "./components/toolbar/notion-toolbar-button.component";
+import { NotionToolbar, type INotionToolbarProps } from "./components/toolbar/notion-toolbar";
+import { NotionToolbarButton, type INotionToolbarButtonProps } from "./components/toolbar/notion-toolbar-button";
 import { NotionMenuList, NotionMenuItemHeader, NotionMenuItem } from "./components/notion-menu-list.component";
 import { NotionLinkToolbarPlugin } from "./plugins/notion-link-toolbar.plugin";
 import { NotionToolbarPlugin, type INotionToolbarPluginProps } from "./plugins/notion-toolbar-plugin";

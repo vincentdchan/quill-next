@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from "react";
-import { NotionToolbarButton } from "./notion-toolbar-button.component";
+import { NotionToolbarButton } from "./notion-toolbar-button";
 import { useQuill } from "../../../hooks/use-quill";
 import BoldSvg from "./bold.svg?react";
 import ItalicSvg from "./italic.svg?react";
@@ -7,9 +7,10 @@ import UnderlineSvg from "./underline.svg?react";
 import StrikeSvg from "./strike.svg?react";
 import LinkSvg from "./link.svg?react";
 import ChevronDownSvg from "./chevron-down.svg?react";
-import { notionToolbarContainer, notionLinkButton } from "./notion-toolbar.component.style";
+import CodeSvg from "./code.svg?react";
+import { notionToolbarContainer, notionLinkButton } from "./notion-toolbar.style";
 import { NotionLikeLinkInput } from "../notion-like-link-input.component";
-import { NotionLikeSelect, INotionLikeSelectOption } from "./notion-like-select.component";
+import { NotionLikeSelect, INotionLikeSelectOption } from "./notion-like-select";
 import { ToolbarSignal } from "../../../classes/toolbar-signal.class";
 
 export interface INotionToolbarProps {
@@ -74,32 +75,47 @@ function NotionToolbar(props: INotionToolbarProps): React.ReactElement {
           options={PARAGRAPH_OPTIONS}
           value={selectedType}
           onSelect={handleSelectType}
+          tooltip="Turn into"
         />
         <NotionToolbarButton
           onClick={() => quill.format("bold", !formats["bold"])}
           active={!!formats["bold"]}
+          tooltip="Bold"
         >
           <BoldSvg />
         </NotionToolbarButton>
         <NotionToolbarButton
           onClick={() => quill.format("italic", !formats["italic"])}
           active={!!formats["italic"]}
+          tooltip="Italic"
         >
           <ItalicSvg />
         </NotionToolbarButton>
         <NotionToolbarButton
           onClick={() => quill.format("underline", !formats["underline"])}
           active={!!formats["underline"]}
+          tooltip="Underline"
         >
           <UnderlineSvg />
         </NotionToolbarButton>
         <NotionToolbarButton
           onClick={() => quill.format("strike", !formats["strike"])}
           active={!!formats["strike"]}
+          tooltip="Strike"
         >
           <StrikeSvg />
         </NotionToolbarButton>
-        <NotionToolbarButton onClick={handleLinkButtonClick}>
+        <NotionToolbarButton
+          onClick={() => quill.format("code", !formats["code"])}
+          active={!!formats["code"]}
+          tooltip="Code"
+        >
+          <CodeSvg />
+        </NotionToolbarButton>
+        <NotionToolbarButton
+          onClick={handleLinkButtonClick}
+          tooltip="Link"
+        >
           <div css={notionLinkButton}>
             <LinkSvg />
             <ChevronDownSvg />
