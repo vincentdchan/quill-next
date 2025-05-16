@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useState, useMemo, useEffect } from "react";
 import { Subject, timer, takeUntil } from "rxjs";
 import { PortalRectAnchor } from "../../../components/rect-anchor.component";
-import { notionToolbarButton } from "./notion-toolbar-button.component.style";
+import { notionToolbarButton } from "./notion-toolbar-button.style";
 import { NotionLikeTooltip } from "../notion-like-tooltip";
 
 export interface INotionToolbarButtonProps {

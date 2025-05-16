@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from "react";
-import { NotionToolbarButton } from "./notion-toolbar-button.component";
+import { NotionToolbarButton } from "./notion-toolbar-button";
 import { useQuill } from "../../../hooks/use-quill";
 import BoldSvg from "./bold.svg?react";
 import ItalicSvg from "./italic.svg?react";
