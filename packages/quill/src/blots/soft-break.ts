@@ -3,19 +3,19 @@ import { EmbedBlot } from 'parchment';
 export const SOFT_BREAK_CHARACTER = '\u2028';
 
 export default class SoftBreak extends EmbedBlot {
-  static tagName = 'BR';
-  static blotName: string = 'soft-break';
-  static className: string = 'soft-break';
+  static override tagName = 'BR';
+  static override blotName: string = 'soft-break';
+  static override className: string = 'soft-break';
 
-  length(): number {
+  override length(): number {
     return 1;
   }
 
-  value(): string {
+  override value(): string {
     return SOFT_BREAK_CHARACTER;
   }
 
-  optimize(): void {
+  override optimize(): void {
     return;
   }
 }
