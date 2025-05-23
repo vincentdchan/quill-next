@@ -49,6 +49,8 @@ quill.destroy();  // the modules are also destroyed
   - Keyboard: `quill/modules/keyboard`
 - React integration package: `quill-next-react`
   - [Plugins](https://quill-next.diverse.space/docs/plugins/plugins) and [hooks](https://quill-next.diverse.space/docs/plugins/plugins) for React.
+- Support [Soft Break](https://github.com/slab/quill/pull/4565)
+  - Press `Shift + Enter` to insert a soft break.
 
 ## Quickstart
 
