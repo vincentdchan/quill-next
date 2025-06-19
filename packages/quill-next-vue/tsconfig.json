@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"esModuleInterop": false,
+		"allowSyntheticDefaultImports": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"declaration": true,
+		"declarationDir": "./dist",
+		"rootDir": "src",
+		"emitDeclarationOnly": true
+	},
+	"include": ["src"]
+}
